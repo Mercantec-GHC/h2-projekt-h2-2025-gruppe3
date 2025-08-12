@@ -20,21 +20,21 @@ namespace DomainModels
 		// FK + navigation til rolle (én rolle pr. bruger)
 		public string RoleId { get; set; } = default!;  // navigation 
 		public Role Role { get; set; } = default!;
-
-		// DTO til registrering
-		public class RegisterDto
-		{
-			public required string Email { get; set; } = string.Empty;
-			public required string Username { get; set; }
-
-			public required string Password { get; set; } = string.Empty;
-		}
-
-		// DTO til login
-		public class LoginDto
-		{
-			public string Email { get; set; } = string.Empty;
-			public string Password { get; set; } = string.Empty;
-		}
 	}
+
+    // DTO til registrering
+    public class RegisterDto
+    {
+        public required string Email { get; set; } = string.Empty;
+        public required string Username { get; set; }
+
+        public required string Password { get; set; } = string.Empty;
+    }
+
+    // DTO til login
+    public class LoginDto
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
 }
