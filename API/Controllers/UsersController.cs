@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DomainModels.User;
 
 namespace API.Controllers
 {
@@ -74,44 +75,45 @@ namespace API.Controllers
             return NoContent();
         }
 
-        // POST: api/user/register
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterDto dto)
-        {
-            if (_context.Users.Any(u => u.Email == dto.Email))
-                return BadRequest("En bruger med denne email findes allerede.");
+		// POST: api/Users
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPost("register")]
+		public IActionResult Register([FromBody] RegisterDto dto)
+		{
+			if (_context.Users.Any(u => u.Email == dto.Email))
+				return BadRequest("En bruger med denne email findes allerede.");
 
-            // Hash password
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+			// Hash password
+			string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
-            var user = new User
-            {
-                Email = dto.Email,
-                HashedPassword = hashedPassword,
+			var user = new User
+			{
+				Email = dto.Email,
                 Username = dto.Username,
-                PasswordBackdoor = dto.Password
-            };
+				HashedPassword = hashedPassword,
+                Username = dto.Username,
+				PasswordBackdoor = dto.Password
+			};
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+			_context.Users.Add(user);
+			_context.SaveChanges();
 
-            return Ok(new { message = "Bruger oprettet!", user.Email });
-        }
+			return Ok(new { message = "Bruger oprettet!", user.Email });
+		}
+		// POST: api/Users/login
+		[HttpPost("login")]
+		public IActionResult Login(LoginDto dto)
+		{
+			var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
+			if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
+				return Unauthorized("Forkert brugernavn eller adgangskode");
 
-        // POST: api/user/login
-        [HttpPost("login")]
-        public IActionResult Login(LoginDto dto)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
-                return Unauthorized("Forkert email eller adgangskode");
+			// Fortsæt med at generere JWT osv.
+			return Ok("Login godkendt!");
+		}
 
-            // Fortsæt med at generere JWT osv.
-            return Ok("Login godkendt!");
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
+		// DELETE: api/Users/5
+		[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _context.Users.FindAsync(id);
