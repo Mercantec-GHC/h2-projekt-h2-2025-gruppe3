@@ -14,6 +14,5 @@ namespace DomainModels
         public required string City  { get; set; }
         public required string PhoneNo  { get; set; }
         public required string ContactMail { get; set; }
-        public required string Facilities { get; set; }
     }
 }
