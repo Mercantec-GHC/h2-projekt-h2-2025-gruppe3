@@ -91,7 +91,6 @@ namespace API.Controllers
 				Email = dto.Email,
                 Username = dto.Username,
 				HashedPassword = hashedPassword,
-                Username = dto.Username,
 				PasswordBackdoor = dto.Password
 			};
 
