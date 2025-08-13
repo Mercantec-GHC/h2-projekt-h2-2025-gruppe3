@@ -11,6 +11,7 @@ namespace DomainModels
 	{
 		public required string Name { get; set; }
 
+        // Navigation til brugeren (valgfrit ved 1:N)
 		public ICollection<User> Users { get; set; } = new List<User>();
 	}
 }

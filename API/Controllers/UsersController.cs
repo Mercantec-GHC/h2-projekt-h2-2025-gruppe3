@@ -83,15 +83,17 @@ namespace API.Controllers
 			if (_context.Users.Any(u => u.Email == dto.Email))
 				return BadRequest("En bruger med denne email findes allerede.");
 
-			// Hash password
-			string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            // Hash password
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            string RoleId = "1";
 
-			var user = new User
+            var user = new User
 			{
 				Email = dto.Email,
                 Username = dto.Username,
 				HashedPassword = hashedPassword,
-				PasswordBackdoor = dto.Password
+				PasswordBackdoor = dto.Password,
+                RoleId = RoleId
 			};
 
 			_context.Users.Add(user);
