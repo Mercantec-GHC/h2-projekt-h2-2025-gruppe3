@@ -23,6 +23,9 @@ namespace DomainModels
 
         public string userInfoId { get; set; } = string.Empty;
 		public UserInfo? Info { get; set; } // 1:1 navigation
+
+		// User.cs (uddrag)
+		public List<Booking> Bookings { get; set; } = new();
 	}
 
     // DTO til registrering

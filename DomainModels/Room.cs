@@ -19,6 +19,7 @@ namespace DomainModels
 		public List<Room> Rooms { get; set; } = new(); // 1:n
 		public Hotel? Hotel { get; set; }
 
+		public List<Booking> Bookings { get; set; } = new();
 
 
 	}
