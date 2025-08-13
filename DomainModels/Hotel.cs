@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DomainModels
 {
-    public class Hotel
+    public class Hotel : Common
     {
-        public required string Name { get; set; }
+		public List<Room> Rooms { get; set; } = new(); // 1:n
+		public required string Name { get; set; }
         public required string Road { get; set; }
         public required string Zip { get; set; }
         public required string City  { get; set; }

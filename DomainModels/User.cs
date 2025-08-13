@@ -20,6 +20,9 @@ namespace DomainModels
 		// FK + navigation til rolle (én rolle pr. bruger)
 		public string RoleId { get; set; } = default!;  // navigation 
 		public Role Role { get; set; } = default!;
+
+        public string userInfoId { get; set; } = string.Empty;
+		public UserInfo? Info { get; set; } // 1:1 navigation
 	}
 
     // DTO til registrering
