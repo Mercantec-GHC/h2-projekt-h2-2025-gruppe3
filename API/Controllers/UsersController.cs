@@ -2,13 +2,13 @@
 using DomainModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static DomainModels.User;
+using Microsoft.AspNetCore.Authorization;
+using DomainModels.Mapping;
 
 namespace API.Controllers
 {
@@ -24,24 +24,27 @@ namespace API.Controllers
         }
 
         // GET: api/Users
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(u => u.Role).ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Users/UUID
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        public async Task<ActionResult<UserGetDto>> GetUser(string id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return UserMapping.ToUserGetDto(user);
         }
 
         // PUT: api/Users/5
@@ -75,46 +78,61 @@ namespace API.Controllers
             return NoContent();
         }
 
-		// POST: api/Users
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPost("register")]
-		public IActionResult Register([FromBody] RegisterDto dto)
-		{
-			if (_context.Users.Any(u => u.Email == dto.Email))
-				return BadRequest("En bruger med denne email findes allerede.");
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        {
+            if (_context.Users.Any(u => u.Email == dto.Email))
+                return BadRequest("En bruger med denne email findes allerede.");
 
             // Hash password
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-            string RoleId = "1";
+
+            // Find standard User rolle
+            var userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
+            if (userRole == null)
+                return BadRequest("Standard brugerrolle ikke fundet.");
 
             var user = new User
-			{
-				Email = dto.Email,
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = dto.Email,
+                HashedPassword = hashedPassword,
                 Username = dto.Username,
-				HashedPassword = hashedPassword,
-				PasswordBackdoor = dto.Password,
-                RoleId = RoleId
-			};
+                PasswordBackdoor = dto.Password,
+                RoleId = userRole.Id,
+                CreatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2),
 
-			_context.Users.Add(user);
-			_context.SaveChanges();
+            };
 
-			return Ok(new { message = "Bruger oprettet!", user.Email });
-		}
-		// POST: api/Users/login
-		[HttpPost("login")]
-		public IActionResult Login(LoginDto dto)
-		{
-			var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
-			if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
-				return Unauthorized("Forkert brugernavn eller adgangskode");
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
-			// Fortsæt med at generere JWT osv.
-			return Ok("Login godkendt!");
-		}
+            return Ok(new { message = "Bruger oprettet!", user.Email, role = userRole.Name });
+        }
 
-		// DELETE: api/Users/5
-		[HttpDelete("{id}")]
+        // POST: api/Users/login
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
+                return Unauthorized("Forkert email eller adgangskode");
+
+            user.LastLogin = DateTime.UtcNow.AddHours(2);
+            await _context.SaveChangesAsync();
+
+            // Fortsæt med at generere JWT osv.
+            return Ok(new { message = "Login godkendt!", role = user.Role?.Name });
+        }
+
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -129,9 +147,110 @@ namespace API.Controllers
             return NoContent();
         }
 
+        // PUT: api/Users/{id}/role
+        [HttpPut("{id}/role")]
+        public async Task<IActionResult> AssignUserRole(string id, AssignRoleDto dto)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound("Bruger ikke fundet.");
+            }
+
+            var role = await _context.Roles.FindAsync(dto.RoleId);
+            if (role == null)
+            {
+                return BadRequest("Ugyldig rolle.");
+            }
+
+            user.RoleId = dto.RoleId;
+            user.UpdatedAt = DateTime.UtcNow;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { message = "Rolle tildelt til bruger!", user.Email, role = role.Name });
+        }
+
+        // GET: api/Users/role/{roleName}
+        [HttpGet("role/{roleName}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsersByRole(string roleName)
+        {
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+            if (role == null)
+            {
+                return BadRequest("Ugyldig rolle.");
+            }
+
+            var users = await _context.Users
+                .Include(u => u.Role)
+                .Where(u => u.RoleId == role.Id)
+                .ToListAsync();
+
+            return users;
+        }
+
+        // DELETE: api/Users/{id}/role
+        [HttpDelete("{id}/role")]
+        public async Task<IActionResult> RemoveUserRole(string id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound("Bruger ikke fundet.");
+            }
+
+            // Find standard User rolle
+            var userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
+            if (userRole == null)
+                return BadRequest("Standard brugerrolle ikke fundet.");
+
+            // Sæt til default rolle
+            user.RoleId = userRole.Id;
+            user.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Rolle fjernet fra bruger. Tildelt standard rolle.", user.Email });
+        }
+
+        // GET: api/Users/roles
+        [HttpGet("roles")]
+        public async Task<ActionResult<object>> GetAvailableRoles()
+        {
+            var roles = await _context.Roles
+                .Select(r => new {
+                    id = r.Id,
+                    name = r.Name,
+                    description = r.Description,
+                })
+                .ToListAsync();
+
+            return Ok(roles);
+        }
+
         private bool UserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
         }
+    }
+
+    // DTO til rolle tildeling
+    public class AssignRoleDto
+    {
+        public string RoleId { get; set; } = string.Empty;
     }
 }
