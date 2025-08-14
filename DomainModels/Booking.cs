@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DomainModels
 {
-    public class Booking
+    // Booking.cs
+    public class Booking : Common
     {
-        public required string UserId { get; set; }
-		public User? User { get; set; }
-		public required string RoomId { get; set; }
-		public Room? Room { get; set; }
-		public required string StartDate { get; set; }
-        public required string EndDate { get; set; }
+        public string UserId { get; set; } = string.Empty;
+        public User? User { get; set; }
 
-      //  public required int Price { get; set; } test
+        public string RoomId { get; set; } = string.Empty;
+        public Room? Room { get; set; }
 
-	}
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+        // Pris og prisberegning
+    }
 }
