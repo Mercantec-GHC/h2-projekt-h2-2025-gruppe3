@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DomainModels.Mapping;
 
-namespace DomainModels.Mapping
+public class UserMapping
 {
-    public class UserMapping
+    public static UserGetDto ToUserGetDto(User user)
     {
-        public static UserGetDto ToUserGetDto(User user)
+        return new UserGetDto
         {
-            return new UserGetDto
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Username = user.Username,
-                Role = user.Role?.Name ?? string.Empty
-            };
-        }
+            Id = user.Id,
+            Email = user.Email,
+            Username = user.Username,
+            Role = user.Role?.Name ?? string.Empty
+        };
     }
+
 }

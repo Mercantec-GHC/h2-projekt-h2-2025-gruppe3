@@ -17,15 +17,21 @@ namespace DomainModels.Mapping
                 Address = hotel.Address
             };
         }
-        public static Hotel ToHotelFromDto(HotelPostDto HotelPostDto)
+
+        public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
+        {
+            return hotels.Select(h => ToHotelGetDto(h)).ToList();
+        }
+
+        public static Hotel ToHotelFromDto(HotelPostDto hotelPostDto)
         {
             return new Hotel
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = HotelPostDto.Name,
-                Address = HotelPostDto.Address,
+                Name = hotelPostDto.Name,
+                Address = hotelPostDto.Address,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
-                UpdatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
         }
     }

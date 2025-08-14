@@ -49,6 +49,12 @@ namespace DomainModels
         //public List <RoomWithBookingsGetDto> Rooms { get; private set; } = new();
     }
 
-
-
+    // DTO for hotel update / PUT
+    public class HotelPutDto
+    {
+        public required string Id { get; set; }
+        public required string Name { get; set; }
+        public string Address { get; set; } = "";
+    }
 }
+

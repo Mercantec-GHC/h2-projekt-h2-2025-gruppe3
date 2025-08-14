@@ -35,9 +35,9 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGetDto>> GetUser(string id)
         {
-            var user = await _context.Users.
-                Include(u => u.Role).
-                FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
@@ -104,6 +104,7 @@ namespace API.Controllers
                 RoleId = userRole.Id,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2),
+
             };
 
             _context.Users.Add(user);
@@ -122,6 +123,9 @@ namespace API.Controllers
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
                 return Unauthorized("Forkert email eller adgangskode");
+
+            user.LastLogin = DateTime.UtcNow.AddHours(2);
+            await _context.SaveChangesAsync();
 
             // Fortsæt med at generere JWT osv.
             return Ok(new { message = "Login godkendt!", role = user.Role?.Name });
