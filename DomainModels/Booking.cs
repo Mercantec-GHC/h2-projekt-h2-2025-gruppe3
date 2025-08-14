@@ -15,8 +15,6 @@ namespace DomainModels
 
         public string RoomId { get; set; } = string.Empty;
         public Room? Room { get; set; }
-		public required string StartDate { get; set; }
-        public required string EndDate { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
