@@ -1,6 +1,7 @@
 ﻿## H2-2025
 
-```mermaiderDiagram
+```mermaid
+erDiagram
   Users {
     Id text PK
     Email text 
