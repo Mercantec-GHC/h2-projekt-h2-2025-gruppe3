@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using DomainModels.Mapping;
+using API.Services;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -17,11 +19,13 @@ namespace API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AppDBContext _context;
+		private readonly JwtService _jwtService;
 
-        public UsersController(AppDBContext context)
+		public UsersController(AppDBContext context, JwtService jwtService)
         {
             _context = context;
-        }
+			_jwtService = jwtService;
+		}
 
         // GET: api/Users
         [Authorize(Roles = "Admin")]
@@ -127,9 +131,27 @@ namespace API.Controllers
             user.LastLogin = DateTime.UtcNow.AddHours(2);
             await _context.SaveChangesAsync();
 
-            // Fortsæt med at generere JWT osv.
-            return Ok(new { message = "Login godkendt!", role = user.Role?.Name });
+			// Generer JWT token
+			var token = _jwtService.GenerateToken(user);
+
+			return Ok(new
+            {
+                message = "Login godkendt!",
+                token = token,
+                user = new
+                {
+                    id = user.Id,
+                    email = user.Email,
+                    username = user.Username,
+                    role = user.Role?.Name ?? "User"
+                }
+            });
+
+			// Fortsæt med at generere JWT osv.
+			return Ok(new { message = "Login godkendt!", role = user.Role?.Name });
+
         }
+
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
