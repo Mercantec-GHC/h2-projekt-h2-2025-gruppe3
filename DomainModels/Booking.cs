@@ -15,7 +15,7 @@ namespace DomainModels
 		public required string StartDate { get; set; }
         public required string EndDate { get; set; }
 
-      //  public required int Price { get; set; }
+      //  public required int Price { get; set; } test
 
 	}
 }
