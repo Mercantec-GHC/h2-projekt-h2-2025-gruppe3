@@ -9,24 +9,19 @@ namespace DomainModels
 {
     public class User : Common
     {
-        public string Email { get; set; } = string.Empty;
-        public string Username { get; set; } = string.Empty;
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public int Phone { get; set; }
         public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
         public string PasswordBackdoor { get; set; } = string.Empty;
-        // Only for educational purposes, not in the final product!
-
-        // FK + navigation til rolle (én rolle pr. bruger)
         public string RoleId { get; set; } = string.Empty;
-        /// <summary>
-        /// Navigation property til Role
-        /// </summary>
         public virtual Role? Role { get; set; }
-
         public string UserInfoId { get; set; } = string.Empty;
         public UserInfo? Info { get; set; } // 1:1 navigation
-
         public List<Booking> Bookings { get; set; } = new();
 
     }
@@ -65,5 +60,5 @@ namespace DomainModels
         public string Username { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
 
-    }    
+    }
 }
