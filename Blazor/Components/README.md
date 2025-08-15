@@ -14,3 +14,6 @@ Denne mappe indeholder genanvendelige UI-komponenter, som kan bruges på tværs 
 - StatusCard: Viser status for forskellige systemer
 - WeatherTable: Viser vejrdata i tabelformat
 - Counter: Interaktiv tæller-komponent
+
+## api
+- vores API-kommunikation håndter user, deres roller og hvilket hotel de er tilknyttet
