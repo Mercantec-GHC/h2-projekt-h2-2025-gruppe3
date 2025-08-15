@@ -103,7 +103,6 @@ namespace API.Controllers
                 Id = Guid.NewGuid().ToString(),
                 Email = dto.Email,
                 HashedPassword = hashedPassword,
-                Username = dto.Username,
                 PasswordBackdoor = dto.Password,
                 RoleId = userRole.Id,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
@@ -142,7 +141,6 @@ namespace API.Controllers
                 {
                     id = user.Id,
                     email = user.Email,
-                    username = user.Username,
                     role = user.Role?.Name ?? "User"
                 }
             });
@@ -178,11 +176,9 @@ namespace API.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
-                Username = user.Username,
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
                 Role = user.Role?.Name ?? "User",
-                RoleDescription = user.Role?.Description,
                 // UserInfo hvis relevant
                 Info = user.Info != null ? new
                 {
@@ -201,7 +197,7 @@ namespace API.Controllers
                     {
                         b.Room.Id,
                         b.Room.Number,
-                        b.Room.Capacity,
+                        b.Room.Type,
                         HotelId = b.Room.HotelId
                     } : null
                 }).ToList()
@@ -312,7 +308,6 @@ namespace API.Controllers
                 .Select(r => new {
                     id = r.Id,
                     name = r.Name,
-                    description = r.Description,
                 })
                 .ToListAsync();
 

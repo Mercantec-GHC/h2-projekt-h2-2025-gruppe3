@@ -50,9 +50,7 @@ namespace API.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Username),
                 new Claim("userId", user.Id),
-                new Claim("username", user.Username),
                 new Claim("email", user.Email)
             };
 

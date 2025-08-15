@@ -8,7 +8,9 @@ public class UserMapping
         {
             Id = user.Id,
             Email = user.Email,
-            Username = user.Username,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Phone = user.Phone,
             Role = user.Role?.Name ?? string.Empty
         };
     }
