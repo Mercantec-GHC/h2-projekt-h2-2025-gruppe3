@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -144,6 +145,66 @@ namespace API.Controllers
                     username = user.Username,
                     role = user.Role?.Name ?? "User"
                 }
+            });
+        }
+
+        /// <summary>
+        /// Hent information om den nuværende bruger baseret på JWT token
+        /// </summary>
+        /// <returns>Brugerens information</returns>
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            // 1. Hent ID fra token (typisk sat som 'sub' claim ved oprettelse af JWT)
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return Unauthorized("Bruger-ID ikke fundet i token.");
+
+            // 2. Slå brugeren op i databasen
+            var user = await _context.Users
+                .Include(u => u.Role) // inkluder relaterede data
+              .Include(u => u.Info) // inkluder brugerinfo hvis relevant
+              .Include(u => u.Bookings) // inkluder bookinger
+                  .ThenInclude(b => b.Room) // inkluder rum for hver booking
+              .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound("Brugeren blev ikke fundet i databasen.");
+
+            // 3. Returnér ønskede data - fx til profilsiden
+            return Ok(new
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Username = user.Username,
+                CreatedAt = user.CreatedAt,
+                LastLogin = user.LastLogin,
+                Role = user.Role?.Name ?? "User",
+                RoleDescription = user.Role?.Description,
+                // UserInfo hvis relevant
+                Info = user.Info != null ? new
+                {
+                    user.Info.FirstName,
+                    user.Info.LastName,
+                    user.Info.Phone
+                } : null,
+                // Bookinger hvis relevant
+                Bookings = user.Bookings.Select(b => new {
+                    b.Id,
+                    b.StartDate,
+                    b.EndDate,
+                    b.CreatedAt,
+                    b.UpdatedAt,
+                    Room = b.Room != null ? new
+                    {
+                        b.Room.Id,
+                        b.Room.Number,
+                        b.Room.Capacity,
+                        HotelId = b.Room.HotelId
+                    } : null
+                }).ToList()
             });
         }
 
