@@ -11,7 +11,12 @@ namespace DomainModels
     public class Room : Common
     {
         public required string Number { get; set; }
-        public int Capacity { get; set; }
+        public required string Type { get; set; }
+
+
+        public bool Booked { get; set; }
+        public bool Crib {  get; set; }
+        public bool Extrabed { get; set; }
 
         public string HotelId { get; set; } = string.Empty;
         public Hotel? Hotel { get; set; }
