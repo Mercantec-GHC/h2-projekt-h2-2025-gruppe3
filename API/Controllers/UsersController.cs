@@ -98,16 +98,15 @@ namespace API.Controllers
 			if (userRole == null)
 				return BadRequest("Standard brugerrolle ikke fundet.");
 
-			var user = new User
-			{
-				Id = Guid.NewGuid().ToString(),
-				Email = dto.Email,
-				HashedPassword = hashedPassword,
-				Username = dto.Username,
-				PasswordBackdoor = dto.Password,
-				RoleId = userRole.Id,
-				CreatedAt = DateTime.UtcNow.AddHours(2),
-				UpdatedAt = DateTime.UtcNow.AddHours(2),
+            var user = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = dto.Email,
+                HashedPassword = hashedPassword,
+                PasswordBackdoor = dto.Password,
+                RoleId = userRole.Id,
+                CreatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2),
 
 			};
 
@@ -134,19 +133,18 @@ namespace API.Controllers
 			// Generer JWT token
 			var token = _jwtService.GenerateToken(user);
 
-			return Ok(new
-			{
-				message = "Login godkendt!",
-				token = token,
-				user = new
-				{
-					id = user.Id,
-					email = user.Email,
-					username = user.Username,
-					role = user.Role?.Name ?? "User"
-				}
-			});
-		}
+            return Ok(new
+            {
+                message = "Login godkendt!",
+                token = token,
+                user = new
+                {
+                    id = user.Id,
+                    email = user.Email,
+                    role = user.Role?.Name ?? "User"
+                }
+            });
+        }
 
         /// <summary>
         /// Hent information om den nuværende bruger baseret på JWT token
@@ -178,11 +176,9 @@ namespace API.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
-                Username = user.Username,
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
                 Role = user.Role?.Name ?? "User",
-                RoleDescription = user.Role?.Description,
                 // UserInfo hvis relevant
                 Info = user.Info != null ? new
                 {
@@ -201,7 +197,7 @@ namespace API.Controllers
                     {
                         b.Room.Id,
                         b.Room.Number,
-                        b.Room.Capacity,
+                        b.Room.Type,
                         HotelId = b.Room.HotelId
                     } : null
                 }).ToList()
@@ -304,17 +300,16 @@ namespace API.Controllers
 			return Ok(new { message = "Rolle fjernet fra bruger. Tildelt standard rolle.", user.Email });
 		}
 
-		// GET: api/Users/roles
-		[HttpGet("roles")]
-		public async Task<ActionResult<object>> GetAvailableRoles()
-		{
-			var roles = await _context.Roles
-				.Select(r => new {
-					id = r.Id,
-					name = r.Name,
-					description = r.Description,
-				})
-				.ToListAsync();
+        // GET: api/Users/roles
+        [HttpGet("roles")]
+        public async Task<ActionResult<object>> GetAvailableRoles()
+        {
+            var roles = await _context.Roles
+                .Select(r => new {
+                    id = r.Id,
+                    name = r.Name,
+                })
+                .ToListAsync();
 
 			return Ok(roles);
 		}

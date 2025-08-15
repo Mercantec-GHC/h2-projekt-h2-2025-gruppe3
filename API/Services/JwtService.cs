@@ -46,15 +46,13 @@ namespace API.Services
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var key = Encoding.ASCII.GetBytes(_secretKey);
 
-			var claims = new List<Claim>
-			{
-				new Claim(ClaimTypes.NameIdentifier, user.Id),
-				new Claim(ClaimTypes.Email, user.Email),
-				new Claim(ClaimTypes.Name, user.Username),
-				new Claim("userId", user.Id),
-				new Claim("username", user.Username),
-				new Claim("email", user.Email)
-			};
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("userId", user.Id),
+                new Claim("email", user.Email)
+            };
 
 			// Tilføj rolle claim hvis brugeren har en rolle
 			if (user.Role != null)

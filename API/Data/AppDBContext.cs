@@ -75,7 +75,6 @@ namespace API.Data
                     // Nyt tilfældigt guid
                     Id = "1",
                     Name = "User",
-                    Description = "Standard bruger med basis rettigheder",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -83,7 +82,6 @@ namespace API.Data
                 {
                     Id = "2",
                     Name = "CleaningStaff",
-                    Description = "Rengøringspersonale med adgang til rengøringsmoduler",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -91,7 +89,6 @@ namespace API.Data
                 {
                     Id = "3",
                     Name = "Reception",
-                    Description = "Receptionspersonale med adgang til booking og gæster",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -99,7 +96,6 @@ namespace API.Data
                 {
                     Id = "4",
                     Name = "Admin",
-                    Description = "Administrator med fuld adgang til systemet",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 }
