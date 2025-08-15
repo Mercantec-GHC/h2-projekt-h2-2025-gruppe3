@@ -101,6 +101,8 @@ namespace API.Controllers
             var user = new User
             {
                 Id = Guid.NewGuid().ToString(),
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Email = dto.Email,
                 HashedPassword = hashedPassword,
                 PasswordBackdoor = dto.Password,
