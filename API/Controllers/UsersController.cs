@@ -1,5 +1,8 @@
 ﻿using API.Data;
+using API.Services;
 using DomainModels;
+using DomainModels.Mapping;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using DomainModels.Mapping;
 
 namespace API.Controllers
 {
@@ -17,10 +18,12 @@ namespace API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AppDBContext _context;
+        private readonly JwtService _jwtService;
 
-        public UsersController(AppDBContext context)
+        public UsersController(AppDBContext context, JwtService jwtService)
         {
             _context = context;
+            _jwtService = jwtService;
         }
 
         // GET: api/Users
@@ -118,8 +121,8 @@ namespace API.Controllers
         public async Task<IActionResult> Login(LoginDto dto)
         {
             var user = await _context.Users
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.Email == dto.Email);
+                          .Include(u => u.Role)
+                  .FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.HashedPassword))
                 return Unauthorized("Forkert email eller adgangskode");
@@ -127,8 +130,21 @@ namespace API.Controllers
             user.LastLogin = DateTime.UtcNow.AddHours(2);
             await _context.SaveChangesAsync();
 
-            // Fortsæt med at generere JWT osv.
-            return Ok(new { message = "Login godkendt!", role = user.Role?.Name });
+            // Generer JWT token
+            var token = _jwtService.GenerateToken(user);
+
+            return Ok(new
+            {
+                message = "Login godkendt!",
+                token = token,
+                user = new
+                {
+                    id = user.Id,
+                    email = user.Email,
+                    username = user.Username,
+                    role = user.Role?.Name ?? "User"
+                }
+            });
         }
 
         // DELETE: api/Users/5
