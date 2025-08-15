@@ -15,7 +15,7 @@ namespace DomainModels
 
 
         public bool Booked { get; set; }
-        public bool Crib {  get; set; }
+        public bool Crib { get; set; }
         public bool Extrabed { get; set; }
 
         public string HotelId { get; set; } = string.Empty;

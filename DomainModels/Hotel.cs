@@ -45,7 +45,12 @@ namespace DomainModels
     {
         public required string Id { get; set; }
         public required string Name { get; set; }
-        public string Address { get; set; } = "";
+        public string Road { get; set; } = "";
+        public string Zip { get; set; } = "";
+        public string City { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Facility { get; set; } = "";
         //public List <RoomWithBookingsGetDto> Rooms { get; private set; } = new();
     }
 

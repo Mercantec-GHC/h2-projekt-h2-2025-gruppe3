@@ -11,10 +11,10 @@ namespace DomainModels
     {
         public required string Email { get; set; }
         public required string Password { get; set; }
-		public required string FirstName { get; set; }
-		public required string LastName { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
         public int Phone { get; set; }
-		public string HashedPassword { get; set; } = string.Empty;
+        public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
         public string PasswordBackdoor { get; set; } = string.Empty;
@@ -60,5 +60,5 @@ namespace DomainModels
         public string Username { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
 
-    }    
+    }
 }
