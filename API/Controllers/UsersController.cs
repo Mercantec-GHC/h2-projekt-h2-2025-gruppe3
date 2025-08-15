@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -97,16 +98,15 @@ namespace API.Controllers
 			if (userRole == null)
 				return BadRequest("Standard brugerrolle ikke fundet.");
 
-			var user = new User
-			{
-				Id = Guid.NewGuid().ToString(),
-				Email = dto.Email,
-				HashedPassword = hashedPassword,
-				Username = dto.Username,
-				PasswordBackdoor = dto.Password,
-				RoleId = userRole.Id,
-				CreatedAt = DateTime.UtcNow.AddHours(2),
-				UpdatedAt = DateTime.UtcNow.AddHours(2),
+            var user = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = dto.Email,
+                HashedPassword = hashedPassword,
+                PasswordBackdoor = dto.Password,
+                RoleId = userRole.Id,
+                CreatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2),
 
 			};
 
@@ -133,29 +133,86 @@ namespace API.Controllers
 			// Generer JWT token
 			var token = _jwtService.GenerateToken(user);
 
-			return Ok(new
-			{
-				message = "Login godkendt!",
-				token = token,
-				user = new
-				{
-					id = user.Id,
-					email = user.Email,
-					username = user.Username,
-					role = user.Role?.Name ?? "User"
-				}
-			});
-		}
+            return Ok(new
+            {
+                message = "Login godkendt!",
+                token = token,
+                user = new
+                {
+                    id = user.Id,
+                    email = user.Email,
+                    role = user.Role?.Name ?? "User"
+                }
+            });
+        }
 
-		// DELETE: api/Users/5
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteUser(string id)
-		{
-			var user = await _context.Users.FindAsync(id);
-			if (user == null)
-			{
-				return NotFound();
-			}
+        /// <summary>
+        /// Hent information om den nuværende bruger baseret på JWT token
+        /// </summary>
+        /// <returns>Brugerens information</returns>
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            // 1. Hent ID fra token (typisk sat som 'sub' claim ved oprettelse af JWT)
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return Unauthorized("Bruger-ID ikke fundet i token.");
+
+            // 2. Slå brugeren op i databasen
+            var user = await _context.Users
+                .Include(u => u.Role) // inkluder relaterede data
+              .Include(u => u.Info) // inkluder brugerinfo hvis relevant
+              .Include(u => u.Bookings) // inkluder bookinger
+                  .ThenInclude(b => b.Room) // inkluder rum for hver booking
+              .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound("Brugeren blev ikke fundet i databasen.");
+
+            // 3. Returnér ønskede data - fx til profilsiden
+            return Ok(new
+            {
+                Id = user.Id,
+                Email = user.Email,
+                CreatedAt = user.CreatedAt,
+                LastLogin = user.LastLogin,
+                Role = user.Role?.Name ?? "User",
+                // UserInfo hvis relevant
+                Info = user.Info != null ? new
+                {
+                    user.Info.FirstName,
+                    user.Info.LastName,
+                    user.Info.Phone
+                } : null,
+                // Bookinger hvis relevant
+                Bookings = user.Bookings.Select(b => new {
+                    b.Id,
+                    b.StartDate,
+                    b.EndDate,
+                    b.CreatedAt,
+                    b.UpdatedAt,
+                    Room = b.Room != null ? new
+                    {
+                        b.Room.Id,
+                        b.Room.Number,
+                        b.Room.Type,
+                        HotelId = b.Room.HotelId
+                    } : null
+                }).ToList()
+            });
+        }
+
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
 			_context.Users.Remove(user);
 			await _context.SaveChangesAsync();
@@ -243,17 +300,16 @@ namespace API.Controllers
 			return Ok(new { message = "Rolle fjernet fra bruger. Tildelt standard rolle.", user.Email });
 		}
 
-		// GET: api/Users/roles
-		[HttpGet("roles")]
-		public async Task<ActionResult<object>> GetAvailableRoles()
-		{
-			var roles = await _context.Roles
-				.Select(r => new {
-					id = r.Id,
-					name = r.Name,
-					description = r.Description,
-				})
-				.ToListAsync();
+        // GET: api/Users/roles
+        [HttpGet("roles")]
+        public async Task<ActionResult<object>> GetAvailableRoles()
+        {
+            var roles = await _context.Roles
+                .Select(r => new {
+                    id = r.Id,
+                    name = r.Name,
+                })
+                .ToListAsync();
 
 			return Ok(roles);
 		}

@@ -9,12 +9,11 @@ namespace DomainModels
 {
     public class User : Common
     {
-        public required string Email { get; set; }
-        public required string Password { get; set; }
-		public required string FirstName { get; set; }
-		public required string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Phone { get; set; }
-		public string HashedPassword { get; set; } = string.Empty;
+        public required string Email { get; set; }
+        public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
         public string PasswordBackdoor { get; set; } = string.Empty;
@@ -56,9 +55,11 @@ namespace DomainModels
     public class UserGetDto
     {
         public string Id { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; }
+        public int Phone { get; set; }
         public string Email { get; set; } = string.Empty;
-        public string Username { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
 
-    }    
+    }
 }

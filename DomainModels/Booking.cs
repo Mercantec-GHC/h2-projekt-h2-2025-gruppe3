@@ -14,6 +14,7 @@ namespace DomainModels
         public User? User { get; set; }
 
         public string RoomId { get; set; } = string.Empty;
+        public string Price { get; set; } = string.Empty;
         public Room? Room { get; set; }
 
         public DateTime StartDate { get; set; }
