@@ -20,20 +20,19 @@ namespace API.Services
         public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;
-	          _secretKey = _configuration["Jwt:SecretKey"] 
-	          ?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY") 
-	          ?? "MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789";
+            _secretKey = _configuration["Jwt:SecretKey"]
+            ?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 
-            _issuer = _configuration["Jwt:Issuer"] 
-            ?? Environment.GetEnvironmentVariable("JWT_ISSUER") 
+            _issuer = _configuration["Jwt:Issuer"]
+            ?? Environment.GetEnvironmentVariable("JWT_ISSUER")
             ?? "H2-2025-API";
-            
-            _audience = _configuration["Jwt:Audience"] 
-            ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE") 
+
+            _audience = _configuration["Jwt:Audience"]
+            ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE")
             ?? "H2-2025-Client";
-            
-            _expiryMinutes = int.Parse(_configuration["Jwt:ExpiryMinutes"] 
-            ?? Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES") 
+
+            _expiryMinutes = int.Parse(_configuration["Jwt:ExpiryMinutes"]
+            ?? Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES")
             ?? "60");
         }
 
@@ -67,16 +66,16 @@ namespace API.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(2).AddMinutes(_expiryMinutes),
+                Expires = DateTime.UtcNow.AddMinutes(_expiryMinutes),
                 Issuer = _issuer,
                 Audience = _audience,
                 SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key), 
+                    new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }     
+        }
     }
 }
