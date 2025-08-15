@@ -9,8 +9,8 @@ namespace DomainModels
 {
     public class User : Common
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         public int Phone { get; set; }
         public required string Email { get; set; }
         public string HashedPassword { get; set; } = string.Empty;
@@ -32,7 +32,8 @@ namespace DomainModels
         [Required(ErrorMessage = "Email er påkrævet")]
         public string Email { get; set; } = string.Empty;
         [Required(ErrorMessage = "Brugernavn er påkrævet")]
-        public string Username { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         [Required(ErrorMessage = "Adgangskode er påkrævet")]
         [MinLength(8, ErrorMessage = "Adgangskoden skal være mindst 8 tegn lang")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Adgangskoden skal indeholde mindst ét tal, ét stort bogstav, ét lille bogstav og et specialtegn")]
@@ -56,7 +57,7 @@ namespace DomainModels
     {
         public string Id { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
         public int Phone { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
