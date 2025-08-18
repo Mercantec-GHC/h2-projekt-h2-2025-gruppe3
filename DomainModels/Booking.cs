@@ -17,7 +17,10 @@ namespace DomainModels
         public string Price { get; set; } = string.Empty;
         public Room? Room { get; set; }
 
-        public DateTime StartDate { get; set; }
+		public bool Crib { get; set; }
+		public bool Extrabed { get; set; }
+
+		public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
         // Pris og prisberegning
