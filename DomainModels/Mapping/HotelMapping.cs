@@ -14,13 +14,8 @@ namespace DomainModels.Mapping
             {
                 Id = hotel.Id,
                 Name = hotel.Name,
-                Road = hotel.Road,
-                Zip = hotel.Zip,
-                City = hotel.City,
-                Phone = hotel.Phone,
-                Email = hotel.Email,
-                Facility = hotel.Facility,
-    };
+                Address = hotel.Address
+            };
         }
 
         public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
@@ -34,12 +29,7 @@ namespace DomainModels.Mapping
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = hotelPostDto.Name,
-                Road = hotelPostDto.Road,
-                Zip = hotelPostDto.Zip,
-                City = hotelPostDto.City,
-                Phone = hotelPostDto.Phone,
-                Email = hotelPostDto.Email,
-                Facility = hotelPostDto.Facility,
+                Address = hotelPostDto.Address,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
