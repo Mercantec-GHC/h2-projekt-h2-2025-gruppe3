@@ -33,10 +33,6 @@ namespace API.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("RoomId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -65,39 +61,19 @@ namespace API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Facility")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Road")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -111,6 +87,10 @@ namespace API.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -163,27 +143,17 @@ namespace API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Booked")
-                        .HasColumnType("boolean");
+                    b.Property<int>("Capacity")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("Crib")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("Extrabed")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("HotelId")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -209,10 +179,6 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasColumnType("text");
@@ -220,16 +186,9 @@ namespace API.Migrations
                     b.Property<DateTime>("LastLogin")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("PasswordBackdoor")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("Phone")
-                        .HasColumnType("integer");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
@@ -242,6 +201,10 @@ namespace API.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserInfoId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
 

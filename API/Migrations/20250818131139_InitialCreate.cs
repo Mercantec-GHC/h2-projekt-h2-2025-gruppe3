@@ -8,42 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddHotelSystemRelations : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Salt",
-                table: "Users",
-                type: "text",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "text");
-
-            migrationBuilder.AddColumn<string>(
-                name: "UserInfoId",
-                table: "Users",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Roles",
-                type: "character varying(50)",
-                maxLength: 50,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "Roles",
-                type: "character varying(200)",
-                maxLength: 200,
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Hotels",
                 columns: table => new
@@ -60,26 +29,18 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserInfos",
+                name: "Roles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<string>(type: "text", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: true),
-                    City = table.Column<string>(type: "text", nullable: true),
-                    AvatarUrl = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInfos", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_UserInfos_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,6 +63,33 @@ namespace API.Migrations
                         principalTable: "Hotels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Username = table.Column<string>(type: "text", nullable: false),
+                    HashedPassword = table.Column<string>(type: "text", nullable: false),
+                    Salt = table.Column<string>(type: "text", nullable: true),
+                    LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PasswordBackdoor = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    UserInfoId = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,22 +121,39 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserInfos",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserInfos", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_UserInfos_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreatedAt", "Description", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Standard bruger med basis rettigheder", "User", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { "2", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Rengøringspersonale med adgang til rengøringsmoduler", "CleaningStaff", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { "3", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Receptionspersonale med adgang til booking og gæster", "Reception", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { "4", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Administrator med fuld adgang til systemet", "Admin", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
+                    { "1", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), null, "User", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { "2", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), null, "CleaningStaff", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { "3", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), null, "Reception", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { "4", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), null, "Admin", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_Email",
-                table: "Users",
-                column: "Email",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_RoomId",
@@ -161,9 +166,26 @@ namespace API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Roles_Name",
+                table: "Roles",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rooms_HotelId",
                 table: "Rooms",
                 column: "HotelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -179,58 +201,13 @@ namespace API.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Hotels");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Users_Email",
-                table: "Users");
-
-            migrationBuilder.DeleteData(
-                table: "Roles",
-                keyColumn: "Id",
-                keyValue: "1");
-
-            migrationBuilder.DeleteData(
-                table: "Roles",
-                keyColumn: "Id",
-                keyValue: "2");
-
-            migrationBuilder.DeleteData(
-                table: "Roles",
-                keyColumn: "Id",
-                keyValue: "3");
-
-            migrationBuilder.DeleteData(
-                table: "Roles",
-                keyColumn: "Id",
-                keyValue: "4");
-
-            migrationBuilder.DropColumn(
-                name: "UserInfoId",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Description",
-                table: "Roles");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Salt",
-                table: "Users",
-                type: "text",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "text",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Roles",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "character varying(50)",
-                oldMaxLength: 50);
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }
