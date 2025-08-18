@@ -9,13 +9,17 @@ namespace DomainModels
     // Hotel.cs
     public class Hotel : Common
     {
+        //public required string Name { get; set; }
+        //public string Road { get; set; } = "";
+        //public string Zip { get; set; } = "";
+        //public string City  { get; set; } = "";
+        //public string PhoneNo  { get; set; } = "";
+        //public string ContactMail { get; set; } = "";
+        //public string Facilities { get; set; } = "";
+
+
         public required string Name { get; set; }
-        public string Road { get; set; } = "";
-        public string Zip { get; set; } = "";
-        public string City  { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Facility { get; set; } = "";
+        public string Address { get; set; } = "";
 
         public List<Room> Rooms { get; set; } = new(); // 1:n
     }
@@ -24,12 +28,7 @@ namespace DomainModels
     public class HotelPostDto
     {
         public required string Name { get; set; }
-        public string Road { get; set; } = "";
-        public string Zip { get; set; } = "";
-        public string City { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Facility { get; set; } = "";
+        public string Address { get; set; } = "";
     }
 
     // DTO for hotel retrieval / GET
@@ -46,12 +45,7 @@ namespace DomainModels
     {
         public required string Id { get; set; }
         public required string Name { get; set; }
-        public string Road { get; set; } = "";
-        public string Zip { get; set; } = "";
-        public string City { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Facility { get; set; } = "";
+        public string Address { get; set; } = "";
         //public List <RoomWithBookingsGetDto> Rooms { get; private set; } = new();
     }
 
@@ -60,12 +54,7 @@ namespace DomainModels
     {
         public required string Id { get; set; }
         public required string Name { get; set; }
-        public string Road { get; set; } = "";
-        public string Zip { get; set; } = "";
-        public string City { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Facility { get; set; } = "";
+        public string Address { get; set; } = "";
     }
 }
 
