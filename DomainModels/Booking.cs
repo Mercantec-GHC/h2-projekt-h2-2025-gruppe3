@@ -19,10 +19,7 @@ namespace DomainModels
         public bool ExtraBed { get; set; }
         public Room? Room { get; set; }
 
-		public bool Crib { get; set; }
-		public bool Extrabed { get; set; }
-
-		public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
         // Pris og prisberegning
