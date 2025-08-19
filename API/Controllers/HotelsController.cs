@@ -21,9 +21,16 @@ namespace API.Controllers
         {
             _context = context;
         }
-        
-        // GET: api/Hotels
-        [HttpGet]
+		/// <summary>
+		/// Henter alle hoteller
+		/// </summary>
+		/// <returns>Hotellets info</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke fundet</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev fundet og retuneret</response>
+		// GET: api/Hotels
+		[HttpGet]
         public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
         {
             var hotels = await _context.Hotels.ToListAsync();
