@@ -19,9 +19,7 @@ namespace DomainModels
 
 
         public required string Name { get; set; }
-<<<<<<< HEAD
         public string Address { get; set; } = "";
-=======
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public int City  { get; set; }
@@ -29,7 +27,6 @@ namespace DomainModels
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
         public int PercentagePrice { get; set; }
->>>>>>> Dev
 
         public List<Room> Rooms { get; set; } = new(); // 1:n
     }
@@ -38,9 +35,7 @@ namespace DomainModels
     public class HotelPostDto
     {
         public required string Name { get; set; }
-<<<<<<< HEAD
         public string Address { get; set; } = "";
-=======
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public int City { get; set; }
