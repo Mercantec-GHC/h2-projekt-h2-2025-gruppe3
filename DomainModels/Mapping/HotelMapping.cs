@@ -14,9 +14,7 @@ namespace DomainModels.Mapping
             {
                 Id = hotel.Id,
                 Name = hotel.Name,
-<<<<<<< HEAD
-                Address = hotel.Address
-=======
+                Address = hotel.Address,
                 Road = hotel.Road,
                 Zip = hotel.Zip,
                 City = hotel.City,
@@ -24,7 +22,6 @@ namespace DomainModels.Mapping
                 Email = hotel.Email,
                 PercentagePrice = hotel.PercentagePrice,
                 Description = hotel.Description
->>>>>>> Dev
             };
         }
 
@@ -39,9 +36,7 @@ namespace DomainModels.Mapping
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = hotelPostDto.Name,
-<<<<<<< HEAD
                 Address = hotelPostDto.Address,
-=======
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,
                 City = hotelPostDto.City,
@@ -49,7 +44,6 @@ namespace DomainModels.Mapping
                 Email = hotelPostDto.Email,
                 PercentagePrice = hotelPostDto.PercentagePrice,
                 Description = hotelPostDto.Description,
->>>>>>> Dev
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };

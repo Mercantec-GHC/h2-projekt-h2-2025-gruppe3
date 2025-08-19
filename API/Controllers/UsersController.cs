@@ -141,19 +141,13 @@ namespace API.Controllers
                 {
                     id = user.Id,
                     email = user.Email,
-<<<<<<< HEAD
                     username = user.Username,
-=======
                     firstname = user.FirstName,
                     lastname = user.LastName,
->>>>>>> Dev
                     role = user.Role?.Name ?? "User"
                 }
             });
         }
-
-<<<<<<< HEAD
-=======
         /// <summary>
         /// Hent information om den nuværende bruger baseret på JWT token
         /// </summary>
@@ -212,7 +206,6 @@ namespace API.Controllers
             });
         }
 
->>>>>>> Dev
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)

@@ -9,14 +9,10 @@ namespace DomainModels
 {
     public class User : Common
     {
-<<<<<<< HEAD
         public string Email { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
-=======
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
->>>>>>> Dev
         public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
