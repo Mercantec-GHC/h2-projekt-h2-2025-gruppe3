@@ -14,7 +14,13 @@ namespace DomainModels.Mapping
             {
                 Id = hotel.Id,
                 Name = hotel.Name,
-                Address = hotel.Address
+                Road = hotel.Road,
+                Zip = hotel.Zip,
+                City = hotel.City,
+                Phone = hotel.Phone,
+                Email = hotel.Email,
+                PercentagePrice = hotel.PercentagePrice,
+                Description = hotel.Description
             };
         }
 
@@ -29,7 +35,13 @@ namespace DomainModels.Mapping
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = hotelPostDto.Name,
-                Address = hotelPostDto.Address,
+                Road = hotelPostDto.Road,
+                Zip = hotelPostDto.Zip,
+                City = hotelPostDto.City,
+                Phone = hotelPostDto.Phone,
+                Email = hotelPostDto.Email,
+                PercentagePrice = hotelPostDto.PercentagePrice,
+                Description = hotelPostDto.Description,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
