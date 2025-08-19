@@ -30,9 +30,22 @@ namespace API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("Crib")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
+<<<<<<< HEAD
+=======
+                    b.Property<bool>("ExtraBed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FinalPrice")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+>>>>>>> Dev
                     b.Property<string>("RoomId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -61,17 +74,46 @@ namespace API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+<<<<<<< HEAD
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
+=======
+                    b.Property<int>("City")
+                        .HasColumnType("integer");
+>>>>>>> Dev
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+<<<<<<< HEAD
+=======
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+>>>>>>> Dev
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
+<<<<<<< HEAD
+=======
+                    b.Property<int>("PercentagePrice")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Phone")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Road")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+>>>>>>> Dev
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -153,9 +195,14 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+<<<<<<< HEAD
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("text");
+=======
+                    b.Property<int>("RoomNumber")
+                        .HasColumnType("integer");
+>>>>>>> Dev
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -223,23 +270,8 @@ namespace API.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AvatarUrl")
-                        .HasColumnType("text");
-
-                    b.Property<string>("City")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("text");
+                    b.Property<int?>("Phone")
+                        .HasColumnType("integer");
 
                     b.HasKey("UserId");
 
