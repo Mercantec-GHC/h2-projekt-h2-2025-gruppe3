@@ -141,6 +141,8 @@ namespace API.Controllers
                 {
                     id = user.Id,
                     email = user.Email,
+                    firstname = user.FirstName,
+                    lastname = user.LastName,
                     role = user.Role?.Name ?? "User"
                 }
             });
@@ -176,14 +178,14 @@ namespace API.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
                 Role = user.Role?.Name ?? "User",
                 // UserInfo hvis relevant
                 Info = user.Info != null ? new
                 {
-                    user.Info.FirstName,
-                    user.Info.LastName,
                     user.Info.Phone
                 } : null,
                 // Bookinger hvis relevant
@@ -196,8 +198,8 @@ namespace API.Controllers
                     Room = b.Room != null ? new
                     {
                         b.Room.Id,
-                        b.Room.Number,
-                        b.Room.Type,
+                        b.Room.RoomNumber,
+                        b.Room.Booked,
                         HotelId = b.Room.HotelId
                     } : null
                 }).ToList()
