@@ -10,9 +10,7 @@ public class UserMapping
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Phone = user.Phone,
             Role = user.Role?.Name ?? string.Empty
         };
     }
-
 }

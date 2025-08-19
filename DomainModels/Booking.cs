@@ -14,7 +14,9 @@ namespace DomainModels
         public User? User { get; set; }
 
         public string RoomId { get; set; } = string.Empty;
-        public string Price { get; set; } = string.Empty;
+        public string FinalPrice { get; set; } = string.Empty;
+        public bool Crib { get; set; }
+        public bool ExtraBed { get; set; }
         public Room? Room { get; set; }
 
 		public bool Crib { get; set; }

@@ -19,8 +19,9 @@ namespace DomainModels.Mapping
                 City = hotel.City,
                 Phone = hotel.Phone,
                 Email = hotel.Email,
-                Facility = hotel.Facility,
-    };
+                PercentagePrice = hotel.PercentagePrice,
+                Description = hotel.Description
+            };
         }
 
         public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
@@ -39,7 +40,8 @@ namespace DomainModels.Mapping
                 City = hotelPostDto.City,
                 Phone = hotelPostDto.Phone,
                 Email = hotelPostDto.Email,
-                Facility = hotelPostDto.Facility,
+                PercentagePrice = hotelPostDto.PercentagePrice,
+                Description = hotelPostDto.Description,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
