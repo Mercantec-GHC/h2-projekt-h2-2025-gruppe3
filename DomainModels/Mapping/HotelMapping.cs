@@ -14,6 +14,7 @@ namespace DomainModels.Mapping
             {
                 Id = hotel.Id,
                 Name = hotel.Name,
+                Address = hotel.Address,
                 Road = hotel.Road,
                 Zip = hotel.Zip,
                 City = hotel.City,
@@ -35,6 +36,7 @@ namespace DomainModels.Mapping
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = hotelPostDto.Name,
+                Address = hotelPostDto.Address,
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,
                 City = hotelPostDto.City,

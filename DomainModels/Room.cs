@@ -10,6 +10,8 @@ namespace DomainModels
     // Room.cs
     public class Room : Common
     {
+        public required string Number { get; set; }
+        public int Capacity { get; set; }
         public required int RoomNumber { get; set; }
 
         public bool Booked { get; set; }
@@ -18,7 +20,5 @@ namespace DomainModels
         public Hotel? Hotel { get; set; }
 
         public List<Booking> Bookings { get; set; } = new();
-
-
     }
 }
