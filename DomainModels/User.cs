@@ -51,17 +51,6 @@ namespace DomainModels
         public string Password { get; set; } = string.Empty;
     }
 
-<<<<<<< Updated upstream
-    // DTO for getting user info - Hiding Password and userinfo
-    public class UserGetDto
-    {
-        public string Id { get; set; } = string.Empty;
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public int Phone { get; set; }
-        public string Email { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
-=======
 	// DTO for getting user info - Hiding Password and userinfo
 	public class UserGetDto
 	{
@@ -71,7 +60,6 @@ namespace DomainModels
 		public int Phone { get; set; }
 		public string Email { get; set; } = string.Empty;
 		public string Role { get; set; } = string.Empty;
->>>>>>> Stashed changes
 
     }
 }

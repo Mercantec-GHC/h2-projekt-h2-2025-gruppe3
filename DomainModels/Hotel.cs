@@ -31,12 +31,8 @@ namespace DomainModels
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
-<<<<<<< Updated upstream
-        public int PercentagePrice { get; set; }
-=======
         public float PercentagePrice { get; set; }
 
->>>>>>> Stashed changes
     }
 
     // DTO for hotel retrieval / GET
