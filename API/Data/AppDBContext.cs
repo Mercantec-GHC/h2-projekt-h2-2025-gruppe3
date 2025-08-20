@@ -45,7 +45,12 @@ namespace API.Data
                 .WithOne(i => i.User)
                 .HasForeignKey<UserInfo>(i => i.UserId);
 
+            modelBuilder.Entity<Hotel>()
+                .HasKey(h => h.Id);
 
+            modelBuilder.Entity<Hotel>()
+            .Property(h => h.Id)
+            .ValueGeneratedOnAdd();
             modelBuilder.Entity<Hotel>()
                 .HasMany(h => h.Rooms)
                 .WithOne(r => r.Hotel)
@@ -73,28 +78,28 @@ namespace API.Data
                 new Role
                 {
                     // Nyt tilfældigt guid
-                    Id = "1",
+                    Id = 1,
                     Name = "User",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
                 new Role
                 {
-                    Id = "2",
+                    Id = 2,
                     Name = "CleaningStaff",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
                 new Role
                 {
-                    Id = "3",
+                    Id = 3,
                     Name = "Reception",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
                 new Role
                 {
-                    Id = "4",
+                    Id = 4,
                     Name = "Admin",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
