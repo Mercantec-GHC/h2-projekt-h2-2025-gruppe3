@@ -100,7 +100,6 @@ namespace API.Controllers
 
             var user = new User
             {
-               Id = 0,
                 Email = dto.Email,
 				FirstName = dto.FirstName,
 				LastName = dto.LastName,
@@ -167,7 +166,6 @@ namespace API.Controllers
             // 2. Slå brugeren op i databasen
             var user = await _context.Users
                 .Include(u => u.Role) // inkluder relaterede data
-              .Include(u => u.Info) // inkluder brugerinfo hvis relevant
               .Include(u => u.Bookings) // inkluder bookinger
                   .ThenInclude(b => b.Room) // inkluder rum for hver booking
               .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
@@ -185,11 +183,8 @@ namespace API.Controllers
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
                 Role = user.Role?.Name ?? "User",
-                // UserInfo hvis relevant
-                Info = user.Info != null ? new
-                {
-                    user.Info.Phone
-                } : null,
+				phone = user.Phone,
+             
                 // Bookinger hvis relevant
                 Bookings = user.Bookings.Select(b => new {
                     b.Id,

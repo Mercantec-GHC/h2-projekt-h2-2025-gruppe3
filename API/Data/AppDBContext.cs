@@ -37,14 +37,6 @@ namespace API.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<UserInfo>()
-                .HasKey(i => i.UserId); // Shared PK
-
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Info)
-                .WithOne(i => i.User)
-                .HasForeignKey<UserInfo>(i => i.UserId);
-
             modelBuilder.Entity<Hotel>()
                 .HasKey(h => h.Id);
 
