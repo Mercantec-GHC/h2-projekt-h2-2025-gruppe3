@@ -20,7 +20,7 @@ public class Program
         IConfiguration Configuration = builder.Configuration;
 
         string connectionString = Configuration.GetConnectionString("DefaultConnection")
-        ?? Environment.GetEnvironmentVariable("DefaultConnection");
+        ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 
         builder.Services.AddDbContext<AppDBContext>(options =>
                 options.UseNpgsql(connectionString));
@@ -29,9 +29,9 @@ public class Program
         builder.Services.AddScoped<JwtService>();
 
         // Konfigurer JWT Authentication
-        var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("Jwt:SecretKey");
-        var jwtIssuer = Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("Jwt:Issuer");
-        var jwtAudience = Configuration["Jwt:Audience"] ?? Environment.GetEnvironmentVariable("Jwt:Audience");
+        var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("JwtSecretKey");
+        var jwtIssuer = Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JwtIssuer");
+        var jwtAudience = Configuration["Jwt:Audience"] ?? Environment.GetEnvironmentVariable("JwtAudience");
 
         builder.Services.AddAuthentication(options =>
         {

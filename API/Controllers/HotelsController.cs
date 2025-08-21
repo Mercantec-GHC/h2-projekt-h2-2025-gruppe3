@@ -21,7 +21,15 @@ namespace API.Controllers
         {
             _context = context;
         }
-
+		/// <summary>
+		/// Henter alle hoteller
+		/// </summary>
+		/// <returns>Hotellets info</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke fundet</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev fundet og retuneret</response>
+		// GET: api/Hotels
         // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
@@ -31,7 +39,16 @@ namespace API.Controllers
 
 
         }
-
+		/// <summary>
+		/// Henter hotellets baseret på id.
+		/// </summary>
+		/// <param name="id"> Hotellets id</param>
+		/// <returns>Hotellets info</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke fundet</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev fundet og retuneret</response>
+		// GET: api/Hotels/5
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelGetDto>> GetHotel(int id)
@@ -45,7 +62,15 @@ namespace API.Controllers
 
             return HotelMapping.ToHotelGetDto(hotel);
         }
-
+		/// <summary>
+		/// Updatere hotellets baseret på id.
+		/// </summary>
+		/// <param name="hotel"> Hotellets id</param>
+		/// <returns>updatere hotellets info</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke opdateret</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev opdateret</response>
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -77,7 +102,15 @@ namespace API.Controllers
 
             return NoContent();
         }
-
+		/// <summary>
+		/// Opretter et nyt hotel
+		/// </summary>
+		/// <param name="hotelDto"> Hotellets id</param>
+		/// <returns>opretter et nyt hotel</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke oprettet</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev oprettet</response>
         // POST: api/Hotels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -103,7 +136,15 @@ namespace API.Controllers
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
-
+		/// <summary>
+		/// Sletter et hotel
+		/// </summary>
+		/// <param name="id"> Hotellets id</param>
+		/// <returns>Sletter et hotel</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke Slettet</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev slettet</response>
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)
