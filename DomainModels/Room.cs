@@ -15,9 +15,9 @@ namespace DomainModels
 
         public bool Booked { get; set; }
 
-        public string HotelId { get; set; } = string.Empty;
+        public required int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
-        public required string TypeId { get; set; } 
+        public required int TypeId { get; set; } 
 
         public List<Booking> Bookings { get; set; } = new();
     }
@@ -28,8 +28,8 @@ namespace DomainModels
 
         public bool Booked { get; set; }
 
-        public required string HotelId { get; set; }
-        public required string TypeId { get; set; }
+        public required int HotelId { get; set; }
+        public required int TypeId { get; set; }
 
 
         public List<Booking> Bookings { get; set; } = new();

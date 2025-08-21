@@ -41,7 +41,7 @@ namespace API.Controllers
 		{
 			var user = await _context.Users
 				.Include(u => u.Role)
-				.FirstOrDefaultAsync(u => u.Id == id);
+				.FirstOrDefaultAsync(u => u.Id.ToString() == id);
 
 			if (user == null)
 			{
@@ -69,7 +69,7 @@ namespace API.Controllers
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!UserExists(id))
+				if (!UserExists("id"))
 				{
 					return NotFound();
 				}
@@ -100,8 +100,10 @@ namespace API.Controllers
 
             var user = new User
             {
-                Id = Guid.NewGuid().ToString(),
+               Id = 0,
                 Email = dto.Email,
+				FirstName = dto.FirstName,
+				LastName = dto.LastName,
                 HashedPassword = hashedPassword,
                 PasswordBackdoor = dto.Password,
                 RoleId = userRole.Id,
@@ -168,7 +170,7 @@ namespace API.Controllers
               .Include(u => u.Info) // inkluder brugerinfo hvis relevant
               .Include(u => u.Bookings) // inkluder bookinger
                   .ThenInclude(b => b.Room) // inkluder rum for hver booking
-              .FirstOrDefaultAsync(u => u.Id == userId);
+              .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
             if (user == null)
                 return NotFound("Brugeren blev ikke fundet i databasen.");
@@ -318,13 +320,13 @@ namespace API.Controllers
 
 		private bool UserExists(string id)
 		{
-			return _context.Users.Any(e => e.Id == id);
+			return _context.Users.Any(e => e.Id.ToString() == id);
 		}
 	}
 
 	// DTO til rolle tildeling
 	public class AssignRoleDto
 	{
-		public string RoleId { get; set; } = string.Empty;
+		public int RoleId { get; set; } = 1;
 	}
 }

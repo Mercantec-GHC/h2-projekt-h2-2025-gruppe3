@@ -16,7 +16,7 @@ namespace DomainModels
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
         public string PasswordBackdoor { get; set; } = string.Empty;
-        public string RoleId { get; set; } = string.Empty;
+        public int RoleId { get; set; } = 1;
         public virtual Role? Role { get; set; }
         public string UserInfoId { get; set; } = string.Empty;
         public UserInfo? Info { get; set; } // 1:1 navigation
