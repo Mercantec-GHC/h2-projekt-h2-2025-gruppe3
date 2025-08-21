@@ -30,13 +30,13 @@ namespace API.Controllers
             _logger = logger;
         }
 		/// <summary>
-		/// Henter user og checker om de er admin
+		/// Henter alle brugere, hvis der er logget ind som admin.
 		/// </summary>
-		/// <returns>User info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev fundet og retuneret</response>
+		/// <returns>User info.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Brugerne blev ikke fundet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Brugerne blev fundet og retuneret.</response>
 
         // GET: api/Users
         [Authorize(Roles = "Admin")]
@@ -61,13 +61,13 @@ namespace API.Controllers
             }
         }
 		/// <summary>
-		/// Henter user
+		/// Henter en bruger.
 		/// </summary>
-		/// <returns>User info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev fundet og retuneret</response>
+		/// <returns>Brugerens info.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Brugeren blev ikke fundet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Brugeren blev fundet og retuneret.</response>
         // GET: api/Users/UUID
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGetDto>> GetUser(int id)
@@ -84,14 +84,14 @@ namespace API.Controllers
             return UserMapping.ToUserGetDto(user);
         }
 		/// <summary>
-		/// Updatere user baseret på id.
+		/// Opdatere en bruger baseret på et id.
 		/// </summary>
-		/// <param name="user,id"> Users id</param>
-		/// <returns>updatere Users info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke opdateret</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev opdateret</response>
+		/// <param name="user,id">Brugerens id.</param>
+		/// <returns>Opdatere en brugers info.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Brugeren blev ikke opdateret.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Brugeren blev opdateret.</response>
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -123,14 +123,14 @@ namespace API.Controllers
             return NoContent();
         }
 		/// <summary>
-		/// Opretter en ny user regestering 
+		/// Laver en regestering af en ny bruger.
 		/// </summary>
-		/// <param name="dto"> Dto</param>
-		/// <returns>opretter et nyt User</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke oprettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev oprettet</response>
+		/// <param name="dto">Brugerens dto.</param>
+		/// <returns>Opretter en ny bruger.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Brugeren blev ikke oprettet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Brugeren blev oprettet.</response>
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("register")]
@@ -157,7 +157,6 @@ namespace API.Controllers
                 RoleId = userRole.Id,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2),
-
             };
 
             _context.Users.Add(user);
@@ -165,15 +164,15 @@ namespace API.Controllers
 
             return Ok(new { message = "Bruger oprettet!", user.Email, role = userRole.Name });
         }
-		/// <summary>
-		/// checker om en user har logget ind 
-		/// </summary>
-		/// <param name="dto"> Dto</param>
-		/// <returns>Checker user login</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">login blev ikke oprettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Login blev oprettet</response>
+        /// <summary>
+        /// Logger ind som en bruger.
+        /// </summary>
+        /// <param name="dto">Dto.</param>
+        /// <returns>Checker om brugeren er logget ind.</returns>
+        /// <response code="500">Internal server error.</response>
+        /// <response code="404">login blev ikke oprettet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Login blev oprettet.</response>
         // POST: api/Users/login
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
@@ -207,9 +206,9 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Hent information om den nuværende bruger baseret på JWT token
+        /// Hent info om den bruger som er logget ind baseret på JWT token.
         /// </summary>
-        /// <returns>Brugerens information</returns>
+        /// <returns>Brugerens info.</returns>
         [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
@@ -258,14 +257,14 @@ namespace API.Controllers
             });
         }
 		/// <summary>
-		/// Sletter et User basert på id
+		/// Sletter en bruger baseret på et id.
 		/// </summary>
-		/// <param name="id"> User id</param>
-		/// <returns>Sletter en user</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke Slettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev Slettet</response>
+		/// <param name="id">Brugerens id.</param>
+		/// <returns>Sletter en bruger.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Brugeren blev ikke slettet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Brugeren blev slettet.</response>
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -281,15 +280,15 @@ namespace API.Controllers
 
             return NoContent();
         }
-		/// <summary>
-		/// Updatere User
-		/// </summary>
-		/// <param name="id,dto"> User id</param>
-		/// <returns>updatere User info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke opdateret</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev opdateret</response>
+        /// <summary>
+        /// Opdatere en bruger med en ny rolle.
+        /// </summary>
+        /// <param name="id,dto">Brugeren id og dto.</param>
+        /// <returns>Opdatere en brugers rolle.</returns>
+        /// <response code="500">Internal server error.</response>
+        /// <response code="404">Brugerens rolle blev ikke opdateret.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugerens rolle blev opdateret.</response>
         // PUT: api/Users/{id}/role
         [HttpPut("{id}/role")]
         public async Task<IActionResult> AssignUserRole(int id, AssignRoleDto dto)
@@ -307,7 +306,7 @@ namespace API.Controllers
             }
 
             user.RoleId = dto.RoleId;
-            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.UtcNow.AddHours(2);
 
             try
             {
@@ -328,14 +327,14 @@ namespace API.Controllers
             return Ok(new { message = "Rolle tildelt til bruger!", user.Email, role = role.Name });
         }
 		/// <summary>
-		/// Henter rollerne 
+		/// Henter alle brugere med et bestemt rolle navn.
 		/// </summary>
-		/// <param name="roleName"> Rolle id</param>
-		/// <returns>Rolle info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Rollen blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Rollen blev fundet og retuneret</response>
+		/// <param name="roleName">Rollens navn.</param>
+		/// <returns>Rollens info.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Ingen brugere blev ikke fundet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Mindst en bruger blev fundet og retuneret.</response>
         // GET: api/Users/role/{roleName}
         [HttpGet("role/{roleName}")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersByRole(string roleName)
@@ -354,14 +353,14 @@ namespace API.Controllers
             return users;
         }
 		/// <summary>
-		/// Sletter et rolle fra user
+		/// Sletter en rolle fra en bruger.
 		/// </summary>
-		/// <param name="id"> User id</param>
-		/// <returns>Sletter et user rolle</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">rolle blev ikke Slettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">rolle blev slettet</response>
+		/// <param name="id">Brugerens id.</param>
+		/// <returns>Sletter en brugers rolle.</returns>
+		/// <response code="500">Internal server error.</response>
+		/// <response code="404">Rollen blev ikke slettet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Rollen blev slettet.</response>
         // DELETE: api/Users/{id}/role
         [HttpDelete("{id}/role")]
         public async Task<IActionResult> RemoveUserRole(int id)
@@ -379,21 +378,21 @@ namespace API.Controllers
 
             // Sæt til default rolle
             user.RoleId = userRole.Id;
-            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.UtcNow.AddHours(2);
 
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Rolle fjernet fra bruger. Tildelt standard rolle.", user.Email });
         }
-		/// <summary>
-		/// Henter rollen af user
-		/// </summary>
-		/// <param name="id"> rolle id</param>
-		/// <returns>Rolle info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Rollen af user blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Rollen af user blev fundet og retuneret</response>
+        /// <summary>
+        /// Henter roller fra alle brugere.
+        /// </summary>
+        /// <returns>Rollens info.</returns>
+        /// <response code="500">Internal server error.</response>
+        /// <response code="404">Rollerne fra brugerne blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Rollerne fra brugerne blev fundet og retuneret.</response>
+
         // GET: api/Users/roles
         [HttpGet("roles")]
         public async Task<ActionResult<object>> GetAvailableRoles()
