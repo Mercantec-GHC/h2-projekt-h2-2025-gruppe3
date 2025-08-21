@@ -221,11 +221,7 @@ namespace API.Controllers
 				CreatedAt = user.CreatedAt,
 				LastLogin = user.LastLogin,
 				Role = user.Role?.Name ?? "User",
-				// UserInfo hvis relevant
-				Info = user.Info != null ? new
-				{
-					user.Info.Phone
-				} : null,
+
 				// Bookinger hvis relevant
 				Bookings = user.Bookings.Select(b => new {
 					b.Id,
@@ -233,12 +229,12 @@ namespace API.Controllers
 					b.EndDate,
 					b.CreatedAt,
 					b.UpdatedAt,
-					Room = b.Room != null ? new
+					Room = b.Rooms != null ? new
 					{
-						b.Room.Id,
-						b.Room.RoomNumber,
-						b.Room.Booked,
-						HotelId = b.Room.HotelId
+						b.Rooms.Id,
+						b.Rooms.RoomNumber,
+						b.Rooms.Booked,
+						HotelId = b.Rooms.HotelId
 					} : null
 				}).ToList()
 			});
@@ -293,7 +289,7 @@ namespace API.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
