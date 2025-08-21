@@ -99,7 +99,7 @@ namespace API.Controllers
 				return BadRequest("Standard brugerrolle ikke fundet.");
 
             var user = new User
-            {
+            {	Id = 0, // Auto-incremented by database
                 Email = dto.Email,
 				FirstName = dto.FirstName,
 				LastName = dto.LastName,
@@ -167,7 +167,7 @@ namespace API.Controllers
             var user = await _context.Users
                 .Include(u => u.Role) // inkluder relaterede data
               .Include(u => u.Bookings) // inkluder bookinger
-                  .ThenInclude(b => b.Room) // inkluder rum for hver booking
+                  .ThenInclude(b => b.Rooms) // inkluder rum for hver booking
               .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
             if (user == null)
@@ -192,12 +192,12 @@ namespace API.Controllers
                     b.EndDate,
                     b.CreatedAt,
                     b.UpdatedAt,
-                    Room = b.Room != null ? new
+                    Room = b.Rooms != null ? new
                     {
-                        b.Room.Id,
-                        b.Room.RoomNumber,
-                        b.Room.Booked,
-                        HotelId = b.Room.HotelId
+                        b.Rooms.Id,
+                        b.Rooms.RoomNumber,
+                        b.Rooms.Booked,
+                        HotelId = b.Rooms.HotelId
                     } : null
                 }).ToList()
             });

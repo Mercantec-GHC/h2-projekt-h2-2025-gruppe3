@@ -11,7 +11,6 @@ namespace API.Data
         }
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
-        public DbSet<UserInfo> UserInfos { get; set; } = null!;
         public DbSet<Hotel> Hotels { get; set; } = null!;
         public DbSet<Room> Rooms { get; set; } = null!;
 
@@ -54,7 +53,7 @@ namespace API.Data
                 .HasForeignKey(b => b.UserId);
 
             modelBuilder.Entity<Booking>()
-                .HasOne(b => b.Room)
+                .HasOne(b => b.Rooms)
                 .WithMany(r => r.Bookings)
                 .HasForeignKey(b => b.RoomId);
 
@@ -69,7 +68,7 @@ namespace API.Data
             {
                 new Role
                 {
-                    // Nyt tilfældigt guid
+                   
                     Id = 1,
                     Name = "User",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),

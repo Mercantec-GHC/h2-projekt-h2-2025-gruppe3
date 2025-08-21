@@ -18,7 +18,7 @@ namespace DomainModels
         public required int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
         public required int TypeId { get; set; } 
-
+        public Type? Type { get; set; }
         public List<Booking> Bookings { get; set; } = new();
     }
     public class RoomGetDto

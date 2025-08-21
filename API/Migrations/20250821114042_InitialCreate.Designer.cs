@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250821094401_InitialCreate")]
+    [Migration("20250821114042_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -205,7 +205,32 @@ namespace API.Migrations
 
                     b.HasIndex("HotelId");
 
+                    b.HasIndex("TypeId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("DomainModels.Type", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Type");
                 });
 
             modelBuilder.Entity("DomainModels.User", b =>
@@ -242,6 +267,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("Phone")
+                        .HasColumnType("integer");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
@@ -250,10 +278,6 @@ namespace API.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserInfoId")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -265,22 +289,9 @@ namespace API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DomainModels.UserInfo", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("Phone")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("UserInfos");
-                });
-
             modelBuilder.Entity("DomainModels.Booking", b =>
                 {
-                    b.HasOne("DomainModels.Room", "Room")
+                    b.HasOne("DomainModels.Room", "Rooms")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -292,7 +303,7 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Room");
+                    b.Navigation("Rooms");
 
                     b.Navigation("User");
                 });
@@ -305,7 +316,15 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DomainModels.Type", "Type")
+                        .WithMany("Rooms")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Hotel");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("DomainModels.User", b =>
@@ -317,17 +336,6 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("DomainModels.UserInfo", b =>
-                {
-                    b.HasOne("DomainModels.User", "User")
-                        .WithOne("Info")
-                        .HasForeignKey("DomainModels.UserInfo", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
@@ -345,11 +353,14 @@ namespace API.Migrations
                     b.Navigation("Bookings");
                 });
 
+            modelBuilder.Entity("DomainModels.Type", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
             modelBuilder.Entity("DomainModels.User", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Info");
                 });
 #pragma warning restore 612, 618
         }

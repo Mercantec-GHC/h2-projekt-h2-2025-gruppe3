@@ -17,7 +17,7 @@ namespace DomainModels
         public double FinalPrice { get; set; }
         public bool Crib { get; set; }
         public bool ExtraBed { get; set; }
-        public Room? Room { get; set; }
+        public Room? Rooms { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
