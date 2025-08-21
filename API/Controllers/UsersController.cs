@@ -37,7 +37,7 @@ namespace API.Controllers
 
         // GET: api/Users/UUID
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserGetDto>> GetUser(string id)
+        public async Task<ActionResult<UserGetDto>> GetUser(int id)
         {
             var user = await _context.Users
                 .Include(u => u.Role)
@@ -54,7 +54,7 @@ namespace API.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, User user)
+        public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
             {
@@ -100,7 +100,8 @@ namespace API.Controllers
 
             var user = new User
             {
-                Id = Guid.NewGuid().ToString(),
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Email = dto.Email,
                 HashedPassword = hashedPassword,
                 PasswordBackdoor = dto.Password,
@@ -168,7 +169,7 @@ namespace API.Controllers
               .Include(u => u.Info) // inkluder brugerinfo hvis relevant
               .Include(u => u.Bookings) // inkluder bookinger
                   .ThenInclude(b => b.Room) // inkluder rum for hver booking
-              .FirstOrDefaultAsync(u => u.Id == userId);
+              .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
             if (user == null)
                 return NotFound("Brugeren blev ikke fundet i databasen.");
@@ -208,7 +209,7 @@ namespace API.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -224,7 +225,7 @@ namespace API.Controllers
 
         // PUT: api/Users/{id}/role
         [HttpPut("{id}/role")]
-        public async Task<IActionResult> AssignUserRole(string id, AssignRoleDto dto)
+        public async Task<IActionResult> AssignUserRole(int id, AssignRoleDto dto)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -280,7 +281,7 @@ namespace API.Controllers
 
         // DELETE: api/Users/{id}/role
         [HttpDelete("{id}/role")]
-        public async Task<IActionResult> RemoveUserRole(string id)
+        public async Task<IActionResult> RemoveUserRole(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -316,7 +317,7 @@ namespace API.Controllers
             return Ok(roles);
         }
 
-        private bool UserExists(string id)
+        private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
         }
@@ -325,6 +326,6 @@ namespace API.Controllers
     // DTO til rolle tildeling
     public class AssignRoleDto
     {
-        public string RoleId { get; set; } = string.Empty;
+        public int RoleId { get; set; }
     }
 }

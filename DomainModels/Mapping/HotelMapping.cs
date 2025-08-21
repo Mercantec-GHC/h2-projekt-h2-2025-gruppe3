@@ -33,7 +33,7 @@ namespace DomainModels.Mapping
         {
             return new Hotel
             {
-                Id = Guid.NewGuid().ToString(),
+
                 Name = hotelPostDto.Name,
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,

@@ -11,14 +11,14 @@ namespace DomainModels
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public required string Email { get; set; }
         public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
         public string PasswordBackdoor { get; set; } = string.Empty;
-        public string RoleId { get; set; } = string.Empty;
+        public int RoleId { get; set; } = 1; // Default role is 1 (User)
         public virtual Role? Role { get; set; }
-        public string UserInfoId { get; set; } = string.Empty;
+        public int UserInfoId { get; set; }
         public UserInfo? Info { get; set; } // 1:1 navigation
         public List<Booking> Bookings { get; set; } = new();
 
@@ -54,7 +54,7 @@ namespace DomainModels
     // DTO for getting user info - Hiding Password and userinfo
     public class UserGetDto
     {
-        public string Id { get; set; } = string.Empty;
+        public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public int Phone { get; set; }

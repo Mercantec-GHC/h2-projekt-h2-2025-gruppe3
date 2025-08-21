@@ -34,7 +34,7 @@ namespace API.Controllers
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HotelGetDto>> GetHotel(string id)
+        public async Task<ActionResult<HotelGetDto>> GetHotel(int id)
         {
             var hotel = await _context.Hotels.FindAsync(id);
 
@@ -49,7 +49,7 @@ namespace API.Controllers
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(string id, HotelPutDto hotel)
+        public async Task<IActionResult> PutHotel(int id, HotelPutDto hotel)
         {
 
             if (id != hotel.Id)
@@ -106,7 +106,7 @@ namespace API.Controllers
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHotel(string id)
+        public async Task<IActionResult> DeleteHotel(int id)
         {
             var hotel = await _context.Hotels.FindAsync(id);
             if (hotel == null)
@@ -120,7 +120,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool HotelExists(string id)
+        private bool HotelExists(int id)
         {
             return _context.Hotels.Any(e => e.Id == id);
         }

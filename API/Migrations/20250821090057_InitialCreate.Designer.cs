@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250819075710_InitialCreate")]
+    [Migration("20250821090057_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,8 +27,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Booking", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -42,13 +45,11 @@ namespace API.Migrations
                     b.Property<bool>("ExtraBed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("FinalPrice")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<double>("FinalPrice")
+                        .HasColumnType("double precision");
 
-                    b.Property<string>("RoomId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("RoomId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
@@ -56,9 +57,8 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -71,11 +71,15 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("City")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -92,8 +96,8 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PercentagePrice")
-                        .HasColumnType("integer");
+                    b.Property<float>("PercentagePrice")
+                        .HasColumnType("real");
 
                     b.Property<int>("Phone")
                         .HasColumnType("integer");
@@ -105,9 +109,8 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Zip")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -116,8 +119,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Role", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -140,28 +146,28 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = 1,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Name = "User",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = "2",
+                            Id = 2,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Name = "CleaningStaff",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = "3",
+                            Id = 3,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Reception",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = "4",
+                            Id = 4,
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Admin",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
@@ -170,8 +176,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Room", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Booked")
                         .HasColumnType("boolean");
@@ -179,11 +188,13 @@ namespace API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("HotelId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("HotelId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("RoomNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TypeId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -198,8 +209,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -227,9 +241,8 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Salt")
                         .HasColumnType("text");
@@ -237,9 +250,8 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("UserInfoId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserInfoId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -253,8 +265,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.UserInfo", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("Phone")
                         .HasColumnType("integer");

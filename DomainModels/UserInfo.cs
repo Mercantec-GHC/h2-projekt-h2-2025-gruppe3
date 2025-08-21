@@ -12,7 +12,7 @@ namespace DomainModels
 
         public int? Phone { get; set; }
 
-        public string UserId { get; set; } = string.Empty;
+        public int UserId { get; set; }
 
         public User User { get; set; } = default!;
     }
