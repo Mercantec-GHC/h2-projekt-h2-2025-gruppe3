@@ -66,13 +66,46 @@ namespace API.Migrations
                     b.ToTable("Booking");
                 });
 
-            modelBuilder.Entity("DomainModels.Hotel", b =>
+            modelBuilder.Entity("DomainModels.Facility", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Fitness")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Pool")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Restaturant")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("Facilities");
+                });
+
+            modelBuilder.Entity("DomainModels.Hotel", b =>
+                {
+                    b.Property<int>("FacilityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FacilityId"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -88,6 +121,9 @@ namespace API.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -106,10 +142,11 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Zip")
-                        .HasColumnType("integer");
+                    b.Property<string>("Zip")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("FacilityId");
 
                     b.ToTable("Hotels");
                 });
@@ -191,6 +228,9 @@ namespace API.Migrations
                     b.Property<int>("RoomNumber")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("RoomtypeId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("TypeId")
                         .HasColumnType("integer");
 
@@ -201,7 +241,32 @@ namespace API.Migrations
 
                     b.HasIndex("HotelId");
 
+                    b.HasIndex("RoomtypeId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("DomainModels.Roomtype", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roomtypes");
                 });
 
             modelBuilder.Entity("DomainModels.User", b =>
@@ -247,9 +312,6 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UserInfoId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -258,19 +320,21 @@ namespace API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
-                });
 
-            modelBuilder.Entity("DomainModels.UserInfo", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("Phone")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("UserInfos");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "test@test.com",
+                            FirstName = "test",
+                            HashedPassword = "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe",
+                            LastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "test",
+                            PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
+                            RoleId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("DomainModels.Booking", b =>
@@ -292,6 +356,17 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DomainModels.Facility", b =>
+                {
+                    b.HasOne("DomainModels.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("DomainModels.Room", b =>
                 {
                     b.HasOne("DomainModels.Hotel", "Hotel")
@@ -299,6 +374,10 @@ namespace API.Migrations
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("DomainModels.Roomtype", null)
+                        .WithMany("Rooms")
+                        .HasForeignKey("RoomtypeId");
 
                     b.Navigation("Hotel");
                 });
@@ -312,17 +391,6 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("DomainModels.UserInfo", b =>
-                {
-                    b.HasOne("DomainModels.User", "User")
-                        .WithOne("Info")
-                        .HasForeignKey("DomainModels.UserInfo", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
@@ -340,11 +408,14 @@ namespace API.Migrations
                     b.Navigation("Bookings");
                 });
 
+            modelBuilder.Entity("DomainModels.Roomtype", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
             modelBuilder.Entity("DomainModels.User", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Info");
                 });
 #pragma warning restore 612, 618
         }

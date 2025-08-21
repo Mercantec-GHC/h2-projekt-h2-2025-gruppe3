@@ -1,5 +1,6 @@
 ﻿using DomainModels;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace API.Data
 {
@@ -11,9 +12,10 @@ namespace API.Data
         }
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
-        public DbSet<UserInfo> UserInfos { get; set; } = null!;
         public DbSet<Hotel> Hotels { get; set; } = null!;
         public DbSet<Room> Rooms { get; set; } = null!;
+        public DbSet<Facility> Facilities { get; set; } = null!;
+        public DbSet<Roomtype> Roomtypes { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,19 +39,16 @@ namespace API.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<UserInfo>()
-                .HasKey(i => i.UserId); // Shared PK
 
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Info)
-                .WithOne(i => i.User)
-                .HasForeignKey<UserInfo>(i => i.UserId);
+            modelBuilder.Entity<Hotel>()
+                .HasKey(h => h.FacilityId); // Shared PK
 
 
             modelBuilder.Entity<Hotel>()
                 .HasMany(h => h.Rooms)
                 .WithOne(r => r.Hotel)
                 .HasForeignKey(r => r.HotelId);
+
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.User)
@@ -63,6 +62,28 @@ namespace API.Data
 
             // Seed roller og test brugere (kun til udvikling)
             SeedRoles(modelBuilder);
+            SeedUsers(modelBuilder);
+        }
+
+        private void SeedUsers(ModelBuilder modelBuilder)
+        {
+
+            var users = new[]
+            {
+                new User
+                {
+                    Id = 1,
+                    FirstName = "test",
+                    LastName = "test",
+                    Email = "test@test.com",
+                    HashedPassword = "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe",
+                    PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
+                    RoleId = 4,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+            };
+            modelBuilder.Entity<User>().HasData(users);
         }
 
         private void SeedRoles(ModelBuilder modelBuilder)

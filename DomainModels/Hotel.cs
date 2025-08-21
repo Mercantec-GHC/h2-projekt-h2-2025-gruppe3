@@ -18,6 +18,8 @@ namespace DomainModels
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
         public float PercentagePrice { get; set; }
+        public int FacilityId { get; set; }
+
 
         public List<Room> Rooms { get; set; } = new(); // 1:n
     }

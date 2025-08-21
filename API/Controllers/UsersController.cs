@@ -21,18 +21,37 @@ namespace API.Controllers
         private readonly AppDBContext _context;
         private readonly JwtService _jwtService;
 
-        public UsersController(AppDBContext context, JwtService jwtService)
+        private readonly ILogger<UsersController> _logger;
+
+        public UsersController(AppDBContext context, JwtService jwtService, ILogger<UsersController> logger)
         {
             _context = context;
             _jwtService = jwtService;
+            _logger = logger;
         }
+
 
         // GET: api/Users
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.Include(u => u.Role).ToListAsync();
+            try
+            {
+                _logger.LogInformation("Henter alle brugere - anmodet af administrator");
+
+                var users = await _context.Users
+                    .Include(u => u.Role)
+                    .ToListAsync();
+
+                _logger.LogInformation("Hentet {UserCount} brugere succesfuldt", users.Count);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fejl ved hentning af alle brugere");
+                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af brugere");
+            }
         }
 
         // GET: api/Users/UUID
@@ -166,7 +185,6 @@ namespace API.Controllers
             // 2. Slå brugeren op i databasen
             var user = await _context.Users
                 .Include(u => u.Role) // inkluder relaterede data
-              .Include(u => u.Info) // inkluder brugerinfo hvis relevant
               .Include(u => u.Bookings) // inkluder bookinger
                   .ThenInclude(b => b.Room) // inkluder rum for hver booking
               .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
@@ -184,11 +202,6 @@ namespace API.Controllers
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
                 Role = user.Role?.Name ?? "User",
-                // UserInfo hvis relevant
-                Info = user.Info != null ? new
-                {
-                    user.Info.Phone
-                } : null,
                 // Bookinger hvis relevant
                 Bookings = user.Bookings.Select(b => new {
                     b.Id,

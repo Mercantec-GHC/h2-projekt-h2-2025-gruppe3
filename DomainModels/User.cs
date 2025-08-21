@@ -18,8 +18,6 @@ namespace DomainModels
         public string PasswordBackdoor { get; set; } = string.Empty;
         public int RoleId { get; set; } = 1; // Default role is 1 (User)
         public virtual Role? Role { get; set; }
-        public int UserInfoId { get; set; }
-        public UserInfo? Info { get; set; } // 1:1 navigation
         public List<Booking> Bookings { get; set; } = new();
 
     }
@@ -51,7 +49,7 @@ namespace DomainModels
         public string Password { get; set; } = string.Empty;
     }
 
-    // DTO for getting user info - Hiding Password and userinfo
+    // DTO for getting user info - Hiding Password
     public class UserGetDto
     {
         public int Id { get; set; }
