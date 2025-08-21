@@ -25,7 +25,7 @@ namespace API.Controllers
 		/// Henter alle hoteller.
 		/// </summary>
 		/// <returns>Hotellets info.</returns>
-		/// <response code="500">internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Hotellet blev ikke fundet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev fundet og retuneret.</response>
@@ -44,7 +44,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="id"> Hotellets id.</param>
 		/// <returns>Hotellets info.</returns>
-		/// <response code="500">internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Hotellet blev ikke fundet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev fundet og retuneret.</response>
@@ -62,15 +62,15 @@ namespace API.Controllers
 
             return HotelMapping.ToHotelGetDto(hotel);
         }
-		/// <summary>
-		/// Opdatere hotellet baseret på et id.
-		/// </summary>
-		/// <param name="hotel"> Hotellets id.</param>
-		/// <returns>Opdatere hotellets info.</returns>
-		/// <response code="500">internal server error.</response>
-		/// <response code="404">Hotellet blev ikke opdateret.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Hotellet blev opdateret.</response>
+        /// <summary>
+        /// Opdatere hotellet baseret på et id.
+        /// </summary>
+        /// <param name="hotel"> Hotellets id.</param>
+        /// <returns>Opdatere hotellets info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Hotellet blev ikke opdateret.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Hotellet blev opdateret.</response>
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -107,7 +107,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="hotelDto"> Hotellets id.</param>
 		/// <returns>opretter et nyt hotel.</returns>
-		/// <response code="500">internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Hotellet blev ikke oprettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev oprettet.</response>
@@ -141,7 +141,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="id"> Hotellets id.</param>
 		/// <returns>Sletter et hotel.</returns>
-		/// <response code="500">internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Hotellet blev ikke slettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev slettet.</response>

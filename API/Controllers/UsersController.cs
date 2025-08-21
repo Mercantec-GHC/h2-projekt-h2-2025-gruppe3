@@ -33,7 +33,7 @@ namespace API.Controllers
 		/// Henter alle brugere, hvis der er logget ind som admin.
 		/// </summary>
 		/// <returns>User info.</returns>
-		/// <response code="500">Internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Brugerne blev ikke fundet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugerne blev fundet og retuneret.</response>
@@ -60,14 +60,14 @@ namespace API.Controllers
                 return StatusCode(500, "Der opstod en intern serverfejl ved hentning af brugere");
             }
         }
-		/// <summary>
-		/// Henter en bruger.
-		/// </summary>
-		/// <returns>Brugerens info.</returns>
-		/// <response code="500">Internal server error.</response>
-		/// <response code="404">Brugeren blev ikke fundet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Brugeren blev fundet og retuneret.</response>
+        /// <summary>
+        /// Henter en bruger.
+        /// </summary>
+        /// <returns>Brugerens info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugeren blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugeren blev fundet og retuneret.</response>
         // GET: api/Users/UUID
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGetDto>> GetUser(int id)
@@ -88,7 +88,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="user,id">Brugerens id.</param>
 		/// <returns>Opdatere en brugers info.</returns>
-		/// <response code="500">Internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Brugeren blev ikke opdateret.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugeren blev opdateret.</response>
@@ -127,7 +127,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="dto">Brugerens dto.</param>
 		/// <returns>Opretter en ny bruger.</returns>
-		/// <response code="500">Internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Brugeren blev ikke oprettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugeren blev oprettet.</response>
@@ -169,7 +169,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="dto">Dto.</param>
         /// <returns>Checker om brugeren er logget ind.</returns>
-        /// <response code="500">Internal server error.</response>
+        /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">login blev ikke oprettet.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Login blev oprettet.</response>
@@ -261,7 +261,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="id">Brugerens id.</param>
 		/// <returns>Sletter en bruger.</returns>
-		/// <response code="500">Internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Brugeren blev ikke slettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugeren blev slettet.</response>
@@ -285,7 +285,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id,dto">Brugeren id og dto.</param>
         /// <returns>Opdatere en brugers rolle.</returns>
-        /// <response code="500">Internal server error.</response>
+        /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Brugerens rolle blev ikke opdateret.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Brugerens rolle blev opdateret.</response>
@@ -331,7 +331,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="roleName">Rollens navn.</param>
 		/// <returns>Rollens info.</returns>
-		/// <response code="500">Internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Ingen brugere blev ikke fundet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Mindst en bruger blev fundet og retuneret.</response>
@@ -357,7 +357,7 @@ namespace API.Controllers
 		/// </summary>
 		/// <param name="id">Brugerens id.</param>
 		/// <returns>Sletter en brugers rolle.</returns>
-		/// <response code="500">Internal server error.</response>
+		/// <response code="500">Intern serverfejl.</response>
 		/// <response code="404">Rollen blev ikke slettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Rollen blev slettet.</response>
@@ -388,7 +388,7 @@ namespace API.Controllers
         /// Henter roller fra alle brugere.
         /// </summary>
         /// <returns>Rollens info.</returns>
-        /// <response code="500">Internal server error.</response>
+        /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rollerne fra brugerne blev ikke fundet.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Rollerne fra brugerne blev fundet og retuneret.</response>
