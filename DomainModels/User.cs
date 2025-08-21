@@ -11,15 +11,14 @@ namespace DomainModels
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public required string Email { get; set; }
         public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
         public DateTime LastLogin { get; set; }
         public string PasswordBackdoor { get; set; } = string.Empty;
         public int RoleId { get; set; } = 1;
         public virtual Role? Role { get; set; }
-        public string UserInfoId { get; set; } = string.Empty;
-        public UserInfo? Info { get; set; } // 1:1 navigation
+        public int? Phone { get; set; }
         public List<Booking> Bookings { get; set; } = new();
 
     }
