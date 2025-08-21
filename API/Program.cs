@@ -20,7 +20,7 @@ public class Program
 		IConfiguration Configuration = builder.Configuration;
 
 		string connectionString = Configuration.GetConnectionString("DefaultConnection")
-		?? Environment.GetEnvironmentVariable("DefaultConnection");
+		?? Environment.GetEnvironmentVariable("DATABASE_URL");
 
 		builder.Services.AddDbContext<AppDBContext>(options =>
 				options.UseNpgsql(connectionString));
