@@ -21,6 +21,7 @@ namespace API.Controllers
         {
             _context = context;
         }
+
 		/// <summary>
 		/// Henter alle hoteller.
 		/// </summary>
@@ -30,15 +31,13 @@ namespace API.Controllers
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev fundet og retuneret.</response>
 		// GET: api/Hotels
-        // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
         {
             var hotels = await _context.Hotels.ToListAsync();
             return HotelMapping.ToHotelGetDtos(hotels);
-
-
         }
+
 		/// <summary>
 		/// Henter hotellet baseret på id.
 		/// </summary>
@@ -48,7 +47,7 @@ namespace API.Controllers
 		/// <response code="404">Hotellet blev ikke fundet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev fundet og retuneret.</response>
-		// GET: api/Hotels/5
+		
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelGetDto>> GetHotel(int id)
@@ -71,6 +70,7 @@ namespace API.Controllers
         /// <response code="404">Hotellet blev ikke opdateret.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Hotellet blev opdateret.</response>
+        
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -102,6 +102,7 @@ namespace API.Controllers
 
             return NoContent();
         }
+
 		/// <summary>
 		/// Opretter et nyt hotel.
 		/// </summary>
@@ -111,6 +112,7 @@ namespace API.Controllers
 		/// <response code="404">Hotellet blev ikke oprettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev oprettet.</response>
+        
         // POST: api/Hotels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -136,6 +138,7 @@ namespace API.Controllers
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
+
 		/// <summary>
 		/// Sletter et hotel.
 		/// </summary>
@@ -145,6 +148,7 @@ namespace API.Controllers
 		/// <response code="404">Hotellet blev ikke slettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Hotellet blev slettet.</response>
+        
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)

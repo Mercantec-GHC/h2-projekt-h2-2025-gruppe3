@@ -10,14 +10,14 @@ namespace DomainModels
     // Room.cs
     public class Room : Common
     {
-
         public required int RoomNumber { get; set; }
 
         public bool Booked { get; set; }
 
         public int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
-        public required int TypeId { get; set; }
+        public required int RoomtypeId { get; set; }
+        public Roomtype? Roomtype { get; set; }
 
         public List<Booking> Bookings { get; set; } = new();
     }
@@ -29,7 +29,7 @@ namespace DomainModels
         public bool Booked { get; set; }
 
         public required int HotelId { get; set; }
-        public required int TypeId { get; set; }
+        public required int RoomtypeId { get; set; }
 
 
         public List<Booking> Bookings { get; set; } = new();

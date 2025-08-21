@@ -29,6 +29,7 @@ namespace API.Controllers
             _jwtService = jwtService;
             _logger = logger;
         }
+
 		/// <summary>
 		/// Henter alle brugere, hvis der er logget ind som admin.
 		/// </summary>
@@ -60,6 +61,7 @@ namespace API.Controllers
                 return StatusCode(500, "Der opstod en intern serverfejl ved hentning af brugere");
             }
         }
+
         /// <summary>
         /// Henter en bruger.
         /// </summary>
@@ -68,6 +70,7 @@ namespace API.Controllers
         /// <response code="404">Brugeren blev ikke fundet.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Brugeren blev fundet og retuneret.</response>
+        
         // GET: api/Users/UUID
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGetDto>> GetUser(int id)
@@ -83,6 +86,7 @@ namespace API.Controllers
 
             return UserMapping.ToUserGetDto(user);
         }
+
 		/// <summary>
 		/// Opdatere en bruger baseret på et id.
 		/// </summary>
@@ -92,6 +96,7 @@ namespace API.Controllers
 		/// <response code="404">Brugeren blev ikke opdateret.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugeren blev opdateret.</response>
+        
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -122,6 +127,7 @@ namespace API.Controllers
 
             return NoContent();
         }
+
 		/// <summary>
 		/// Laver en regestering af en ny bruger.
 		/// </summary>
@@ -131,6 +137,7 @@ namespace API.Controllers
 		/// <response code="404">Brugeren blev ikke oprettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugeren blev oprettet.</response>
+        
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("register")]
@@ -164,6 +171,7 @@ namespace API.Controllers
 
             return Ok(new { message = "Bruger oprettet!", user.Email, role = userRole.Name });
         }
+
         /// <summary>
         /// Logger ind som en bruger.
         /// </summary>
@@ -173,6 +181,7 @@ namespace API.Controllers
         /// <response code="404">login blev ikke oprettet.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Login blev oprettet.</response>
+        
         // POST: api/Users/login
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
@@ -209,6 +218,7 @@ namespace API.Controllers
         /// Hent info om den bruger som er logget ind baseret på JWT token.
         /// </summary>
         /// <returns>Brugerens info.</returns>
+
         [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
@@ -256,6 +266,7 @@ namespace API.Controllers
                 }).ToList()
             });
         }
+
 		/// <summary>
 		/// Sletter en bruger baseret på et id.
 		/// </summary>
@@ -265,6 +276,7 @@ namespace API.Controllers
 		/// <response code="404">Brugeren blev ikke slettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Brugeren blev slettet.</response>
+        
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -280,6 +292,7 @@ namespace API.Controllers
 
             return NoContent();
         }
+
         /// <summary>
         /// Opdatere en bruger med en ny rolle.
         /// </summary>
@@ -289,6 +302,7 @@ namespace API.Controllers
         /// <response code="404">Brugerens rolle blev ikke opdateret.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Brugerens rolle blev opdateret.</response>
+        
         // PUT: api/Users/{id}/role
         [HttpPut("{id}/role")]
         public async Task<IActionResult> AssignUserRole(int id, AssignRoleDto dto)
@@ -326,6 +340,7 @@ namespace API.Controllers
 
             return Ok(new { message = "Rolle tildelt til bruger!", user.Email, role = role.Name });
         }
+
 		/// <summary>
 		/// Henter alle brugere med et bestemt rolle navn.
 		/// </summary>
@@ -335,6 +350,7 @@ namespace API.Controllers
 		/// <response code="404">Ingen brugere blev ikke fundet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Mindst en bruger blev fundet og retuneret.</response>
+        
         // GET: api/Users/role/{roleName}
         [HttpGet("role/{roleName}")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersByRole(string roleName)
@@ -352,6 +368,7 @@ namespace API.Controllers
 
             return users;
         }
+
 		/// <summary>
 		/// Sletter en rolle fra en bruger.
 		/// </summary>
@@ -361,6 +378,7 @@ namespace API.Controllers
 		/// <response code="404">Rollen blev ikke slettet.</response>
 		/// <response code="403">Ingen adgang.</response>
 		/// <response code="200">Rollen blev slettet.</response>
+        
         // DELETE: api/Users/{id}/role
         [HttpDelete("{id}/role")]
         public async Task<IActionResult> RemoveUserRole(int id)
@@ -384,6 +402,7 @@ namespace API.Controllers
 
             return Ok(new { message = "Rolle fjernet fra bruger. Tildelt standard rolle.", user.Email });
         }
+
         /// <summary>
         /// Henter roller fra alle brugere.
         /// </summary>
