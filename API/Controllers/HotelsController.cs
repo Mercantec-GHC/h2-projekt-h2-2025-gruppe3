@@ -159,7 +159,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool HotelExists(string id)
+        private bool HotelExists(int id)
         {
             return _context.Hotels.Any(e => e.Id == id);
         }

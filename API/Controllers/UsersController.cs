@@ -55,7 +55,7 @@ namespace API.Controllers
 		{
 			var user = await _context.Users
 				.Include(u => u.Role)
-				.FirstOrDefaultAsync(u => u.Id == id);
+				.FirstOrDefaultAsync(u => u.Id.ToString() == id);
 
 			if (user == null)
 			{
@@ -76,7 +76,7 @@ namespace API.Controllers
 		// PUT: api/Users/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutUser(string id, User user)
+		public async Task<IActionResult> PutUser(int id, User user)
 		{
 			if (id != user.Id)
 			{
@@ -91,7 +91,7 @@ namespace API.Controllers
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!UserExists(id))
+				if (!UserExists("id"))
 				{
 					return NotFound();
 				}
@@ -128,15 +128,16 @@ namespace API.Controllers
 			if (userRole == null)
 				return BadRequest("Standard brugerrolle ikke fundet.");
 
-			var user = new User
-			{
-				Id = Guid.NewGuid().ToString(),
-				Email = dto.Email,
-				HashedPassword = hashedPassword,
-				PasswordBackdoor = dto.Password,
-				RoleId = userRole.Id,
-				CreatedAt = DateTime.UtcNow.AddHours(2),
-				UpdatedAt = DateTime.UtcNow.AddHours(2),
+            var user = new User
+            {	Id = 0, // Auto-incremented by database
+                Email = dto.Email,
+				FirstName = dto.FirstName,
+				LastName = dto.LastName,
+                HashedPassword = hashedPassword,
+                PasswordBackdoor = dto.Password,
+                RoleId = userRole.Id,
+                CreatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2),
 
 			};
 
@@ -200,13 +201,12 @@ namespace API.Controllers
 			if (userId == null)
 				return Unauthorized("Bruger-ID ikke fundet i token.");
 
-			// 2. Slå brugeren op i databasen
-			var user = await _context.Users
-				.Include(u => u.Role) // inkluder relaterede data
-			  .Include(u => u.Info) // inkluder brugerinfo hvis relevant
-			  .Include(u => u.Bookings) // inkluder bookinger
-				  .ThenInclude(b => b.Room) // inkluder rum for hver booking
-			  .FirstOrDefaultAsync(u => u.Id == userId);
+            // 2. Slå brugeren op i databasen
+            var user = await _context.Users
+                .Include(u => u.Role) // inkluder relaterede data
+              .Include(u => u.Bookings) // inkluder bookinger
+                  .ThenInclude(b => b.Rooms) // inkluder rum for hver booking
+              .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
 			if (user == null)
 				return NotFound("Brugeren blev ikke fundet i databasen.");
@@ -261,6 +261,45 @@ namespace API.Controllers
 			{
 				return NotFound();
 			}
+            // 3. Returnér ønskede data - fx til profilsiden
+            return Ok(new
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CreatedAt = user.CreatedAt,
+                LastLogin = user.LastLogin,
+                Role = user.Role?.Name ?? "User",
+				phone = user.Phone,
+             
+                // Bookinger hvis relevant
+                Bookings = user.Bookings.Select(b => new {
+                    b.Id,
+                    b.StartDate,
+                    b.EndDate,
+                    b.CreatedAt,
+                    b.UpdatedAt,
+                    Room = b.Rooms != null ? new
+                    {
+                        b.Rooms.Id,
+                        b.Rooms.RoomNumber,
+                        b.Rooms.Booked,
+                        HotelId = b.Rooms.HotelId
+                    } : null
+                }).ToList()
+            });
+        }
+
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
 			_context.Users.Remove(user);
 			await _context.SaveChangesAsync();
@@ -396,13 +435,13 @@ namespace API.Controllers
 
 		private bool UserExists(string id)
 		{
-			return _context.Users.Any(e => e.Id == id);
+			return _context.Users.Any(e => e.Id.ToString() == id);
 		}
 	}
 
 	// DTO til rolle tildeling
 	public class AssignRoleDto
 	{
-		public string RoleId { get; set; } = string.Empty;
+		public int RoleId { get; set; } = 1;
 	}
 }
