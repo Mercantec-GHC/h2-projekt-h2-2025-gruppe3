@@ -61,19 +61,18 @@ namespace API.Controllers
 
             return HotelMapping.ToHotelGetDto(hotel);
         }
-        /// <summary>
-        /// Opdatere hotellet baseret på et id.
-        /// </summary>
-        /// <param name="hotel"> Hotellets id.</param>
-        /// <returns>Opdatere hotellets info.</returns>
-        /// <response code="500">Intern serverfejl.</response>
-        /// <response code="404">Hotellet blev ikke opdateret.</response>
-        /// <response code="403">Ingen adgang.</response>
-        /// <response code="200">Hotellet blev opdateret.</response>
-        
-        // PUT: api/Hotels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		/// <summary>
+		/// Updatere hotellets baseret på id.
+		/// </summary>
+		/// <param name="hotel"> Hotellets id</param>
+		/// <returns>updatere hotellets info</returns>
+		/// <response code="500">internal server error</response>
+		/// <response code="404">Hotellet blev ikke opdateret</response>
+		/// <response code="403">ingen adgang</response>
+		/// <response code="200">Hotellet blev opdateret</response>
+		// PUT: api/Hotels/5
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutHotel(int id, HotelPutDto hotel)
         {
 

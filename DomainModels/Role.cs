@@ -10,7 +10,7 @@ namespace DomainModels
     {
         [Required]
         [MaxLength(50)]
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Navigation property til brugere med denne rolle

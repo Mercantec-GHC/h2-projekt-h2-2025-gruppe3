@@ -33,8 +33,7 @@ namespace DomainModels.Mapping
         public static Hotel ToHotelFromDto(HotelPostDto hotelPostDto)
         {
             return new Hotel
-            {
-                Id = hotelPostDto.Id,
+            {   Id = hotelPostDto.Id,
                 Name = hotelPostDto.Name,
                 Address = hotelPostDto.Address,
                 Road = hotelPostDto.Road,

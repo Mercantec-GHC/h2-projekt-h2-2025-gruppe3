@@ -16,12 +16,13 @@ namespace DomainModels.Mapping
                 RoomNumber = room.RoomNumber,
                 Booked = room.Booked,
                 HotelId = room.HotelId,
-                RoomtypeId = room.RoomtypeId,
+                TypeId = room.TypeId,
                 Bookings = room.Bookings,
             };
         }
 
     }
 }
+
 
 

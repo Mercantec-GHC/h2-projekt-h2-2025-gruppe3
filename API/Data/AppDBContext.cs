@@ -39,11 +39,12 @@ namespace API.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<Hotel>()
+                .HasKey(h => h.Id);
 
             modelBuilder.Entity<Hotel>()
-                .HasKey(h => h.FacilityId); // Shared PK
-
-
+            .Property(h => h.Id)
+            .ValueGeneratedOnAdd();
             modelBuilder.Entity<Hotel>()
                 .HasMany(h => h.Rooms)
                 .WithOne(r => r.Hotel)
@@ -56,7 +57,7 @@ namespace API.Data
                 .HasForeignKey(b => b.UserId);
 
             modelBuilder.Entity<Booking>()
-                .HasOne(b => b.Room)
+                .HasOne(b => b.Rooms)
                 .WithMany(r => r.Bookings)
                 .HasForeignKey(b => b.RoomId);
 
@@ -72,7 +73,7 @@ namespace API.Data
             {
                 new Role
                 {
-                    // Nyt tilfældigt guid
+                   
                     Id = 1,
                     Name = "User",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
