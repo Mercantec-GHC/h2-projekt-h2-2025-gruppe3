@@ -1,4 +1,4 @@
-﻿namespace DomainModels.Mapping;
+namespace DomainModels.Mapping;
 
 public class UserMapping
 {
