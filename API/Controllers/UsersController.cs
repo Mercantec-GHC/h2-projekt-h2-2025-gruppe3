@@ -20,7 +20,6 @@ namespace API.Controllers
     {
         private readonly AppDBContext _context;
         private readonly JwtService _jwtService;
-
         private readonly ILogger<UsersController> _logger;
 
         public UsersController(AppDBContext context, JwtService jwtService, ILogger<UsersController> logger)
@@ -382,7 +381,7 @@ namespace API.Controllers
                 }
 
                 user.RoleId = dto.RoleId;
-                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedAt = DateTime.UtcNow.AddHours(2);
 
                 await _context.SaveChangesAsync();
                 _logger.LogInformation("Rolle {RoleName} tildelt til bruger {Id}", role.Name, id);
@@ -465,7 +464,7 @@ namespace API.Controllers
                     return BadRequest("Standard brugerrolle ikke fundet.");
 
                 user.RoleId = userRole.Id;
-                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedAt = DateTime.UtcNow.AddHours(2);
                 await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Fjernede rolle fra bruger {Id}, sat til default rolle", id);
