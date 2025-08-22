@@ -1,4 +1,4 @@
-﻿using API.Data;
+using API.Data;
 using API.Services;
 using DomainModels;
 using DomainModels.Mapping;
@@ -14,12 +14,12 @@ using System.Security.Claims;
 
 namespace API.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class UsersController : ControllerBase
-	{
-		private readonly AppDBContext _context;
-		private readonly JwtService _jwtService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsersController : ControllerBase
+    {
+        private readonly AppDBContext _context;
+        private readonly JwtService _jwtService;
 
         private readonly ILogger<UsersController> _logger;
 
@@ -33,33 +33,55 @@ namespace API.Controllers
 		/// <summary>
 		/// Henter alle brugere, hvis der er logget ind som admin.
 		/// </summary>
-		/// <returns>User info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev fundet og retuneret</response>
-		// GET: api/Users
-		[Authorize(Roles = "Admin")]
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-		{
-			return await _context.Users.Include(u => u.Role).ToListAsync();
-		}
-		/// <summary>
-		/// Henter user
-		/// </summary>
-		/// <returns>User info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev fundet og retuneret</response>
-		// GET: api/Users/UUID
-		[HttpGet("{id}")]
-		public async Task<ActionResult<UserGetDto>> GetUser(string id)
-		{
-			var user = await _context.Users
-				.Include(u => u.Role)
-				.FirstOrDefaultAsync(u => u.Id.ToString() == id);
+		/// <returns>User info.</returns>
+		/// <response code="500">Intern serverfejl.</response>
+		/// <response code="404">Brugerne blev ikke fundet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Brugerne blev fundet og retuneret.</response>
+
+        // GET: api/Users
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            try
+            {
+                _logger.LogInformation("Henter alle brugere - anmodet af administrator");
+
+                var users = await _context.Users
+                    .Include(u => u.Role)
+                    .ToListAsync();
+
+                _logger.LogInformation("Hentet {UserCount} brugere succesfuldt", users.Count);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fejl ved hentning af alle brugere");
+                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af brugere");
+            }
+        }
+
+        /// <summary>
+        /// Henter en bruger.
+        /// </summary>
+        /// <returns>Brugerens info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugeren blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugeren blev fundet og retuneret.</response>
+        
+        // GET: api/Users/UUID
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserGetDto>> GetUser(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Forsøger at hente bruger med id {Id}", id);
+
+                var user = await _context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Id == id);
 
                 if (user == null)
                 {
@@ -67,81 +89,100 @@ namespace API.Controllers
                     return NotFound();
                 }
 
-			return UserMapping.ToUserGetDto(user);
-		}
-		/// <summary>
-		/// Updatere user baseret på id.
-		/// </summary>
-		/// <param name="user,id"> Users id</param>
-		/// <returns>updatere Users info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke opdateret</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev opdateret</response>
-		// PUT: api/Users/5
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPut("{id}")]
-		public async Task<IActionResult> PutUser(int id, User user)
-		{
-			if (id != user.Id)
-			{
-				return BadRequest();
-			}
+                return UserMapping.ToUserGetDto(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fejl ved hentning af bruger {Id}", id);
+                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af bruger");
+            }
+        }
 
-			_context.Entry(user).State = EntityState.Modified;
+        /// <summary>
+        /// Opdatere en bruger baseret på et id.
+        /// </summary>
+        /// <param name="user,id">Brugerens id.</param>
+        /// <returns>Opdatere en brugers info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugeren blev ikke opdateret.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugeren blev opdateret.</response>
 
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!UserExists("id"))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
+        // PUT: api/Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUser(int id, User user)
+        {
+            if (id != user.Id)
+            {
+                _logger.LogWarning("Mismatch mellem route id {Id} og body id {UserId}", id, user.Id);
+                return BadRequest("Id i route stemmer ikke med brugerens id");
+            }
 
-			return NoContent();
-		}
-		/// <summary>
-		/// Opretter en ny user regestering 
-		/// </summary>
-		/// <param name="dto"> Dto</param>
-		/// <returns>opretter et nyt User</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke oprettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev oprettet</response>
-		// POST: api/Users
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPost("register")]
-		public async Task<IActionResult> Register([FromBody] RegisterDto dto)
-		{
-			if (_context.Users.Any(u => u.Email == dto.Email))
-				return BadRequest("En bruger med denne email findes allerede.");
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Bruger {Id} opdateret succesfuldt", id);
+                return NoContent();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogWarning(ex, "Concurrency fejl ved opdatering af bruger {Id}", id);
+                if (!UserExists(id))
+                    return NotFound();
+                else
+                    throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Uventet fejl ved opdatering af bruger {Id}", id);
+                return StatusCode(500, "Der opstod en intern serverfejl ved opdatering af bruger");
+            }
+        }
+
+        /// <summary>
+        /// Laver en regestering af en ny bruger.
+        /// </summary>
+        /// <param name="dto">Brugerens dto.</param>
+        /// <returns>Opretter en ny bruger.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugeren blev ikke oprettet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugeren blev oprettet.</response>
+
+        // POST: api/Users
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        {
+            try
+            {
+                _logger.LogInformation("Forsøger at registrere ny bruger med email {Email}", dto.Email);
+
+                if (_context.Users.Any(u => u.Email == dto.Email))
+                {
+                    _logger.LogWarning("Bruger med email {Email} findes allerede", dto.Email);
+                    return BadRequest("En bruger med denne email findes allerede.");
+                }
 
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
                 var userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
                 if (userRole == null)
                     return BadRequest("Standard brugerrolle ikke fundet.");
 
-            var user = new User
-            {	Id = 0, // Auto-incremented by database
-                Email = dto.Email,
-				FirstName = dto.FirstName,
-				LastName = dto.LastName,
-                HashedPassword = hashedPassword,
-                PasswordBackdoor = dto.Password,
-                RoleId = userRole.Id,
-                CreatedAt = DateTime.UtcNow.AddHours(2),
-                UpdatedAt = DateTime.UtcNow.AddHours(2),
-
-			};
+                var user = new User
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    Email = dto.Email,
+                    HashedPassword = hashedPassword,
+                    PasswordBackdoor = dto.Password,
+                    RoleId = userRole.Id,
+                    CreatedAt = DateTime.UtcNow.AddHours(2),
+                    UpdatedAt = DateTime.UtcNow.AddHours(2),
+                };
 
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
@@ -226,104 +267,79 @@ namespace API.Controllers
                     return Unauthorized("Bruger-ID ikke fundet i token.");
                 }
 
-            // 2. Slå brugeren op i databasen
-            var user = await _context.Users
-                .Include(u => u.Role) // inkluder relaterede data
-              .Include(u => u.Bookings) // inkluder bookinger
-                  .ThenInclude(b => b.Rooms) // inkluder rum for hver booking
-              .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+                // 2. Slå brugeren op i databasen
+                var user = await _context.Users
+                    .Include(u => u.Role) // inkluder relaterede data
+                  .Include(u => u.Bookings) // inkluder bookinger
+                      .ThenInclude(b => b.Room) // inkluder rum for hver booking
+                  .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+                
+                if (user == null)
+                {
+                    _logger.LogWarning("Bruger {Id} ikke fundet i databasen", userId);
+                    return NotFound("Brugeren blev ikke fundet i databasen.");
+                }
 
-			if (user == null)
-				return NotFound("Brugeren blev ikke fundet i databasen.");
-
-			// 3. Returnér ønskede data - fx til profilsiden
-			return Ok(new
-			{
-				Id = user.Id,
-				Email = user.Email,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				CreatedAt = user.CreatedAt,
-				LastLogin = user.LastLogin,
-				Role = user.Role?.Name ?? "User",
-
-				// Bookinger hvis relevant
-				Bookings = user.Bookings.Select(b => new {
-					b.Id,
-					b.StartDate,
-					b.EndDate,
-					b.CreatedAt,
-					b.UpdatedAt,
-					Room = b.Rooms != null ? new
-					{
-						b.Rooms.Id,
-						b.Rooms.RoomNumber,
-						b.Rooms.Booked,
-						HotelId = b.Rooms.HotelId
-					} : null
-				}).ToList()
-			});
-		}
-		/// <summary>
-		/// Sletter et User basert på id
-		/// </summary>
-		/// <param name="id"> User id</param>
-		/// <returns>Sletter en user</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">User blev ikke Slettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">User blev Slettet</response>
-		// DELETE: api/Users/5
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteUser(string id)
-		{
-			var user = await _context.Users.FindAsync(id);
-			if (user == null)
-			{
-				return NotFound();
-			}
-            // 3. Returnér ønskede data - fx til profilsiden
-            return Ok(new
+                _logger.LogInformation("Returnerer info for bruger {Id}", userId);
+                // 3. Returnér ønskede data - fx til profilsiden
+                return Ok(new
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    CreatedAt = user.CreatedAt,
+                    LastLogin = user.LastLogin,
+                    Role = user.Role?.Name ?? "User",
+                    // Bookinger hvis relevant
+                    Bookings = user.Bookings.Select(b => new {
+                        b.Id,
+                        b.StartDate,
+                        b.EndDate,
+                        b.CreatedAt,
+                        b.UpdatedAt,
+                        Room = b.Room != null ? new
+                        {
+                            b.Room.Id,
+                            b.Room.RoomNumber,
+                            b.Room.Booked,
+                            HotelId = b.Room.HotelId
+                        } : null
+                    }).ToList()
+                });
+            }
+            catch (Exception ex)
             {
-                Id = user.Id,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CreatedAt = user.CreatedAt,
-                LastLogin = user.LastLogin,
-                Role = user.Role?.Name ?? "User",
-				phone = user.Phone,
-             
-                // Bookinger hvis relevant
-                Bookings = user.Bookings.Select(b => new {
-                    b.Id,
-                    b.StartDate,
-                    b.EndDate,
-                    b.CreatedAt,
-                    b.UpdatedAt,
-                    Room = b.Rooms != null ? new
-                    {
-                        b.Rooms.Id,
-                        b.Rooms.RoomNumber,
-                        b.Rooms.Booked,
-                        HotelId = b.Rooms.HotelId
-                    } : null
-                }).ToList()
-            });
+                _logger.LogError(ex, "Fejl ved hentning af nuværende bruger");
+                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af bruger");
+            }
         }
+
+        /// <summary>
+        /// Sletter en bruger baseret på et id.
+        /// </summary>
+        /// <param name="id">Brugerens id.</param>
+        /// <returns>Sletter en bruger.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugeren blev ikke slettet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugeren blev slettet.</response>
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            try
             {
-                return NotFound();
-            }
+                var user = await _context.Users.FindAsync(id);
+                if (user == null)
+                {
+                    _logger.LogWarning("Forsøg på at slette bruger {Id}, men den findes ikke", id);
+                    return NotFound();
+                }
 
-			_context.Users.Remove(user);
-			await _context.SaveChangesAsync();
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Bruger {Id} slettet succesfuldt", id);
                 return NoContent();
@@ -493,15 +509,15 @@ namespace API.Controllers
             }
         }
 
-		private bool UserExists(string id)
-		{
-			return _context.Users.Any(e => e.Id.ToString() == id);
-		}
-	}
+        private bool UserExists(int id)
+        {
+            return _context.Users.Any(e => e.Id == id);
+        }
+    }
 
-	// DTO til rolle tildeling
-	public class AssignRoleDto
-	{
-		public int RoleId { get; set; } = 1;
-	}
+    // DTO til rolle tildeling
+    public class AssignRoleDto
+    {
+        public int RoleId { get; set; }
+    }
 }
