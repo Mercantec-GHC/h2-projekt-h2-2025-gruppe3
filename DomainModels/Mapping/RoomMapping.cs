@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +16,12 @@ namespace DomainModels.Mapping
                 RoomNumber = room.RoomNumber,
                 Booked = room.Booked,
                 HotelId = room.HotelId,
-                TypeId = room.TypeId,
+                RoomtypeId = room.RoomtypeId,
                 Bookings = room.Bookings,
             };
         }
 
     }
 }
-
 
 
