@@ -21,35 +21,36 @@ namespace API.Controllers
         {
             _context = context;
         }
+
 		/// <summary>
-		/// Henter alle hoteller
+		/// Henter alle hoteller.
 		/// </summary>
-		/// <returns>Hotellets info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Hotellet blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Hotellet blev fundet og retuneret</response>
+		/// <returns>Hotellets info.</returns>
+		/// <response code="500">Intern serverfejl.</response>
+		/// <response code="404">Hotellet blev ikke fundet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Hotellet blev fundet og retuneret.</response>
 		// GET: api/Hotels
-		[HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
         {
             var hotels = await _context.Hotels.ToListAsync();
             return HotelMapping.ToHotelGetDtos(hotels);
-
-
         }
+
 		/// <summary>
-		/// Henter hotellets baseret på id.
+		/// Henter hotellet baseret på id.
 		/// </summary>
-		/// <param name="id"> Hotellets id</param>
-		/// <returns>Hotellets info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Hotellet blev ikke fundet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Hotellet blev fundet og retuneret</response>
-		// GET: api/Hotels/5
-		[HttpGet("{id}")]
-        public async Task<ActionResult<HotelGetDto>> GetHotel(string id)
+		/// <param name="id"> Hotellets id.</param>
+		/// <returns>Hotellets info.</returns>
+		/// <response code="500">Intern serverfejl.</response>
+		/// <response code="404">Hotellet blev ikke fundet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Hotellet blev fundet og retuneret.</response>
+		
+        // GET: api/Hotels/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<HotelGetDto>> GetHotel(int id)
         {
             var hotel = await _context.Hotels.FindAsync(id);
 
@@ -60,19 +61,20 @@ namespace API.Controllers
 
             return HotelMapping.ToHotelGetDto(hotel);
         }
-		/// <summary>
-		/// Updatere hotellets baseret på id.
-		/// </summary>
-		/// <param name="hotel"> Hotellets id</param>
-		/// <returns>updatere hotellets info</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Hotellet blev ikke opdateret</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Hotellet blev opdateret</response>
-		// PUT: api/Hotels/5
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(string id, HotelPutDto hotel)
+        /// <summary>
+        /// Opdatere hotellet baseret på et id.
+        /// </summary>
+        /// <param name="hotel"> Hotellets id.</param>
+        /// <returns>Opdatere hotellets info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Hotellet blev ikke opdateret.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Hotellet blev opdateret.</response>
+        
+        // PUT: api/Hotels/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutHotel(int id, HotelPutDto hotel)
         {
 
             if (id != hotel.Id)
@@ -100,18 +102,20 @@ namespace API.Controllers
 
             return NoContent();
         }
+
 		/// <summary>
-		/// Opretter et nyt hotel
+		/// Opretter et nyt hotel.
 		/// </summary>
-		/// <param name="hotelDto"> Hotellets id</param>
-		/// <returns>opretter et nyt hotel</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Hotellet blev ikke oprettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Hotellet blev oprettet</response>
-		// POST: api/Hotels
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPost]
+		/// <param name="hotelDto"> Hotellets id.</param>
+		/// <returns>opretter et nyt hotel.</returns>
+		/// <response code="500">Intern serverfejl.</response>
+		/// <response code="404">Hotellet blev ikke oprettet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Hotellet blev oprettet.</response>
+        
+        // POST: api/Hotels
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(HotelPostDto hotelDto)
         {
             Hotel hotel = HotelMapping.ToHotelFromDto(hotelDto);
@@ -134,18 +138,20 @@ namespace API.Controllers
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
+
 		/// <summary>
-		/// Sletter et hotel
+		/// Sletter et hotel.
 		/// </summary>
-		/// <param name="id"> Hotellets id</param>
-		/// <returns>Sletter et hotel</returns>
-		/// <response code="500">internal server error</response>
-		/// <response code="404">Hotellet blev ikke Slettet</response>
-		/// <response code="403">ingen adgang</response>
-		/// <response code="200">Hotellet blev slettet</response>
-		// DELETE: api/Hotels/5
-		[HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHotel(string id)
+		/// <param name="id"> Hotellets id.</param>
+		/// <returns>Sletter et hotel.</returns>
+		/// <response code="500">Intern serverfejl.</response>
+		/// <response code="404">Hotellet blev ikke slettet.</response>
+		/// <response code="403">Ingen adgang.</response>
+		/// <response code="200">Hotellet blev slettet.</response>
+        
+        // DELETE: api/Hotels/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteHotel(int id)
         {
             var hotel = await _context.Hotels.FindAsync(id);
             if (hotel == null)
@@ -159,7 +165,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        private bool HotelExists(string id)
+        private bool HotelExists(int id)
         {
             return _context.Hotels.Any(e => e.Id == id);
         }

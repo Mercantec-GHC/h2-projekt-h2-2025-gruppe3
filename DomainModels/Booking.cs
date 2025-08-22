@@ -11,14 +11,14 @@ namespace DomainModels
     // Booking.cs
     public class Booking : Common
     {
-        public string UserId { get; set; } = string.Empty;
+        public required int UserId { get; set; }
         public User? User { get; set; }
 
-        public string RoomId { get; set; } = string.Empty;
-        public string FinalPrice { get; set; } = string.Empty;
+        public required int RoomId { get; set; }
+        public Room? Room { get; set; }
+        public double FinalPrice { get; set; }
         public bool Crib { get; set; }
         public bool ExtraBed { get; set; }
-        public Room? Room { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace DomainModels
 {
-    public class Type : Common
+    public class Roomtype : Common
     {
         public required string Name { get; set; }
         public List<Room> Rooms { get; set; } = new(); // 1:n
+
     }    
 }
