@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DomainModels
@@ -10,7 +10,7 @@ namespace DomainModels
     {
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; } = string.Empty;
+        public required string Name { get; set; }
 
         /// <summary>
         /// Navigation property til brugere med denne rolle
