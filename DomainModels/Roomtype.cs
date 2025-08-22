@@ -12,6 +12,5 @@ namespace DomainModels
         public required string Name { get; set; }
         public List<Room> Rooms { get; set; } = new(); // 1:n
 
-
     }    
 }
