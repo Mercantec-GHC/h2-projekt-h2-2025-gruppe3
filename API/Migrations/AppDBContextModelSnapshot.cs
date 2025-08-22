@@ -228,10 +228,7 @@ namespace API.Migrations
                     b.Property<int>("RoomNumber")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("RoomtypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TypeId")
+                    b.Property<int>("RoomtypeId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -303,6 +300,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("Phone")
+                        .HasColumnType("integer");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
@@ -332,7 +332,7 @@ namespace API.Migrations
                             LastLogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "test",
                             PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
-                            RoleId = 1,
+                            RoleId = 4,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
@@ -375,11 +375,15 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DomainModels.Roomtype", null)
+                    b.HasOne("DomainModels.Roomtype", "Roomtype")
                         .WithMany("Rooms")
-                        .HasForeignKey("RoomtypeId");
+                        .HasForeignKey("RoomtypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Hotel");
+
+                    b.Navigation("Roomtype");
                 });
 
             modelBuilder.Entity("DomainModels.User", b =>

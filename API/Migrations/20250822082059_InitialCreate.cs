@@ -100,6 +100,7 @@ namespace API.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<int>(type: "integer", nullable: true),
                     HashedPassword = table.Column<string>(type: "text", nullable: false),
                     Salt = table.Column<string>(type: "text", nullable: true),
                     LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -128,8 +129,7 @@ namespace API.Migrations
                     RoomNumber = table.Column<int>(type: "integer", nullable: false),
                     Booked = table.Column<bool>(type: "boolean", nullable: false),
                     HotelId = table.Column<int>(type: "integer", nullable: false),
-                    TypeId = table.Column<int>(type: "integer", nullable: false),
-                    RoomtypeId = table.Column<int>(type: "integer", nullable: true),
+                    RoomtypeId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -146,7 +146,8 @@ namespace API.Migrations
                         name: "FK_Rooms_Roomtypes_RoomtypeId",
                         column: x => x.RoomtypeId,
                         principalTable: "Roomtypes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,8 +196,8 @@ namespace API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "HashedPassword", "LastLogin", "LastName", "PasswordBackdoor", "RoleId", "Salt", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "test@test.com", "test", "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789", 1, null, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) });
+                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "HashedPassword", "LastLogin", "LastName", "PasswordBackdoor", "Phone", "RoleId", "Salt", "UpdatedAt" },
+                values: new object[] { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "test@test.com", "test", "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789", null, 4, null, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_RoomId",
