@@ -46,5 +46,21 @@ namespace DomainModels.Mapping
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
         }
+        public static Hotel ToHotelPut(HotelPutDto hotelPutDto) 
+        { return new Hotel
+            {
+                Id = hotelPutDto.Id,
+                Name = hotelPutDto.Name,
+                Road = hotelPutDto.Road,
+                Zip = hotelPutDto.Zip,
+                City = hotelPutDto.City,
+                Phone = hotelPutDto.Phone,
+                Email = hotelPutDto.Email,
+                PercentagePrice = hotelPutDto.PercentagePrice,
+                Description = hotelPutDto.Description,
+                CreatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2)
+            };
+        }
     }
 }
