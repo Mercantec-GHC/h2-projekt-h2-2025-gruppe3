@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,6 @@ namespace DomainModels.Mapping
             {
                 Id = hotel.Id,
                 Name = hotel.Name,
-                Address = hotel.Address,
                 Road = hotel.Road,
                 Zip = hotel.Zip,
                 City = hotel.City,
@@ -33,9 +32,9 @@ namespace DomainModels.Mapping
         public static Hotel ToHotelFromDto(HotelPostDto hotelPostDto)
         {
             return new Hotel
-            {   Id = hotelPostDto.Id,
+            {
+                Id = hotelPostDto.Id,
                 Name = hotelPostDto.Name,
-                Address = hotelPostDto.Address,
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,
                 City = hotelPostDto.City,
