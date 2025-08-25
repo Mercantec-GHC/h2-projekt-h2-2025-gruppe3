@@ -21,14 +21,14 @@ namespace API.Services
 		{
 			_configuration = configuration;
 			_secretKey = _configuration["Jwt:SecretKey"]
-			?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+			?? Environment.GetEnvironmentVariable("JwtSecretKey");
 
 			_issuer = _configuration["Jwt:Issuer"]
-			?? Environment.GetEnvironmentVariable("JWT_ISSUER")
+			?? Environment.GetEnvironmentVariable("JwtIssuer")
 			?? "H2-2025-API";
 
 			_audience = _configuration["Jwt:Audience"]
-			?? Environment.GetEnvironmentVariable("JWT_AUDIENCE")
+			?? Environment.GetEnvironmentVariable("JwtAudience")
 			?? "H2-2025-Client";
 
 			_expiryMinutes = int.Parse(_configuration["Jwt:ExpiryMinutes"]
@@ -48,9 +48,9 @@ namespace API.Services
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("userId", user.Id),
+                new Claim("userId", user.Id.ToString()),
                 new Claim("email", user.Email)
             };
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,15 +10,30 @@ namespace DomainModels
     // Room.cs
     public class Room : Common
     {
-        public required string Number { get; set; }
-        public int Capacity { get; set; }
         public required int RoomNumber { get; set; }
 
         public bool Booked { get; set; }
 
-        public string HotelId { get; set; } = string.Empty;
+        public int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
+        public required int RoomtypeId { get; set; }
+        public Roomtype? Roomtype { get; set; }
 
         public List<Booking> Bookings { get; set; } = new();
+    }
+    public class RoomGetDto
+    {
+        public required int Id { get; set; }
+        public required int RoomNumber { get; set; }
+
+        public bool Booked { get; set; }
+
+        public required int HotelId { get; set; }
+        public required int RoomtypeId { get; set; }
+
+
+        public List<Booking> Bookings { get; set; } = new();
+
+
     }
 }
