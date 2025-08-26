@@ -110,8 +110,8 @@ public class Program
                             "http://localhost:8052",
                             "http://localhost:7285",
                             "https://localhost:7285",
-                            "https://h2.mercantec.tech"
-                            "https://suitedreams.mercantec.tech/"
+                            "https://h2.mercantec.tech",
+                            "https://suitedreams.mercantec.tech"
                         )
                         .AllowAnyMethod()
                         .AllowAnyHeader()
