@@ -12,6 +12,6 @@ namespace DomainModels
         public bool Fitness { get; set; }
         public bool Restaturant { get; set; }
         public int HotelId { get; set; }
-        public Hotel? Hotel { get; set; }
+        public virtual Hotel? Hotel { get; set; }
     }
 }

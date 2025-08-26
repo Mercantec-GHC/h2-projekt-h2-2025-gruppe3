@@ -19,6 +19,7 @@ namespace DomainModels
         public string Description { get; set; } = "";
         public float PercentagePrice { get; set; }
         public int FacilityId { get; set; }
+        public virtual Facility? Facilities { get; set; } // 1:1
 
 
         public List<Room> Rooms { get; set; } = new(); // 1:n
@@ -38,6 +39,10 @@ namespace DomainModels
         [MaxLength(200)]
         public string Description { get; set; } = "";
         public float PercentagePrice { get; set; }
+
+        public int FacilityId { get; set; }
+        public virtual Facility? Facilities { get; set; } // 1:1
+
 
     }
 
@@ -62,6 +67,8 @@ namespace DomainModels
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
         public float PercentagePrice { get; set; }
+        public int FacilityId { get; set; }
+        public virtual Facility? Facilities { get; set; } // 1:1
         //public List <RoomWithBookingsGetDto> Rooms { get; private set; } = new();
     }
 
