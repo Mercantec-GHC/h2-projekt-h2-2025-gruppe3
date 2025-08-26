@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250822082059_InitialCreate")]
+    [Migration("20250826002829_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -71,11 +71,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Facility", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("HotelId")
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -83,7 +80,7 @@ namespace API.Migrations
                     b.Property<bool>("Fitness")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("HotelId")
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
                     b.Property<bool>("Pool")
@@ -95,20 +92,18 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("HotelId");
+                    b.HasKey("HotelId");
 
                     b.ToTable("Facilities");
                 });
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
                 {
-                    b.Property<int>("FacilityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FacilityId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -125,7 +120,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("FacilityId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -149,9 +144,56 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("FacilityId");
+                    b.HasKey("Id");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Viborg",
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                            Email = "mercantec@mercantec.dk",
+                            FacilityId = 0,
+                            Name = "Hotel 1",
+                            PercentagePrice = 1f,
+                            Phone = 12345678,
+                            Road = "H. C. Andersens Vej 9",
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Zip = "8800"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = "Viborg",
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                            Email = "mercantec@mercantec.dk",
+                            FacilityId = 0,
+                            Name = "Hotel 2",
+                            PercentagePrice = 1f,
+                            Phone = 12345678,
+                            Road = "H. C. Andersens Vej 9",
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Zip = "8800"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            City = "Viborg",
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                            Email = "mercantec@mercantec.dk",
+                            FacilityId = 0,
+                            Name = "Hotel 3",
+                            PercentagePrice = 1f,
+                            Phone = 12345678,
+                            Road = "H. C. Andersens Vej 9",
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Zip = "8800"
+                        });
                 });
 
             modelBuilder.Entity("DomainModels.Role", b =>
@@ -362,8 +404,8 @@ namespace API.Migrations
             modelBuilder.Entity("DomainModels.Facility", b =>
                 {
                     b.HasOne("DomainModels.Hotel", "Hotel")
-                        .WithMany()
-                        .HasForeignKey("HotelId")
+                        .WithOne("Facility")
+                        .HasForeignKey("DomainModels.Facility", "HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -402,6 +444,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
                 {
+                    b.Navigation("Facility");
+
                     b.Navigation("Rooms");
                 });
 
