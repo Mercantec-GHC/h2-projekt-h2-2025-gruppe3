@@ -110,6 +110,9 @@ public class Program
                             "http://localhost:8052",
 							"http://localhost:7285",
 							"http://127.0.0.1:7285",
+
+							"https://localhost:7285",
+							"https://127.0.0.1:7285",
                             "https://h2.mercantec.tech"
                         )
                         .AllowAnyMethod()
