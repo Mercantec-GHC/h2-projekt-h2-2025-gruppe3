@@ -153,7 +153,7 @@ namespace API.Controllers
         {
            try
             {
-                Hotel hotel = HotelMapping.ToHotelFromDto(hotelDto);
+                Hotel hotel = HotelMapping.PostHotelFromDto(hotelDto);
                 _context.Hotels.Add(hotel);
 
                 await _context.SaveChangesAsync();

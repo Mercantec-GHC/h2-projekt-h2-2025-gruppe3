@@ -1,5 +1,6 @@
 ﻿using DomainModels;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace API.Data
@@ -40,8 +41,14 @@ namespace API.Data
             });
 
 
+            modelBuilder.Entity<Facility>()
+                .HasKey(h => h.HotelId); // Shared PK
+
+
             modelBuilder.Entity<Hotel>()
-                .HasKey(h => h.FacilityId); // Shared PK
+                .HasOne(u => u.Facility)
+                .WithOne(i => i.Hotel)
+                .HasForeignKey<Facility>(i => i.HotelId);
 
 
             modelBuilder.Entity<Hotel>()
@@ -63,6 +70,7 @@ namespace API.Data
             // Seed roller og test brugere (kun til udvikling)
             SeedRoles(modelBuilder);
             SeedUser(modelBuilder);
+            SeedHotel(modelBuilder);
         }
 
 
@@ -122,6 +130,56 @@ namespace API.Data
                 },
             };
             modelBuilder.Entity<User>().HasData(users);
+        }
+
+        private void SeedHotel(ModelBuilder modelBuilder)
+        {
+            var hotels = new[]
+            {
+                new Hotel
+                {
+                    Id = 1,
+                    Name = "Hotel 1",
+                    Road  = "H. C. Andersens Vej 9",
+                    Zip  = "8800",
+                    City  = "Viborg",
+                    Phone = 12345678,
+                    Email  = "mercantec@mercantec.dk",
+                    Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                    PercentagePrice  = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Hotel
+                {
+                    Id = 2,
+                    Name = "Hotel 2",
+                    Road  = "H. C. Andersens Vej 9",
+                    Zip  = "8800",
+                    City  = "Viborg",
+                    Phone = 12345678,
+                    Email  = "mercantec@mercantec.dk",
+                    Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                    PercentagePrice  = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Hotel
+                {
+                    Id = 3,
+                    Name = "Hotel 3",
+                    Road  = "H. C. Andersens Vej 9",
+                    Zip  = "8800",
+                    City  = "Viborg",
+                    Phone = 12345678,
+                    Email  = "mercantec@mercantec.dk",
+                    Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                    PercentagePrice  = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+            };
+            modelBuilder.Entity<Hotel>().HasData(hotels);
         }
     }
 }
