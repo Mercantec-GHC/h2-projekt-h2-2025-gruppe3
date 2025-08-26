@@ -29,7 +29,7 @@ namespace DomainModels.Mapping
             return hotels.Select(h => ToHotelGetDto(h)).ToList();
         }
 
-        public static Hotel ToHotelFromDto(HotelPostDto hotelPostDto)
+        public static Hotel PostHotelFromDto(HotelPostDto hotelPostDto)
         {
             return new Hotel
             {
@@ -42,6 +42,24 @@ namespace DomainModels.Mapping
                 Email = hotelPostDto.Email,
                 PercentagePrice = hotelPostDto.PercentagePrice,
                 Description = hotelPostDto.Description,
+                CreatedAt = DateTime.UtcNow.AddHours(2),
+                UpdatedAt = DateTime.UtcNow.AddHours(2)
+            };
+        }
+
+        public static Hotel PutHotelFromDto(HotelPutDto hotelPutDto)
+        {
+            return new Hotel
+            {
+                Id = hotelPutDto.Id,
+                Name = hotelPutDto.Name,
+                Road = hotelPutDto.Road,
+                Zip = hotelPutDto.Zip,
+                City = hotelPutDto.City,
+                Phone = hotelPutDto.Phone,
+                Email = hotelPutDto.Email,
+                PercentagePrice = hotelPutDto.PercentagePrice,
+                Description = hotelPutDto.Description,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
