@@ -17,7 +17,6 @@ namespace DomainModels.Mapping
                 Booked = room.Booked,
                 HotelId = room.HotelId,
                 RoomtypeId = room.RoomtypeId,
-                Bookings = room.Bookings,
             };
         }
 

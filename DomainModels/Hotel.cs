@@ -14,6 +14,7 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
@@ -32,6 +33,7 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
 
@@ -58,6 +60,7 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
@@ -73,6 +76,7 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
 

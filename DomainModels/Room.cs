@@ -32,7 +32,6 @@ namespace DomainModels
         public required int RoomtypeId { get; set; }
 
 
-        public List<Booking> Bookings { get; set; } = new();
 
 
     }
@@ -63,7 +62,6 @@ namespace DomainModels
         public required int RoomtypeId { get; set; }
 
 
-        public List<Booking> Bookings { get; set; } = new();
     }
 }
 
