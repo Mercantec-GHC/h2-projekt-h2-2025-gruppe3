@@ -259,7 +259,7 @@ namespace API.Services
                              //$"- Slettet {bookingCount} bookinger\n" +
                              $"- Slettet {roomCount} rum\n" +
                              $"- Slettet {hotelCount} hoteller\n";
-                             //$"- Slettet {userCount} brugere";
+                //$"- Slettet {userCount} brugere";
 
                 _logger.LogInformation("Database ryddet succesfuldt");
                 return summary;
