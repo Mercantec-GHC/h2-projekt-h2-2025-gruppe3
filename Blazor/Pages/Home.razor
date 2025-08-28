@@ -1,8 +1,53 @@
 ﻿@page "/"
 
+
+
 @using System.Net.Http
 
-<h1 class="mb-4">Status Dashboard</h1>
+<PageTitle>Home</PageTitle>
+<div class="col">
+	<div class="card card-hover overflow-hidden h-100">
+		<div class="h-100">
+			<div class="row g-0">
+				<div class="col-4 col-sm-12 product-border">
+					<div class="ratio ratio-1x1 img-container">
+						<img src=".../wwwroot/images/hotel_1_outside.jpg" class="" alt="billede af et hotel">
+					</div>
+				</div>
+				<div class="col">
+					<div class="h-100 d-flex flex-column">
+						<div class="card-body border-bottom">
+							<div class="fw-bold mb-2">@Hotel.Name</div>
+							<small class="card-subtitle"><i>by @book.Author</i></small>
+						</div>
+
+						<div class="card-body">
+							<div class="row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+								<div class="col text-end text-sm-start">
+									<span class="mx-1" style="color: @(book.IsInStock ? "green" : "grey")">
+										@(book.IsInStock ? "in stock" : "out of stock")
+									</span>
+								</div>
+								<div class="col text-end">
+									<div class="active text-alert fw-semibold me-1">@book.Price.ToString("#,###.00") dkk</div>
+								</div>
+								<div class="col">
+									<a href="/books/@book.Id" class="btn btn-sm btn-light btn-outline-dark d-none d-sm-inline-block stretched-link">More Info</a>
+									<a href="/books/@book.Id" class="d-block d-sm-none stretched-link"></a>
+								</div>
+								<div class="col text-end">
+									<a href="/cart" class="btn btn-sm btn-light btn-outline-dark position-relative z-1">Add to cart</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* <h1 class="mb-4">Status Dashboard</h1>
 
 <div class="row">
     <div class="col-md-6 mb-4">
@@ -32,16 +77,19 @@
         <Counter />
     </div>
 </div>
+ *@
 
 @code {
     HealthCheckResponse? healthCheck;
     HealthCheckResponse? dbHealthCheck;
     WeatherForecast[]? weatherForecasts;
+	Hotel Hotel { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         healthCheck = await ApiService.GetHealthCheckAsync();
         dbHealthCheck = await ApiService.GetDBHealthCheckAsync();
         weatherForecasts = await ApiService.GetWeatherAsync(5);
+		Hotel = await ApiService.HotelGetDto();
     }
 }
