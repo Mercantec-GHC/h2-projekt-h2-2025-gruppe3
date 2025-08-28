@@ -56,6 +56,13 @@ namespace API.Data
                 .WithOne(r => r.Hotel)
                 .HasForeignKey(r => r.HotelId);
 
+            //////////////
+            modelBuilder.Entity<Room>()
+                .HasOne(b => b.Roomtype)
+                .WithMany(u => u.Rooms)
+                .HasForeignKey(b => b.RoomtypeId);
+            //////////////
+
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.User)
@@ -143,6 +150,7 @@ namespace API.Data
                     Road  = "H. C. Andersens Vej 9",
                     Zip  = "8800",
                     City  = "Viborg",
+                    Country  = "Danmark",
                     Phone = 12345678,
                     Email  = "mercantec@mercantec.dk",
                     Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
@@ -157,6 +165,7 @@ namespace API.Data
                     Road  = "H. C. Andersens Vej 9",
                     Zip  = "8800",
                     City  = "Viborg",
+                    Country  = "Danmark",
                     Phone = 12345678,
                     Email  = "mercantec@mercantec.dk",
                     Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
@@ -171,6 +180,7 @@ namespace API.Data
                     Road  = "H. C. Andersens Vej 9",
                     Zip  = "8800",
                     City  = "Viborg",
+                    Country  = "Danmark",
                     Phone = 12345678,
                     Email  = "mercantec@mercantec.dk",
                     Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
