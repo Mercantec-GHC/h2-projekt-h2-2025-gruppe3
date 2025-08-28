@@ -77,6 +77,7 @@ namespace API.Data
             // Seed roller og test brugere (kun til udvikling)
             SeedRoles(modelBuilder);
             SeedUser(modelBuilder);
+            SeedRoomtype(modelBuilder);
             SeedHotel(modelBuilder);
         }
 
@@ -137,6 +138,62 @@ namespace API.Data
                 },
             };
             modelBuilder.Entity<User>().HasData(users);
+        }
+
+        private void SeedRoomtype(ModelBuilder modelBuilder)
+        {
+            var roomtypes = new[]
+            {
+                new Roomtype
+                {
+                    Id = 1,
+                    Name = "Enkeltværelse",
+                    Description = "Et enkeltværelse med én seng, ideelt til én person.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 2,
+                    Name = "Dobbeltværelse",
+                    Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 3,
+                    Name = "Suite",
+                    Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 4,
+                    Name = "Familieværelse",
+                    Description = "Et værelse med plads til hele familien, typisk med flere senge.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 5,
+                    Name = "Deluxe værelse",
+                    Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 6,
+                    Name = "Handicapvenligt værelse",
+                    Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                }
+            };
+            modelBuilder.Entity<Roomtype>().HasData(roomtypes);
         }
 
         private void SeedHotel(ModelBuilder modelBuilder)

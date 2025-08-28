@@ -28,6 +28,9 @@ public class Program
         // Registrer JWT Service
         builder.Services.AddScoped<JwtService>();
 
+        // Registrer Data Seeder Service
+        builder.Services.AddScoped<DataSeederService>();
+
         // Konfigurer JWT Authentication
         var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("JwtSecretKey");
         var jwtIssuer = Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JwtIssuer");
