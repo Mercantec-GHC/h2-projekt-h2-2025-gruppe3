@@ -124,7 +124,7 @@ namespace API.Controllers
             catch (DbUpdateConcurrencyException ex)
             {
                 _logger.LogWarning(ex, "Concurrency fejl ved opdatering af room {Id}", id);
-                if (!RoomExists(id))
+                if (!await RoomExists(id))
                     return NotFound();
                 else
                     throw;
@@ -139,7 +139,7 @@ namespace API.Controllers
         /// <summary>
         /// Opretter et nyt room.
         /// </summary>
-        /// <param name="roomDto"> Rummets id.</param>
+        /// <param name="roomDto"> Rummets dto.</param>
         /// <returns>opretter et nyt room.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rummet blev ikke oprettet.</response>
@@ -163,9 +163,11 @@ namespace API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning(ex, "DbUpdateException ved oprettelse af room {Id}", roomDto.Id);
-                if (RoomExists(roomDto.Id))
-                    return Conflict("Room med dette id findes allerede");
+                _logger.LogWarning(ex, "DbUpdateException ved oprettelse af room {RoomNumber}", roomDto.RoomNumber);
+                if (!await HotelExists(roomDto.HotelId))
+                    return Conflict("Det angivne hotel eksisterer ikke");
+                else if (await RoomExistsInHotel(roomDto.HotelId, roomDto.RoomNumber))
+                    return Conflict("Et rum med dette roomNumber eksisterer allerede i hotellet");
                 else
                     throw;
             }
@@ -212,9 +214,18 @@ namespace API.Controllers
             }
         }
 
-        private bool RoomExists(int id)
+        private async Task<bool> RoomExists(int id)
         {
-            return _context.Rooms.Any(e => e.Id == id);
+            return await _context.Rooms.AnyAsync(e => e.Id == id);
         }
+        private async Task<bool> HotelExists(int hotelid)
+        {
+            return await _context.Hotels.AnyAsync(h => h.Id == hotelid);
+        }
+        private async Task<bool> RoomExistsInHotel(int hotelid, int roomnumber)
+        {
+            return await _context.Rooms.AnyAsync(r => r.HotelId == hotelid && r.RoomNumber == roomnumber);
+        }
+
     }
 }

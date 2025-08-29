@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250828120224_InitialCreate")]
+    [Migration("20250829002710_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -131,8 +131,8 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<float>("PercentagePrice")
-                        .HasColumnType("real");
+                    b.Property<double>("PercentagePrice")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Phone")
                         .HasColumnType("integer");
@@ -163,7 +163,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 1",
-                            PercentagePrice = 1f,
+                            PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -179,7 +179,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 2",
-                            PercentagePrice = 1f,
+                            PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -195,7 +195,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 3",
-                            PercentagePrice = 1f,
+                            PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),

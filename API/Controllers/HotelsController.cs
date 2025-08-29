@@ -139,7 +139,7 @@ namespace API.Controllers
         /// <summary>
         /// Opretter et nyt hotel.
         /// </summary>
-        /// <param name="hotelDto"> Hotellets id.</param>
+        /// <param name="hotelDto"> Hotellets dto.</param>
         /// <returns>opretter et nyt hotel.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Hotellet blev ikke oprettet.</response>

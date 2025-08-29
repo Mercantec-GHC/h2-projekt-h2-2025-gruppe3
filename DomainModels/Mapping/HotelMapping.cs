@@ -21,7 +21,8 @@ namespace DomainModels.Mapping
                 Phone = hotel.Phone,
                 Email = hotel.Email,
                 PercentagePrice = hotel.PercentagePrice,
-                Description = hotel.Description
+                Description = hotel.Description,
+                FacilityId = hotel.FacilityId
             };
         }
 
