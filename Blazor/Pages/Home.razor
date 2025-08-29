@@ -1,8 +1,48 @@
 ﻿@page "/"
 
+
+
 @using System.Net.Http
 
-<h1 class="mb-4">Status Dashboard</h1>
+<PageTitle>Home</PageTitle>
+<div class="col">
+	<div class="card card-hover overflow-hidden h-100">
+		<div class="h-100">
+			<div class="row g-0">
+				<div class="col-4 col-sm-12 product-border">
+					<div class="ratio ratio-1x1 img-container">
+						<img src="images/hotel_1_outside.jpg" class="" alt="billede af et hotel">
+					</div>
+				</div>
+				<div class="col">
+					<div class="h-100 d-flex flex-column">
+						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+							<div class="fw-bold mb-2">Hotel.Name</div>
+							<div class="col text-end">
+								<div class="active text-alert fw-semibold me-1">price off</div>
+							</div>
+							<small class="card-subtitle"><i>Hotel location</i></small>
+						</div>
+						
+
+						<div class="card-body">
+							<div class="row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+								<div class="col text-end text-sm-start">facilitys
+									<span class="mx-1"</span>
+								</div>
+								<div class="col text-end">
+									<div class="active text-alert fw-semibold me-1">rooms avelivebal</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* <h1 class="mb-4">Status Dashboard</h1>
 
 <div class="row">
     <div class="col-md-6 mb-4">
@@ -32,6 +72,7 @@
         <Counter />
     </div>
 </div>
+ *@
 
 @code {
     HealthCheckResponse? healthCheck;
