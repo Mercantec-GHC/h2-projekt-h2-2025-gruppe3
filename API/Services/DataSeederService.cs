@@ -107,8 +107,8 @@ namespace API.Services
             {
                 // Danske domæner
                 "gmail.com","hotmail.com","outlook.com",
-                
-                
+
+
                 "live.dk","mail.dk","posteo.dk","privat.dk",
                 "stofanet.dk","youmail.dk","jubii.dk","tdc.dk","get2net.dk","mailme.dk","firma.dk",
                 // Udenlandske domæner
