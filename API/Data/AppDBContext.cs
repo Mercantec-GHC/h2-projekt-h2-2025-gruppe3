@@ -56,12 +56,11 @@ namespace API.Data
                 .WithOne(r => r.Hotel)
                 .HasForeignKey(r => r.HotelId);
 
-            //////////////
-            modelBuilder.Entity<Room>()
-                .HasOne(b => b.Roomtype)
-                .WithMany(u => u.Rooms)
-                .HasForeignKey(b => b.RoomtypeId);
-            //////////////
+
+            modelBuilder.Entity<Roomtype>()
+                .HasMany(t => t.Rooms)
+                .WithOne(r => r.Roomtype)
+                .HasForeignKey(r => r.RoomtypeId);
 
 
             modelBuilder.Entity<Booking>()

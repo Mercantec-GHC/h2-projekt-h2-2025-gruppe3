@@ -40,7 +40,6 @@ namespace DomainModels
     // DTO for room creation / POST
     public class RoomPostDto
     {
-        public required int Id { get; set; }
         public required int RoomNumber { get; set; }
 
         public bool Booked { get; set; }

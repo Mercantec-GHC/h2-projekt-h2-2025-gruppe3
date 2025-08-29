@@ -1,15 +1,26 @@
-﻿using DomainModels;
+﻿// Services/APIService.Hotels.cs
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using DomainModels;
 using System.Net.Http.Json;
 
 namespace Blazor.Services
 {
-	public partial class APIService
-	{
+    public partial class APIService
+    {
+        public async Task<HotelGetDto[]> GetHotelsAsync(int maxItems = 3)
+        {
+            var hotels = await _httpClient.GetFromJsonAsync<List<HotelGetDto>>(
+                "/api/Hotels");
 
-		public async Task<HotelGetDto?> GetHotelAsync(int id)
-		{
-			return await httpClient.GetFromJsonAsync<HotelGetDto>($"api/Hotels/{id}");
-		}
+            if (hotels == null)
+                return Array.Empty<HotelGetDto>();
 
-	}
+            return hotels.Take(maxItems).ToArray();
+        }
+    }
 }

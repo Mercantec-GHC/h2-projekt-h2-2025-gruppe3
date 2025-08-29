@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace API.Services
 {
@@ -92,6 +93,7 @@ namespace API.Services
         {
             var hotels = new List<Hotel>();
 
+
             var hotelNames = new[]
             {
                 "Hotel Royal", "Grand Hotel", "Scandic", "Best Western", "Radisson Blu",
@@ -99,6 +101,19 @@ namespace API.Services
                 "Clarion Hotel", "Comfort Hotel", "First Hotel", "Cabinn Hotel", "Wakeup Hotel",
                 "Hotel Phoenix", "Hotel Kong Arthur", "Hotel Sanders", "71 Nyhavn Hotel",
                 "Hotel Skt. Petri", "AC Hotel", "Villa Copenhagen", "Hotel SP34"
+            };
+
+            var emailDomainNames = new[]
+            {
+                // Danske domæner
+                "gmail.com","hotmail.com","outlook.com",
+                
+                
+                "live.dk","mail.dk","posteo.dk","privat.dk",
+                "stofanet.dk","youmail.dk","jubii.dk","tdc.dk","get2net.dk","mailme.dk","firma.dk",
+                // Udenlandske domæner
+                "yahoo.com","icloud.com","aol.com","protonmail.com","gmx.com","zoho.com","mail.com","yandex.com",
+                "fastmail.com","outlook.de","orange.fr","web.de","bluewin.ch","btinternet.com","comcast.net"
             };
 
             var danishCities = new[]
@@ -129,9 +144,27 @@ namespace API.Services
                     counter++;
                 }
 
+                // Erstat danske specialtegn med ae, oe, aa (både små og store bogstaver)
+                hotelName = hotelName
+                    .Replace("æ", "ae")
+                    .Replace("Æ", "Ae")
+                    .Replace("ø", "oe")
+                    .Replace("Ø", "Oe")
+                    .Replace("å", "aa")
+                    .Replace("Å", "Aa");
+
+                // Fjern alle tegn der ikke er bogstaver, tal eller mellemrum
+                var hotelNameCleaned = Regex.Replace(hotelName, @"[^a-zA-Z0-9 ]", "");
+
+                // hotelNameCleaned = "Hotel dAngleterre og Hoejgaard Aeblegaard"
+
                 var hotel = new Hotel
                 {
                     Name = hotelName,
+                    Phone = baseFaker.Random.Int(20000000, 99999999),
+                    Email = hotelNameCleaned.ToLower().Replace(" ", "") + "@" + baseFaker.PickRandom(emailDomainNames),
+                    Description = baseFaker.Lorem.Paragraphs(1, 2),
+                    PercentagePrice = Math.Round(baseFaker.Random.Double(-0.9, 0.9), 2),
                     Road = baseFaker.PickRandom(danishStreets) + " " + baseFaker.Random.Int(1, 200),
                     Zip = baseFaker.Random.Int(1000, 9999).ToString(),
                     City = baseFaker.PickRandom(danishCities),
