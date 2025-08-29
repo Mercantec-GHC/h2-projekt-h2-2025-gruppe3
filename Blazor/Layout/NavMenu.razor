@@ -1,6 +1,9 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">H2 Med MAGS</a>
+        <a class="navbar-brand" href="">
+            <img src="ico/favicon.svg" class="d-inline-block align-top" width="30" height="30" alt="Suite Dreams Logo">
+            Suite Dreams
+        </a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,6 +15,9 @@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+            <NavLink class="nav-link" href="/hotels" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Hoteller Tabel
             </NavLink>
         </div>
         
