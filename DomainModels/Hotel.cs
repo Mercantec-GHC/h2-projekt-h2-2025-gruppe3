@@ -14,10 +14,11 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
-        public float PercentagePrice { get; set; }
+        public double PercentagePrice { get; set; }
         public Facility? Facility { get; set; }
         public int FacilityId { get; set; }
 
@@ -32,12 +33,14 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
+        public int FacilityId { get; set; }
 
         [MaxLength(200)]
         public string Description { get; set; } = "";
-        public float PercentagePrice { get; set; }
+        public double PercentagePrice { get; set; }
 
     }
 
@@ -58,10 +61,12 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
-        public float PercentagePrice { get; set; }
+        public double PercentagePrice { get; set; }
+        public int FacilityId { get; set; }
         //public List <RoomWithBookingsGetDto> Rooms { get; private set; } = new();
     }
 
@@ -73,12 +78,13 @@ namespace DomainModels
         public string Road { get; set; } = "";
         public string Zip { get; set; } = "";
         public string City { get; set; } = "";
+        public string Country { get; set; } = "";
         public int Phone { get; set; }
         public string Email { get; set; } = "";
 
         [MaxLength(200)]
         public string Description { get; set; } = "";
-        public float PercentagePrice { get; set; }
+        public double PercentagePrice { get; set; }
     }
 }
 

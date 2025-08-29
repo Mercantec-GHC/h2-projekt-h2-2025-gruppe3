@@ -3,13 +3,8 @@ using API.Services;
 using DomainModels;
 using DomainModels.Mapping;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Security.Claims;
 
 namespace API.Controllers
@@ -29,15 +24,15 @@ namespace API.Controllers
             _logger = logger;
         }
 
-		/// <summary>
-		/// Henter alle roomler.
-		/// </summary>
-		/// <returns>Rummets info.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Rummet blev ikke fundet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Rummet blev fundet og retuneret.</response>
-		// GET: api/Rooms
+        /// <summary>
+        /// Henter alle roomler.
+        /// </summary>
+        /// <returns>Rummets info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Rummet blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Rummet blev fundet og retuneret.</response>
+        // GET: api/Rooms
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomGetDto>>> GetRooms()
         {
@@ -101,7 +96,7 @@ namespace API.Controllers
         /// <response code="404">Rummet blev ikke opdateret.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Rummet blev opdateret.</response>
-        
+
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -124,7 +119,7 @@ namespace API.Controllers
             catch (DbUpdateConcurrencyException ex)
             {
                 _logger.LogWarning(ex, "Concurrency fejl ved opdatering af room {Id}", id);
-                if (!RoomExists(id))
+                if (!await RoomExists(id))
                     return NotFound();
                 else
                     throw;
@@ -139,7 +134,7 @@ namespace API.Controllers
         /// <summary>
         /// Opretter et nyt room.
         /// </summary>
-        /// <param name="roomDto"> Rummets id.</param>
+        /// <param name="roomDto"> Rummets dto.</param>
         /// <returns>opretter et nyt room.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rummet blev ikke oprettet.</response>
@@ -151,7 +146,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(RoomPostDto roomDto)
         {
-           try
+            try
             {
                 Room room = RoomMapping.PostRoomFromDto(roomDto);
                 _context.Rooms.Add(room);
@@ -163,9 +158,11 @@ namespace API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning(ex, "DbUpdateException ved oprettelse af room {Id}", roomDto.Id);
-                if (RoomExists(roomDto.Id))
-                    return Conflict("Room med dette id findes allerede");
+                _logger.LogWarning(ex, "DbUpdateException ved oprettelse af room {RoomNumber}", roomDto.RoomNumber);
+                if (!await HotelExists(roomDto.HotelId))
+                    return Conflict("Det angivne hotel eksisterer ikke");
+                else if (await RoomExistsInHotel(roomDto.HotelId, roomDto.RoomNumber))
+                    return Conflict("Et rum med dette roomNumber eksisterer allerede i hotellet");
                 else
                     throw;
             }
@@ -176,16 +173,16 @@ namespace API.Controllers
             }
         }
 
-		/// <summary>
-		/// Sletter et room.
-		/// </summary>
-		/// <param name="id"> Rummets id.</param>
-		/// <returns>Sletter et room.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Rummet blev ikke slettet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Rummet blev slettet.</response>
-        
+        /// <summary>
+        /// Sletter et room.
+        /// </summary>
+        /// <param name="id"> Rummets id.</param>
+        /// <returns>Sletter et room.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Rummet blev ikke slettet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Rummet blev slettet.</response>
+
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
@@ -212,9 +209,18 @@ namespace API.Controllers
             }
         }
 
-        private bool RoomExists(int id)
+        private async Task<bool> RoomExists(int id)
         {
-            return _context.Rooms.Any(e => e.Id == id);
+            return await _context.Rooms.AnyAsync(e => e.Id == id);
         }
+        private async Task<bool> HotelExists(int hotelid)
+        {
+            return await _context.Hotels.AnyAsync(h => h.Id == hotelid);
+        }
+        private async Task<bool> RoomExistsInHotel(int hotelid, int roomnumber)
+        {
+            return await _context.Rooms.AnyAsync(r => r.HotelId == hotelid && r.RoomNumber == roomnumber);
+        }
+
     }
 }

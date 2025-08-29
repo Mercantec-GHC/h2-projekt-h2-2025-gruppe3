@@ -17,10 +17,12 @@ namespace DomainModels.Mapping
                 Road = hotel.Road,
                 Zip = hotel.Zip,
                 City = hotel.City,
+                Country = hotel.Country,
                 Phone = hotel.Phone,
                 Email = hotel.Email,
                 PercentagePrice = hotel.PercentagePrice,
-                Description = hotel.Description
+                Description = hotel.Description,
+                FacilityId = hotel.FacilityId
             };
         }
 
@@ -38,6 +40,7 @@ namespace DomainModels.Mapping
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,
                 City = hotelPostDto.City,
+                Country = hotelPostDto.Country,
                 Phone = hotelPostDto.Phone,
                 Email = hotelPostDto.Email,
                 PercentagePrice = hotelPostDto.PercentagePrice,
@@ -56,6 +59,7 @@ namespace DomainModels.Mapping
                 Road = hotelPutDto.Road,
                 Zip = hotelPutDto.Zip,
                 City = hotelPutDto.City,
+                Country = hotelPutDto.Country,
                 Phone = hotelPutDto.Phone,
                 Email = hotelPutDto.Email,
                 PercentagePrice = hotelPutDto.PercentagePrice,

@@ -57,6 +57,12 @@ namespace API.Data
                 .HasForeignKey(r => r.HotelId);
 
 
+            modelBuilder.Entity<Roomtype>()
+                .HasMany(t => t.Rooms)
+                .WithOne(r => r.Roomtype)
+                .HasForeignKey(r => r.RoomtypeId);
+
+
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.User)
                 .WithMany(u => u.Bookings)
@@ -70,6 +76,7 @@ namespace API.Data
             // Seed roller og test brugere (kun til udvikling)
             SeedRoles(modelBuilder);
             SeedUser(modelBuilder);
+            SeedRoomtype(modelBuilder);
             SeedHotel(modelBuilder);
         }
 
@@ -132,6 +139,62 @@ namespace API.Data
             modelBuilder.Entity<User>().HasData(users);
         }
 
+        private void SeedRoomtype(ModelBuilder modelBuilder)
+        {
+            var roomtypes = new[]
+            {
+                new Roomtype
+                {
+                    Id = 1,
+                    Name = "Enkeltværelse",
+                    Description = "Et enkeltværelse med én seng, ideelt til én person.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 2,
+                    Name = "Dobbeltværelse",
+                    Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 3,
+                    Name = "Suite",
+                    Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 4,
+                    Name = "Familieværelse",
+                    Description = "Et værelse med plads til hele familien, typisk med flere senge.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 5,
+                    Name = "Deluxe værelse",
+                    Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Roomtype
+                {
+                    Id = 6,
+                    Name = "Handicapvenligt værelse",
+                    Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                }
+            };
+            modelBuilder.Entity<Roomtype>().HasData(roomtypes);
+        }
+
         private void SeedHotel(ModelBuilder modelBuilder)
         {
             var hotels = new[]
@@ -140,13 +203,14 @@ namespace API.Data
                 {
                     Id = 1,
                     Name = "Hotel 1",
-                    Road  = "H. C. Andersens Vej 9",
-                    Zip  = "8800",
-                    City  = "Viborg",
+                    Road = "H. C. Andersens Vej 9",
+                    Zip = "8800",
+                    City = "Viborg",
+                    Country = "Danmark",
                     Phone = 12345678,
-                    Email  = "mercantec@mercantec.dk",
-                    Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
-                    PercentagePrice  = 1,
+                    Email = "mercantec@mercantec.dk",
+                    Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                    PercentagePrice = 1,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -154,13 +218,14 @@ namespace API.Data
                 {
                     Id = 2,
                     Name = "Hotel 2",
-                    Road  = "H. C. Andersens Vej 9",
-                    Zip  = "8800",
-                    City  = "Viborg",
+                    Road = "H. C. Andersens Vej 9",
+                    Zip = "8800",
+                    City = "Viborg",
+                    Country = "Danmark",
                     Phone = 12345678,
-                    Email  = "mercantec@mercantec.dk",
-                    Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
-                    PercentagePrice  = 1,
+                    Email = "mercantec@mercantec.dk",
+                    Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                    PercentagePrice = 1,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -168,13 +233,14 @@ namespace API.Data
                 {
                     Id = 3,
                     Name = "Hotel 3",
-                    Road  = "H. C. Andersens Vej 9",
-                    Zip  = "8800",
-                    City  = "Viborg",
+                    Road = "H. C. Andersens Vej 9",
+                    Zip = "8800",
+                    City = "Viborg",
+                    Country = "Danmark",
                     Phone = 12345678,
-                    Email  = "mercantec@mercantec.dk",
-                    Description  = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
-                    PercentagePrice  = 1,
+                    Email = "mercantec@mercantec.dk",
+                    Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
+                    PercentagePrice = 1,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },

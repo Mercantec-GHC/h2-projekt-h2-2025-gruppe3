@@ -32,7 +32,6 @@ namespace DomainModels
         public required int RoomtypeId { get; set; }
 
 
-        public List<Booking> Bookings { get; set; } = new();
 
 
     }
@@ -41,7 +40,6 @@ namespace DomainModels
     // DTO for room creation / POST
     public class RoomPostDto
     {
-        public required int Id { get; set; }
         public required int RoomNumber { get; set; }
 
         public bool Booked { get; set; }
@@ -63,7 +61,6 @@ namespace DomainModels
         public required int RoomtypeId { get; set; }
 
 
-        public List<Booking> Bookings { get; set; } = new();
     }
 }
 

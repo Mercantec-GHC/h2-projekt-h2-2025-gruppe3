@@ -1,47 +1,77 @@
 ﻿@page "/"
-
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
 @using System.Net.Http
 
-<h1 class="mb-4">Status Dashboard</h1>
 
-<div class="row">
-    <div class="col-md-6 mb-4">
-        <StatusCard 
-            Title="API Status"
-            IconClass="bi bi-heart-pulse text-success"
-            BorderClass="border-success"
-            HealthCheck="@healthCheck" />
-    </div>
-    <div class="col-md-6 mb-4">
-        <StatusCard 
-            Title="Database Status"
-            IconClass="bi bi-database text-warning"
-            BorderClass="border-warning"
-            HealthCheck="@dbHealthCheck" />
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-12">
-        <WeatherTable WeatherForecasts="@weatherForecasts" />
-    </div>
-</div>
+<PageTitle>Home</PageTitle>
+@if (hotels == null)
+{
+	<p><em>Loader hoteller...</em></p>
+}
+else if (hotels.Length == 0)
+{
+	<div class="alert alert-info">Ingen hoteller fundet.</div>
+}
+else
+{
+	<div class="col">
+		<div class="card card-hover overflow-hidden h-100">
+			<div class="h-100">
+				<div class="row g-0">
+					<div class="col-4 col-sm-12 product-border">
+						<div class="ratio ratio-1x1 img-container">
+							<img src="images/hotel_1_outside.jpg" class="" alt="billede af et hotel">
+						</div>
+					</div>
+					@foreach (var h in hotels)
+					{
 
-<div class="row">
-    <div class="col-12">
-        <Counter />
-    </div>
-</div>
 
+						<div class="col">
+							<div class="h-100 d-flex flex-column">
+								<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+									<div class="fw-bold mb-2">@h.Name</div>
+									<div class="col text-end">
+										<div class="active text-alert fw-semibold me-1">@h.PercentagePrice</div>
+									</div>
+									<small class="card-subtitle"><i>@h.Road, @h.Zip, @h.Road, @h.Country</i></small>
+								</div>
+
+
+								<div class="card-body">
+									<div class="row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+										<div class="col text-end text-sm-start">
+											facilitys
+											<span class="mx-1"></span>
+										</div>
+										<div class="col text-end">
+											<div class="active text-alert fw-semibold me-1">rooms avelivebal</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+}
 @code {
-    HealthCheckResponse? healthCheck;
-    HealthCheckResponse? dbHealthCheck;
-    WeatherForecast[]? weatherForecasts;
+	private HotelGetDto[]? hotels;
 
-    protected override async Task OnInitializedAsync()
-    {
-        healthCheck = await ApiService.GetHealthCheckAsync();
-        dbHealthCheck = await ApiService.GetDBHealthCheckAsync();
-        weatherForecasts = await ApiService.GetWeatherAsync(5);
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+			hotels = await ApiService.GetHotelsAsync(3);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
+			hotels = Array.Empty<HotelGetDto>();
+		}
+	}
 }
