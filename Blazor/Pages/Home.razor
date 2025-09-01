@@ -16,27 +16,23 @@ else if (hotels.Length == 0)
 }
 else
 {
-<div class="col">
-	<div class="card card-hover overflow-hidden h-100">
-		<div class="h-100">
-			<div class="row g-0">
-				<div class="col-4 col-sm-12 product-border">
-					<div class="ratio ratio-1x1 img-container">
-						<img src="images/hotel_1_outside.jpg" class="" alt="billede af et hotel">
-					</div>
-				</div>
+
+			
                 @foreach (var h in hotels)
                 {
 
-
-                    <div class="col">
-                        <div class="h-100 d-flex flex-column">
+						hid = $"images/hotel_{h.Id}_outside.jpg";
+	
+			<div class="card col-3 card-img-top">
+			<img src=@hid class="img-thumbnail" alt="billede af et hotel">
+                    <div class="h-100 d-flex flex-column">
 						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+							
 							<div class="fw-bold mb-2">@h.Name</div>
 							<div class="col text-end">
                                     <div class="active text-alert fw-semibold me-1">@h.PercentagePrice</div>
 							</div>
-									<small class="card-subtitle"><i>@h.Road, @h.Zip, @h.Road, @h.Country</i></small>
+								<small class="card-subtitle"><i>@h.Road, @h.Zip, @h.Road, @h.Country</i></small>
 						</div>
 						
 
@@ -52,10 +48,7 @@ else
 						</div>
 					</div>
 				</div>}
-			</div>
-		</div>
-	</div>
-</div>
+	
 }
 @code {
     private HotelGetDto[]? hotels;
@@ -66,6 +59,7 @@ else
         {
             // Hent op til 100 hoteller (tilpas efter behov)
             hotels = await ApiService.GetHotelsAsync(3);
+
         }
         catch (Exception ex)
         {
@@ -73,4 +67,6 @@ else
             hotels = Array.Empty<HotelGetDto>();
         }
     }
+
+	string hid = "";
 }
