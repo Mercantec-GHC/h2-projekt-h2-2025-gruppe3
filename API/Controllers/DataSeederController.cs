@@ -68,6 +68,7 @@ namespace API.Controllers
                     Statistics = stats,
                     Timestamp = DateTime.UtcNow
                 });
+
             }
             catch (Exception ex)
             {
@@ -194,7 +195,9 @@ namespace API.Controllers
 
             try
             {
-                var result = await _seederService.SeedDatabaseAsync(userCount: 0, hotelCount: hotelCount, roomsPerHotel: roomsPerHotel, bookingCount: 0);
+                _logger.LogInformation("Starter database seeding med parametre: Hotels={HotelCount}, RoomsPerHotel={RoomsPerHotel}", hotelCount, roomsPerHotel);
+
+                var result = await _seederService.SeedDatabaseAsync(hotelCount: hotelCount, roomsPerHotel: roomsPerHotel);
                 var stats = await _seederService.GetDatabaseStatsAsync();
 
                 return Ok(new

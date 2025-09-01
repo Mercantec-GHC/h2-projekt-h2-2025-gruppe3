@@ -296,7 +296,6 @@ namespace API.Controllers
                         {
                             b.Room.Id,
                             b.Room.RoomNumber,
-                            b.Room.Booked,
                             HotelId = b.Room.HotelId
                         } : null
                     }).ToList()
