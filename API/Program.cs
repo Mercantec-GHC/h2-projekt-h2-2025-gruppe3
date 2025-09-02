@@ -28,6 +28,9 @@ public class Program
         // Registrer JWT Service
         builder.Services.AddScoped<JwtService>();
 
+        // Registrer Data Seeder Service
+        builder.Services.AddScoped<DataSeederService>();
+
         // Konfigurer JWT Authentication
         var jwtSecretKey = Configuration["Jwt:SecretKey"] ?? Environment.GetEnvironmentVariable("JwtSecretKey");
         var jwtIssuer = Configuration["Jwt:Issuer"] ?? Environment.GetEnvironmentVariable("JwtIssuer");
@@ -108,7 +111,10 @@ public class Program
                         .WithOrigins(
                             "http://localhost:5085",
                             "http://localhost:8052",
-                            "https://h2.mercantec.tech"
+                            "http://localhost:7285",
+                            "https://localhost:7285",
+                            "https://h2.mercantec.tech",
+                            "https://suitedreams.mercantec.tech"
                         )
                         .AllowAnyMethod()
                         .AllowAnyHeader()

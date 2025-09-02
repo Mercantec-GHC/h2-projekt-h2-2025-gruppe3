@@ -1,0 +1,22 @@
+﻿@page "/hotels"
+@using System.Net.Http
+
+<h1 class="mb-4">Dashboard</h1>
+
+
+<div class="row">
+    <div class="col-12">
+        <HotelTable HotelGetDtos="@HotelGetDtos" />
+    </div>
+</div>
+
+
+
+@code {
+    HotelGetDto[]? HotelGetDtos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        HotelGetDtos = await ApiService.GetHotelsAsync(3);
+    }
+}

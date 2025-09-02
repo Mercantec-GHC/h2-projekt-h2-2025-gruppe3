@@ -12,7 +12,6 @@ namespace DomainModels
     {
         public required int RoomNumber { get; set; }
 
-        public bool Booked { get; set; }
 
         public int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
@@ -26,14 +25,43 @@ namespace DomainModels
         public required int Id { get; set; }
         public required int RoomNumber { get; set; }
 
-        public bool Booked { get; set; }
 
         public required int HotelId { get; set; }
         public required int RoomtypeId { get; set; }
 
 
-        public List<Booking> Bookings { get; set; } = new();
+
+
+    }
+<<<<<<< HEAD
+}
+=======
+
+
+    // DTO for room creation / POST
+    public class RoomPostDto
+    {
+        public required int RoomNumber { get; set; }
+
+
+        public required int HotelId { get; set; }
+        public required int RoomtypeId { get; set; }
+    }
+
+
+    // DTO for room update / PUT
+    public class RoomPutDto
+    {
+        public required int Id { get; set; }
+        public required int RoomNumber { get; set; }
+
+
+        public required int HotelId { get; set; }
+        public required int RoomtypeId { get; set; }
 
 
     }
 }
+
+
+>>>>>>> Mark

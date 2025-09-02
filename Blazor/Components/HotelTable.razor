@@ -1,0 +1,57 @@
+@using DomainModels
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <i class="bi bi-house-door-fill"></i> Hoteller
+        </h5>
+        @if (HotelGetDtos == null)
+        {
+            <p><em>Loader hoteller...</em></p>
+        }
+        else if (HotelGetDtos.Length == 0)
+        {
+            <div class="alert alert-info">Ingen hoteller fundet.</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Navn</th>
+                            <th>Adresse</th>
+                            <th>Postnummer</th>
+                            <th>By</th>
+                            <th>Land</th>
+                            <th>Procent Pris</th>
+                            <th>Telefon</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var h in HotelGetDtos)
+                        {
+                            <tr>
+                                <td>@h.Id</td>
+                                <td>@h.Name</td>
+                                <td>@h.Road</td>
+                                <td>@h.City</td>
+                                <td>@h.Zip</td>
+                                <td>@h.Country</td>
+                                <td>@h.PercentagePrice%</td>
+                                <td>@h.Phone</td>
+                                <td>@h.Email</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public HotelGetDto[]? HotelGetDtos { get; set; }
+} 

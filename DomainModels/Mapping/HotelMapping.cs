@@ -17,10 +17,12 @@ namespace DomainModels.Mapping
                 Road = hotel.Road,
                 Zip = hotel.Zip,
                 City = hotel.City,
+                Country = hotel.Country,
                 Phone = hotel.Phone,
                 Email = hotel.Email,
                 PercentagePrice = hotel.PercentagePrice,
-                Description = hotel.Description
+                Description = hotel.Description,
+                FacilityId = hotel.FacilityId
             };
         }
 
@@ -29,7 +31,7 @@ namespace DomainModels.Mapping
             return hotels.Select(h => ToHotelGetDto(h)).ToList();
         }
 
-        public static Hotel ToHotelFromDto(HotelPostDto hotelPostDto)
+        public static Hotel PostHotelFromDto(HotelPostDto hotelPostDto)
         {
             return new Hotel
             {
@@ -38,6 +40,7 @@ namespace DomainModels.Mapping
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,
                 City = hotelPostDto.City,
+                Country = hotelPostDto.Country,
                 Phone = hotelPostDto.Phone,
                 Email = hotelPostDto.Email,
                 PercentagePrice = hotelPostDto.PercentagePrice,
@@ -46,14 +49,25 @@ namespace DomainModels.Mapping
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
         }
+<<<<<<< HEAD
         public static Hotel ToHotelPut(HotelPutDto hotelPutDto) 
         { return new Hotel
+=======
+
+        public static Hotel PutHotelFromDto(HotelPutDto hotelPutDto)
+        {
+            return new Hotel
+>>>>>>> Mark
             {
                 Id = hotelPutDto.Id,
                 Name = hotelPutDto.Name,
                 Road = hotelPutDto.Road,
                 Zip = hotelPutDto.Zip,
                 City = hotelPutDto.City,
+<<<<<<< HEAD
+=======
+                Country = hotelPutDto.Country,
+>>>>>>> Mark
                 Phone = hotelPutDto.Phone,
                 Email = hotelPutDto.Email,
                 PercentagePrice = hotelPutDto.PercentagePrice,

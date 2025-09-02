@@ -3,13 +3,8 @@ using API.Services;
 using DomainModels;
 using DomainModels.Mapping;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Security.Claims;
 
 namespace API.Controllers
@@ -20,7 +15,6 @@ namespace API.Controllers
     {
         private readonly AppDBContext _context;
         private readonly JwtService _jwtService;
-
         private readonly ILogger<UsersController> _logger;
 
         public UsersController(AppDBContext context, JwtService jwtService, ILogger<UsersController> logger)
@@ -302,7 +296,6 @@ namespace API.Controllers
                         {
                             b.Room.Id,
                             b.Room.RoomNumber,
-                            b.Room.Booked,
                             HotelId = b.Room.HotelId
                         } : null
                     }).ToList()
@@ -382,7 +375,7 @@ namespace API.Controllers
                 }
 
                 user.RoleId = dto.RoleId;
-                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedAt = DateTime.UtcNow.AddHours(2);
 
                 await _context.SaveChangesAsync();
                 _logger.LogInformation("Rolle {RoleName} tildelt til bruger {Id}", role.Name, id);
@@ -465,7 +458,7 @@ namespace API.Controllers
                     return BadRequest("Standard brugerrolle ikke fundet.");
 
                 user.RoleId = userRole.Id;
-                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedAt = DateTime.UtcNow.AddHours(2);
                 await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Fjernede rolle fra bruger {Id}, sat til default rolle", id);
