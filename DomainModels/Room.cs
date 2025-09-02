@@ -12,7 +12,6 @@ namespace DomainModels
     {
         public required int RoomNumber { get; set; }
 
-        public bool Booked { get; set; }
 
         public int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
@@ -26,7 +25,6 @@ namespace DomainModels
         public required int Id { get; set; }
         public required int RoomNumber { get; set; }
 
-        public bool Booked { get; set; }
 
         public required int HotelId { get; set; }
         public required int RoomtypeId { get; set; }
@@ -42,7 +40,6 @@ namespace DomainModels
     {
         public required int RoomNumber { get; set; }
 
-        public bool Booked { get; set; }
 
         public required int HotelId { get; set; }
         public required int RoomtypeId { get; set; }
@@ -55,7 +52,6 @@ namespace DomainModels
         public required int Id { get; set; }
         public required int RoomNumber { get; set; }
 
-        public bool Booked { get; set; }
 
         public required int HotelId { get; set; }
         public required int RoomtypeId { get; set; }
