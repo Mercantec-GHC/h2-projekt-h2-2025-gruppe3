@@ -5,19 +5,9 @@ namespace Blazor.Services;
 
 public partial class APIService
 {
-    //public async Task<HotelGetDto[]> GetHotelsAsync(int maxItems = 3)
-    //{
-    //    var hotels = await _httpClient.GetFromJsonAsync<List<HotelGetDto>>(
-    //        "/api/Hotels");
-
-    //    if (hotels == null)
-    //        return Array.Empty<HotelGetDto>();
-
-    //    return hotels.Take(maxItems).ToArray();
-    //}
 
     public async Task<HotelGetDto[]> GetHotelsAsync(
-    int maxItems = 3,
+    int maxItems,
     CancellationToken cancellationToken = default
     )
     {
@@ -30,7 +20,7 @@ public partial class APIService
             )
         )
         {
-            if (hotels?.Count >= maxItems)
+            if (hotels?.Count >= maxItems && maxItems != 0)
             {
                 break;
             }
