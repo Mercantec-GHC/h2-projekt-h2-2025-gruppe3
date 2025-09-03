@@ -57,7 +57,8 @@ namespace DomainModels.Mapping
                 RoomId = bookingPostDto.RoomId,
                 StartDate = bookingPostDto.StartDate,
                 EndDate = bookingPostDto.EndDate,
-                FinalPrice = roomPricePerNight * nights,
+                //FinalPrice = roomPricePerNight * nights,
+                FinalPrice = bookingPostDto.FinalPrice,
                 BookingStatus = 0,
                 Crib = bookingPostDto.Crib,
                 ExtraBed = bookingPostDto.ExtraBed,
@@ -77,7 +78,8 @@ namespace DomainModels.Mapping
             booking.RoomId = bookingPutDto.RoomId;
             booking.StartDate = bookingPutDto.StartDate;
             booking.EndDate = bookingPutDto.EndDate;
-            booking.FinalPrice = roomPricePerNight * nights;
+            //booking.FinalPrice = roomPricePerNight * nights;
+            booking.FinalPrice = bookingPutDto.FinalPrice;
             booking.BookingStatus = 0;
             booking.Crib = bookingPutDto.Crib;
             booking.ExtraBed = bookingPutDto.ExtraBed;

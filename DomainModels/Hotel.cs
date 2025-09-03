@@ -48,6 +48,8 @@ namespace DomainModels
     // DTO for hotel creation / POST
     public class HotelPostDto
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Hotel name is required")]
         public string Name { get; set; } = string.Empty;
 
