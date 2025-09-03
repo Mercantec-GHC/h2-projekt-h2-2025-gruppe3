@@ -61,6 +61,7 @@ namespace API.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    PricePerNight = table.Column<double>(type: "double precision", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -158,17 +159,24 @@ namespace API.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     RoomId = table.Column<int>(type: "integer", nullable: false),
-                    FinalPrice = table.Column<double>(type: "double precision", nullable: false),
+                    FinalPrice = table.Column<double>(type: "double precision", nullable: true),
+                    BookingStatus = table.Column<int>(type: "integer", nullable: false),
                     Crib = table.Column<bool>(type: "boolean", nullable: false),
                     ExtraBed = table.Column<bool>(type: "boolean", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    HotelId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Booking", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Booking_Hotels_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotels",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Booking_Rooms_RoomId",
                         column: x => x.RoomId,
@@ -206,21 +214,26 @@ namespace API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Roomtypes",
-                columns: new[] { "Id", "CreatedAt", "Description", "Name", "UpdatedAt" },
+                columns: new[] { "Id", "CreatedAt", "Description", "Name", "PricePerNight", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et enkeltværelse med én seng, ideelt til én person.", "Enkeltværelse", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et dobbeltværelse med to senge eller en dobbeltseng.", "Dobbeltværelse", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "En suite med ekstra plads og komfort, ofte med separat opholdsområde.", "Suite", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse med plads til hele familien, typisk med flere senge.", "Familieværelse", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et deluxe værelse med ekstra faciliteter og komfort.", "Deluxe værelse", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse designet til gæster med særlige behov og nem adgang.", "Handicapvenligt værelse", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
+                    { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et enkeltværelse med én seng, ideelt til én person.", "Enkeltværelse", 2999.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et dobbeltværelse med to senge eller en dobbeltseng.", "Dobbeltværelse", 3299.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "En suite med ekstra plads og komfort, ofte med separat opholdsområde.", "Suite", 3399.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse med plads til hele familien, typisk med flere senge.", "Familieværelse", 3499.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et deluxe værelse med ekstra faciliteter og komfort.", "Deluxe værelse", 3599.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse designet til gæster med særlige behov og nem adgang.", "Handicapvenligt værelse", 3199.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "HashedPassword", "LastLogin", "LastName", "PasswordBackdoor", "Phone", "RoleId", "Salt", "UpdatedAt" },
                 values: new object[] { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "test@test.com", "test", "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789", null, 4, null, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Booking_HotelId",
+                table: "Booking",
+                column: "HotelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Booking_RoomId",

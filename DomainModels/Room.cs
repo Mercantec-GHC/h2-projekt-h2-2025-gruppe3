@@ -25,7 +25,7 @@ namespace DomainModels
 
         public int HotelId { get; set; }
         public int RoomtypeId { get; set; }
-        public double? RoomtypePricePerNight { get; set; }
+        //public double? RoomtypePricePerNight { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
