@@ -14,9 +14,8 @@ namespace DomainModels.Mapping
             {
                 Id = room.Id,
                 RoomNumber = room.RoomNumber,
-                Booked = room.Booked,
                 HotelId = room.HotelId,
-                RoomtypeId = room.RoomtypeId,
+                RoomtypeId = room.RoomtypeId
             };
         }
 
@@ -30,7 +29,6 @@ namespace DomainModels.Mapping
             return new Room
             {
                 RoomNumber = roomPostDto.RoomNumber,
-                Booked = roomPostDto.Booked,
                 HotelId = roomPostDto.HotelId,
                 RoomtypeId = roomPostDto.RoomtypeId,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
@@ -42,7 +40,6 @@ namespace DomainModels.Mapping
         {
             room.Id = roomPutDto.Id;
             room.RoomNumber = roomPutDto.RoomNumber;
-            room.Booked = roomPutDto.Booked;
             room.HotelId = roomPutDto.HotelId;
             room.RoomtypeId = roomPutDto.RoomtypeId;
             room.CreatedAt = DateTime.UtcNow.AddHours(2);

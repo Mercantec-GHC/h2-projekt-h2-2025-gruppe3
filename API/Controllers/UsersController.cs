@@ -247,6 +247,10 @@ namespace API.Controllers
         /// Hent info om den bruger som er logget ind baseret på JWT token.
         /// </summary>
         /// <returns>Brugerens info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugerne blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugerne blev fundet og retuneret.</response>
 
         [Authorize]
         [HttpGet("me")]
@@ -296,7 +300,6 @@ namespace API.Controllers
                         {
                             b.Room.Id,
                             b.Room.RoomNumber,
-                            b.Room.Booked,
                             HotelId = b.Room.HotelId
                         } : null
                     }).ToList()

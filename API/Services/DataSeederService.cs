@@ -130,9 +130,18 @@ namespace API.Services
                 "Store Kongensgade", "Gothersgade", "Sankt Peders Stræde"
             };
 
+
+
+
+
+
+
+
+
             for (int i = 0; i < count; i++)
             {
                 var baseFaker = new Faker();
+
                 var hotelName = baseFaker.PickRandom(hotelNames) + " " + baseFaker.PickRandom(danishCities);
 
                 // Sikr unikt navn
@@ -156,7 +165,26 @@ namespace API.Services
                 // Fjern alle tegn der ikke er bogstaver, tal eller mellemrum
                 var hotelNameCleaned = Regex.Replace(hotelName, @"[^a-zA-Z0-9 ]", "");
 
-                // hotelNameCleaned = "Hotel dAngleterre og Hoejgaard Aeblegaard"
+
+
+                double PercentagePrice;
+
+                double lowRangeNum = 0.1;
+                double highRangeNum = 1.9;
+
+
+                PercentagePrice = baseFaker.Random.WeightedRandom(new[] { 0.4, 0.8, 1.2, 1.6, 1.9 }, new[] { 0.05f, 0.25f, 0.4f, 0.25f, 0.05f });
+
+                (lowRangeNum, highRangeNum) = PercentagePrice switch
+                {
+                    0.4 => (0.1, 0.4),
+                    0.8 => (0.4, 0.8),
+                    1.2 => (0.8, 1.2),
+                    1.6 => (1.2, 1.6),
+                    1.9 => (1.6, 1.9),
+                    // Default hvis ingen af de andre matcher
+                    _ => (lowRangeNum, highRangeNum) 
+                };
 
                 var hotel = new Hotel
                 {
@@ -164,7 +192,7 @@ namespace API.Services
                     Phone = baseFaker.Random.Int(20000000, 99999999),
                     Email = hotelNameCleaned.ToLower().Replace(" ", "") + "@" + baseFaker.PickRandom(emailDomainNames),
                     Description = baseFaker.Lorem.Paragraphs(1, 2),
-                    PercentagePrice = Math.Round(baseFaker.Random.Double(-0.9, 0.9), 2),
+                    PercentagePrice = Math.Round(baseFaker.Random.Double(lowRangeNum, highRangeNum), 2),
                     Road = baseFaker.PickRandom(danishStreets) + " " + baseFaker.Random.Int(1, 200),
                     Zip = baseFaker.Random.Int(1000, 9999).ToString(),
                     City = baseFaker.PickRandom(danishCities),
