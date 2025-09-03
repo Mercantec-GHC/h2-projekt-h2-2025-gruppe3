@@ -35,7 +35,6 @@ namespace DomainModels.Mapping
         {
             return new Hotel
             {
-                Id = hotelPostDto.Id,
                 Name = hotelPostDto.Name,
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,

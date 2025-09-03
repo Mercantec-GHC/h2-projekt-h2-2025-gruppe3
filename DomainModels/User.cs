@@ -11,7 +11,7 @@ namespace DomainModels
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public required string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
         public int? Phone { get; set; }
         public string HashedPassword { get; set; } = string.Empty;
         public string? Salt { get; set; }
@@ -23,33 +23,6 @@ namespace DomainModels
 
     }
 
-    // DTO til registrering
-    public class RegisterDto
-    {
-        [EmailAddress(ErrorMessage = "Ugyldig email adresse")]
-        [Required(ErrorMessage = "Email er påkrævet")]
-        public string Email { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Brugernavn er påkrævet")]
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Adgangskode er påkrævet")]
-        [MinLength(8, ErrorMessage = "Adgangskoden skal være mindst 8 tegn lang")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Adgangskoden skal indeholde mindst ét tal, ét stort bogstav, ét lille bogstav og et specialtegn")]
-        public string Password { get; set; } = string.Empty;
-    }
-
-    // DTO til login
-    public class LoginDto
-    {
-        [EmailAddress(ErrorMessage = "Ugyldig email adresse")]
-        [Required(ErrorMessage = "Email er påkrævet")]
-        public string Email { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Adgangskode er påkrævet")]
-        [MinLength(8, ErrorMessage = "Adgangskoden skal være mindst 8 tegn lang")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Adgangskoden skal indeholde mindst ét tal, ét stort bogstav, ét lille bogstav og et specialtegn")]
-        public string Password { get; set; } = string.Empty;
-    }
-
     // DTO for getting user info - Hiding Password
     public class UserGetDto
     {
@@ -59,6 +32,50 @@ namespace DomainModels
         public int? Phone { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
     }
+
+    // DTO til registrering
+    public class RegisterDto
+    {
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Username is required")]
+        public string FirstName { get; set; } = string.Empty;
+
+        public string LastName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one number, one uppercase letter, one lowercase letter, and one special character")]
+        public string Password { get; set; } = string.Empty;
+    }
+
+    // DTO til login
+    public class LoginDto
+    {
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one number, one uppercase letter, one lowercase letter, and one special character")]
+        public string Password { get; set; } = string.Empty;
+    }
+
+    //public class UserPutDto
+    //{
+    //    public int Id { get; set; }
+    //    public string FirstName { get; set; } = string.Empty;
+    //    public string LastName { get; set; } = string.Empty;
+    //    public int? Phone { get; set; }
+    //    public string Email { get; set; } = string.Empty;
+    //    public string Role { get; set; } = string.Empty;
+
+    //}
 }

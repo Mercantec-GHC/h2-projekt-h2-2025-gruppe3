@@ -24,14 +24,14 @@ namespace API.Controllers
             _logger = logger;
         }
 
-		/// <summary>
-		/// Henter alle brugere, hvis der er logget ind som admin.
-		/// </summary>
-		/// <returns>User info.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Brugerne blev ikke fundet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Brugerne blev fundet og retuneret.</response>
+        /// <summary>
+        /// Henter alle brugere, hvis der er logget ind som admin.
+        /// </summary>
+        /// <returns>User info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugerne blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugerne blev fundet og retuneret.</response>
 
         // GET: api/Users
         [Authorize(Roles = "Admin")]
@@ -64,7 +64,7 @@ namespace API.Controllers
         /// <response code="404">Brugeren blev ikke fundet.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Brugeren blev fundet og retuneret.</response>
-        
+
         // GET: api/Users/UUID
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGetDto>> GetUser(int id)
@@ -247,6 +247,10 @@ namespace API.Controllers
         /// Hent info om den bruger som er logget ind baseret på JWT token.
         /// </summary>
         /// <returns>Brugerens info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Brugerne blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Brugerne blev fundet og retuneret.</response>
 
         [Authorize]
         [HttpGet("me")]
@@ -267,7 +271,7 @@ namespace API.Controllers
                   .Include(u => u.Bookings) // inkluder bookinger
                       .ThenInclude(b => b.Room) // inkluder rum for hver booking
                   .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-                
+
                 if (user == null)
                 {
                     _logger.LogWarning("Bruger {Id} ikke fundet i databasen", userId);
