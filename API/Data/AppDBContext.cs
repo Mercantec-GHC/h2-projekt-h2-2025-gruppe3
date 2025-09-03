@@ -147,7 +147,7 @@ namespace API.Data
                     Id = 1,
                     Name = "Enkeltværelse",
                     Description = "Et enkeltværelse med én seng, ideelt til én person.",
-                    BasePrice = 2999.99,
+                    PricePerNight = 2999.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -156,7 +156,7 @@ namespace API.Data
                     Id = 2,
                     Name = "Dobbeltværelse",
                     Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
-                    BasePrice = 3299.99,
+                    PricePerNight = 3299.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -165,7 +165,7 @@ namespace API.Data
                     Id = 3,
                     Name = "Suite",
                     Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
-                    BasePrice = 3399.99,
+                    PricePerNight = 3399.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -174,7 +174,7 @@ namespace API.Data
                     Id = 4,
                     Name = "Familieværelse",
                     Description = "Et værelse med plads til hele familien, typisk med flere senge.",
-                    BasePrice = 3499.99,
+                    PricePerNight = 3499.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -183,7 +183,7 @@ namespace API.Data
                     Id = 5,
                     Name = "Deluxe værelse",
                     Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
-                    BasePrice = 3599.99,
+                    PricePerNight = 3599.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -192,7 +192,7 @@ namespace API.Data
                     Id = 6,
                     Name = "Handicapvenligt værelse",
                     Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
-                    BasePrice = 3199.99,
+                    PricePerNight = 3199.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 }
