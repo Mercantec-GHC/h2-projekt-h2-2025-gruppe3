@@ -18,7 +18,7 @@ namespace DomainModels
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
-        public double PercentagePrice { get; set; }
+        public double PercentagePrice { get; set; } = 1;
         public Facility? Facility { get; set; }
         public int FacilityId { get; set; }
 

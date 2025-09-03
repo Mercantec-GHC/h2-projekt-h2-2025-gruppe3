@@ -128,7 +128,6 @@ namespace API.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoomNumber = table.Column<int>(type: "integer", nullable: false),
-                    Booked = table.Column<bool>(type: "boolean", nullable: false),
                     HotelId = table.Column<int>(type: "integer", nullable: false),
                     RoomtypeId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
