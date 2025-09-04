@@ -13,7 +13,7 @@ namespace Blazor.Services
     {
         public async Task<HotelGetDto[]> GetHotelsAsync(int maxItems = 3)
         {
-            var hotels = await _httpClient.GetFromJsonAsync<List<HotelGetDto>>(
+            var hotels = await httpClient.GetFromJsonAsync<List<HotelGetDto>>(
                 "/api/Hotels");
 
             if (hotels == null)
