@@ -14,21 +14,22 @@
 }
 else if (hotels.Length == 0)
 {
-	<div class="alert alert-info">No hotels found.</div>
+	<div class="alert alert-info w-100 h-100">No hotels found.</div>
 }
 else
 {
 
-	<div class="d-flex justify-content-center">
+	<div class="d-flex justify-content-center w-100 h-100">
 
 
 	@foreach (var h in hotels)
 		{
-			<div class="card col-3 float-start m-1 h-25">
+			<div class="card col-3 float-start m-1 mt-2 h-25" style="background-color:aliceblue;">
 				<a href="/hotel/@h.Id" class="text-black text-decoration-none">
 					<img src="images/hotel_@(h.Id)_outside.jpg" class="" alt="billede af et hotel" style="margin:0 auto; width:100%; height:50%;">
 					<div class="h-100 d-flex flex-column">
-						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+						<div class="border-bottom">
+						<div class="card-body row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
 
 							<div class="fw-bold mb-2 h3">@h.Name</div>
 							<div class="col text-end">
@@ -36,7 +37,8 @@ else
 							</div>
 							@* make a check if user is on phone or desktop and reduce the text size accordingly *@
 							<p class="card-subtitle"><i>@h.Road,<br /> @h.Zip @h.City, @h.Country</i></p>
-						</div>
+                            </div>
+                        </div>
 
 						<div class="card-body">
 
@@ -89,4 +91,5 @@ else
 			rooms = Array.Empty<RoomGetDto>();
 		}
 
+}
 }
