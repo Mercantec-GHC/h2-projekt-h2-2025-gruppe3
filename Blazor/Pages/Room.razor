@@ -1,22 +1,65 @@
-﻿@page "/rooms"
+﻿@page "/hotel/{hotelId:int}/room/{roomId:int}"
+@using DomainModels
+@inject Blazor.Services.APIService ApiService
 @using System.Net.Http
 
-<h1 class="mb-4">Dashboard</h1>
+<PageTitle>Suite Dreams - Room</PageTitle>
+@if (rooms == null)
+{
+	<p><em>Loading rooms...</em></p>
+}
+else if (rooms.Length == 0)
+{
+	<div class="alert alert-info">No rooms found.</div>
+}
+else
+{
+	<div class="d-flex justify-content-center">
 
+	@foreach (var r in rooms)
+		{
+			if (r.Id == roomId)
+			{
+			<div class="card col-3 float-start m-1 h-25">
+				<div class="h-100 d-flex flex-column">
+					<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+						<div class="fw-bold mb-2">@r.RoomNumber</div>
+						<div class="col text-end">
+						</div>
+					</div>
 
-<div class="row">
-    <div class="col-12">
-        <RoomTable RoomGetDtos="@RoomGetDtos" />
-    </div>
-</div>
-
-
+					<div class="card-body">
+						<span class="mx-1"></span>
+						<div class="col text-center">
+							<div class="active text-alert fw-semibold me-1"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			}
+		}
+	</div>
+}
 
 @code {
-    RoomGetDto[]? RoomGetDtos;
+	[Parameter]
+	public int hotelId { get; set; } // Denne parameter binder værdien fra URL'en
 
-    protected override async Task OnInitializedAsync()
-    {
-        RoomGetDtos = await ApiService.GetRoomsAsync(0);
-    }
+	[Parameter]
+	public int roomId { get; set; } // Denne parameter binder værdien fra URL'en
+
+	private RoomGetDto[]? rooms;
+
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+			rooms = await ApiService.GetRoomsAsync(0);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
+			rooms = Array.Empty<RoomGetDto>();
+		}
+	}
 }
