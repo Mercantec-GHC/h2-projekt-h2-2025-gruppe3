@@ -74,11 +74,130 @@ namespace API.Data
                 .HasForeignKey(b => b.RoomId);
 
             // Seed roller og test brugere (kun til udvikling)
+            SeedRoom(modelBuilder);
             SeedRoles(modelBuilder);
             SeedUser(modelBuilder);
             SeedRoomtype(modelBuilder);
             SeedHotel(modelBuilder);
         }
+
+
+        private void SeedRoom(ModelBuilder modelBuilder)
+        {
+            var roomtypes = new[]
+            {
+                new Room
+                {
+                    Id = 1,
+                    RoomNumber = 101,
+                    HotelId = 1,
+                    RoomtypeId = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 2,
+                    RoomNumber = 102,
+                    HotelId = 1,
+                    RoomtypeId = 2,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 3,
+                    RoomNumber = 103,
+                    HotelId = 1,
+                    RoomtypeId = 3,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 4,
+                    RoomNumber = 104,
+                    HotelId = 2,
+                    RoomtypeId = 4,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 5,
+                    RoomNumber = 105,
+                    HotelId = 2,
+                    RoomtypeId = 5,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 6,
+                    RoomNumber = 106,
+                    HotelId = 2,
+                    RoomtypeId = 6,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 7,
+                    RoomNumber = 107,
+                    HotelId = 2,
+                    RoomtypeId = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 8,
+                    RoomNumber = 108,
+                    HotelId = 3,
+                    RoomtypeId = 2,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 9,
+                    RoomNumber = 109,
+                    HotelId = 3,
+                    RoomtypeId = 3,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 10,
+                    RoomNumber = 110,
+                    HotelId = 3,
+                    RoomtypeId = 4,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 11,
+                    RoomNumber = 111,
+                    HotelId = 3,
+                    RoomtypeId = 5,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 12,
+                    RoomNumber = 112,
+                    HotelId = 3,
+                    RoomtypeId = 6,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                }
+            };
+            modelBuilder.Entity<Room>().HasData(roomtypes);
+        }
+
 
 
         private void SeedRoles(ModelBuilder modelBuilder)
