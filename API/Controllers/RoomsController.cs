@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Henter alle roomler.
+        /// Henter alle rum.
         /// </summary>
         /// <returns>Rummets info.</returns>
         /// <response code="500">Intern serverfejl.</response>
@@ -38,17 +38,17 @@ namespace API.Controllers
         {
             try
             {
-                _logger.LogInformation("Henter alle roomler");
+                _logger.LogInformation("Henter alle rum");
                 var rooms = await _context.Rooms.ToListAsync();
                 var result = RoomMapping.ToRoomGetDtos(rooms);
 
-                _logger.LogInformation("Hentet {Count} roomler succesfuldt", result.Count);
+                _logger.LogInformation("Hentet {Count} rum succesfuldt", result.Count);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fejl ved hentning af roomler");
-                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af roomler");
+                _logger.LogError(ex, "Fejl ved hentning af rum");
+                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af rum");
             }
         }
 

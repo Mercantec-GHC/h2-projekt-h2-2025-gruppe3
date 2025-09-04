@@ -74,11 +74,130 @@ namespace API.Data
                 .HasForeignKey(b => b.RoomId);
 
             // Seed roller og test brugere (kun til udvikling)
+            SeedRoom(modelBuilder);
             SeedRoles(modelBuilder);
             SeedUser(modelBuilder);
             SeedRoomtype(modelBuilder);
             SeedHotel(modelBuilder);
         }
+
+
+        private void SeedRoom(ModelBuilder modelBuilder)
+        {
+            var roomtypes = new[]
+            {
+                new Room
+                {
+                    Id = 1,
+                    RoomNumber = 101,
+                    HotelId = 1,
+                    RoomtypeId = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 2,
+                    RoomNumber = 102,
+                    HotelId = 1,
+                    RoomtypeId = 2,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 3,
+                    RoomNumber = 103,
+                    HotelId = 1,
+                    RoomtypeId = 3,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 4,
+                    RoomNumber = 104,
+                    HotelId = 2,
+                    RoomtypeId = 4,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 5,
+                    RoomNumber = 105,
+                    HotelId = 2,
+                    RoomtypeId = 5,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 6,
+                    RoomNumber = 106,
+                    HotelId = 2,
+                    RoomtypeId = 6,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 7,
+                    RoomNumber = 107,
+                    HotelId = 2,
+                    RoomtypeId = 1,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 8,
+                    RoomNumber = 108,
+                    HotelId = 3,
+                    RoomtypeId = 2,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 9,
+                    RoomNumber = 109,
+                    HotelId = 3,
+                    RoomtypeId = 3,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 10,
+                    RoomNumber = 110,
+                    HotelId = 3,
+                    RoomtypeId = 4,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 11,
+                    RoomNumber = 111,
+                    HotelId = 3,
+                    RoomtypeId = 5,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                },
+                new Room
+                {
+                    Id = 12,
+                    RoomNumber = 112,
+                    HotelId = 3,
+                    RoomtypeId = 6,
+                    CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
+                }
+            };
+            modelBuilder.Entity<Room>().HasData(roomtypes);
+        }
+
 
 
         private void SeedRoles(ModelBuilder modelBuilder)
@@ -87,7 +206,6 @@ namespace API.Data
             {
                 new Role
                 {
-                    // Nyt tilfældigt guid
                     Id = 1,
                     Name = "User",
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
@@ -148,6 +266,7 @@ namespace API.Data
                     Id = 1,
                     Name = "Enkeltværelse",
                     Description = "Et enkeltværelse med én seng, ideelt til én person.",
+                    PricePerNight = 2999.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -156,6 +275,7 @@ namespace API.Data
                     Id = 2,
                     Name = "Dobbeltværelse",
                     Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
+                    PricePerNight = 3299.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -164,6 +284,7 @@ namespace API.Data
                     Id = 3,
                     Name = "Suite",
                     Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
+                    PricePerNight = 3399.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -172,6 +293,7 @@ namespace API.Data
                     Id = 4,
                     Name = "Familieværelse",
                     Description = "Et værelse med plads til hele familien, typisk med flere senge.",
+                    PricePerNight = 3499.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -180,6 +302,7 @@ namespace API.Data
                     Id = 5,
                     Name = "Deluxe værelse",
                     Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
+                    PricePerNight = 3599.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -188,6 +311,7 @@ namespace API.Data
                     Id = 6,
                     Name = "Handicapvenligt værelse",
                     Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
+                    PricePerNight = 3199.99,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 }

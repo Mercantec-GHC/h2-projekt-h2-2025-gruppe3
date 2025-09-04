@@ -1,25 +1,36 @@
-﻿// Services/APIService.Hotels.cs
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using DomainModels;
 
-namespace Blazor.Services
+namespace Blazor.Services;
+
+public partial class APIService
 {
-    public partial class APIService
+
+    public async Task<HotelGetDto[]> GetHotelsAsync(
+    int maxItems,
+    CancellationToken cancellationToken = default
+    )
     {
-        public async Task<HotelGetDto[]> GetHotelsAsync(int maxItems = 3)
+        List<HotelGetDto>? hotels = null;
+
+        await foreach (
+            var hotel in httpClient.GetFromJsonAsAsyncEnumerable<HotelGetDto>(
+                "/api/Hotels",
+                cancellationToken
+            )
+        )
         {
-            var hotels = await httpClient.GetFromJsonAsync<List<HotelGetDto>>(
-                "/api/Hotels");
-
-            if (hotels == null)
-                return Array.Empty<HotelGetDto>();
-
-            return hotels.Take(maxItems).ToArray();
+            if (hotels?.Count >= maxItems && maxItems != 0)
+            {
+                break;
+            }
+            if (hotel is not null)
+            {
+                hotels ??= [];
+                hotels.Add(hotel);
+            }
         }
+
+        return hotels?.ToArray() ?? [];
     }
 }
