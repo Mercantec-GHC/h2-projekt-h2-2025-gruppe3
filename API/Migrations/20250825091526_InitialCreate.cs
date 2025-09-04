@@ -28,11 +28,7 @@ namespace API.Migrations
                     Phone = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-<<<<<<<< HEAD:API/Migrations/20250825091526_InitialCreate.cs
-                    PercentagePrice = table.Column<float>(type: "real", nullable: false),
-========
                     PercentagePrice = table.Column<double>(type: "double precision", nullable: false),
->>>>>>>> Mark:API/Migrations/20250901092040_InitialCreate.cs
                     FacilityId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -132,6 +128,7 @@ namespace API.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoomNumber = table.Column<int>(type: "integer", nullable: false),
+                    Booked = table.Column<bool>(type: "boolean", nullable: false),
                     HotelId = table.Column<int>(type: "integer", nullable: false),
                     RoomtypeId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -237,15 +234,6 @@ namespace API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-<<<<<<<< HEAD:API/Migrations/20250825091526_InitialCreate.cs
-                name: "IX_Facilities_HotelId",
-                table: "Facilities",
-                column: "HotelId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-========
->>>>>>>> Mark:API/Migrations/20250901092040_InitialCreate.cs
                 name: "IX_Roles_Name",
                 table: "Roles",
                 column: "Name",

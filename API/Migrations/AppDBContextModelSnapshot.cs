@@ -89,14 +89,7 @@ namespace API.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-<<<<<<< HEAD
-                    b.HasKey("Id");
-
-                    b.HasIndex("HotelId")
-                        .IsUnique();
-=======
                     b.HasKey("HotelId");
->>>>>>> Mark
 
                     b.ToTable("Facilities");
                 });
@@ -271,6 +264,9 @@ namespace API.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Booked")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -466,11 +462,7 @@ namespace API.Migrations
             modelBuilder.Entity("DomainModels.Facility", b =>
                 {
                     b.HasOne("DomainModels.Hotel", "Hotel")
-<<<<<<< HEAD
-                        .WithOne("Facilities")
-=======
                         .WithOne("Facility")
->>>>>>> Mark
                         .HasForeignKey("DomainModels.Facility", "HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -510,11 +502,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
                 {
-<<<<<<< HEAD
-                    b.Navigation("Facilities");
-=======
                     b.Navigation("Facility");
->>>>>>> Mark
 
                     b.Navigation("Rooms");
                 });

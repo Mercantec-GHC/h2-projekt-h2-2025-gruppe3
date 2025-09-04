@@ -1,10 +1,15 @@
-﻿using API.Data;
+using API.Data;
 using API.Services;
 using DomainModels;
 using DomainModels.Mapping;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Security.Claims;
 
 namespace API.Controllers
@@ -24,15 +29,15 @@ namespace API.Controllers
             _logger = logger;
         }
 
-		/// <summary>
-		/// Henter alle hoteller.
-		/// </summary>
-		/// <returns>Hotellets info.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Hotellet blev ikke fundet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Hotellet blev fundet og retuneret.</response>
-		// GET: api/Hotels
+        /// <summary>
+        /// Henter alle hoteller.
+        /// </summary>
+        /// <returns>Hotellets info.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Hotellet blev ikke fundet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Hotellet blev fundet og retuneret.</response>
+        // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
         {
@@ -96,7 +101,7 @@ namespace API.Controllers
         /// <response code="404">Hotellet blev ikke opdateret.</response>
         /// <response code="403">Ingen adgang.</response>
         /// <response code="200">Hotellet blev opdateret.</response>
-        
+
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -146,7 +151,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(HotelPostDto hotelDto)
         {
-           try
+            try
             {
                 Hotel hotel = HotelMapping.PostHotelFromDto(hotelDto);
                 _context.Hotels.Add(hotel);
@@ -171,16 +176,16 @@ namespace API.Controllers
             }
         }
 
-		/// <summary>
-		/// Sletter et hotel.
-		/// </summary>
-		/// <param name="id"> Hotellets id.</param>
-		/// <returns>Sletter et hotel.</returns>
-		/// <response code="500">Intern serverfejl.</response>
-		/// <response code="404">Hotellet blev ikke slettet.</response>
-		/// <response code="403">Ingen adgang.</response>
-		/// <response code="200">Hotellet blev slettet.</response>
-        
+        /// <summary>
+        /// Sletter et hotel.
+        /// </summary>
+        /// <param name="id"> Hotellets id.</param>
+        /// <returns>Sletter et hotel.</returns>
+        /// <response code="500">Intern serverfejl.</response>
+        /// <response code="404">Hotellet blev ikke slettet.</response>
+        /// <response code="403">Ingen adgang.</response>
+        /// <response code="200">Hotellet blev slettet.</response>
+
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)

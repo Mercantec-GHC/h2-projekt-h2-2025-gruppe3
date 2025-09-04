@@ -107,8 +107,8 @@ namespace API.Services
             {
                 // Danske domæner
                 "gmail.com","hotmail.com","outlook.com",
-                
-                
+
+
                 "live.dk","mail.dk","posteo.dk","privat.dk",
                 "stofanet.dk","youmail.dk","jubii.dk","tdc.dk","get2net.dk","mailme.dk","firma.dk",
                 // Udenlandske domæner
@@ -320,7 +320,7 @@ namespace API.Services
                              //$"- Slettet {bookingCount} bookinger\n" +
                              $"- Slettet {roomCount} rum\n" +
                              $"- Slettet {hotelCount} hoteller\n";
-                             //$"- Slettet {userCount} brugere";
+                //$"- Slettet {userCount} brugere";
 
                 _logger.LogInformation("Database ryddet succesfuldt");
                 return summary;
