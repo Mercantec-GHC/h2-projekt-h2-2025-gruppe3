@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250901092040_InitialCreate")]
+    [Migration("20250903223241_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,6 +33,9 @@ namespace API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BookingStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -45,8 +48,11 @@ namespace API.Migrations
                     b.Property<bool>("ExtraBed")
                         .HasColumnType("boolean");
 
-                    b.Property<double>("FinalPrice")
+                    b.Property<double?>("FinalPrice")
                         .HasColumnType("double precision");
+
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("integer");
@@ -61,6 +67,8 @@ namespace API.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
 
                     b.HasIndex("RoomId");
 
@@ -290,6 +298,116 @@ namespace API.Migrations
                     b.HasIndex("RoomtypeId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 101,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 102,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 103,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 104,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 105,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 106,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 107,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 108,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 109,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 110,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 111,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 112,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("DomainModels.Roomtype", b =>
@@ -311,6 +429,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("PricePerNight")
+                        .HasColumnType("double precision");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -325,6 +446,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et enkeltværelse med én seng, ideelt til én person.",
                             Name = "Enkeltværelse",
+                            PricePerNight = 2999.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -333,6 +455,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
                             Name = "Dobbeltværelse",
+                            PricePerNight = 3299.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -341,6 +464,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
                             Name = "Suite",
+                            PricePerNight = 3399.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -349,6 +473,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et værelse med plads til hele familien, typisk med flere senge.",
                             Name = "Familieværelse",
+                            PricePerNight = 3499.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -357,6 +482,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
                             Name = "Deluxe værelse",
+                            PricePerNight = 3599.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -365,6 +491,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
                             Name = "Handicapvenligt værelse",
+                            PricePerNight = 3199.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
@@ -442,6 +569,10 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Booking", b =>
                 {
+                    b.HasOne("DomainModels.Hotel", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("HotelId");
+
                     b.HasOne("DomainModels.Room", "Room")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
@@ -502,6 +633,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("DomainModels.Hotel", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("Facility");
 
                     b.Navigation("Rooms");
