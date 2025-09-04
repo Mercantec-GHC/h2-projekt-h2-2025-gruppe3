@@ -295,6 +295,116 @@ namespace API.Migrations
                     b.HasIndex("RoomtypeId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 101,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 102,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 1,
+                            RoomNumber = 103,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 104,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 105,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 106,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 2,
+                            RoomNumber = 107,
+                            RoomtypeId = 1,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 108,
+                            RoomtypeId = 2,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 109,
+                            RoomtypeId = 3,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 110,
+                            RoomtypeId = 4,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 111,
+                            RoomtypeId = 5,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            HotelId = 3,
+                            RoomNumber = 112,
+                            RoomtypeId = 6,
+                            UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("DomainModels.Roomtype", b =>

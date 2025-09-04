@@ -226,6 +226,25 @@ namespace API.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "CreatedAt", "HotelId", "RoomNumber", "RoomtypeId", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 1, 101, 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 1, 102, 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 1, 103, 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 2, 104, 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 2, 105, 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 2, 106, 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 7, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 2, 107, 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 8, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 3, 108, 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 9, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 3, 109, 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 10, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 3, 110, 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 11, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 3, 111, 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 12, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), 3, 112, 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "HashedPassword", "LastLogin", "LastName", "PasswordBackdoor", "Phone", "RoleId", "Salt", "UpdatedAt" },
                 values: new object[] { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "test@test.com", "test", "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789", null, 4, null, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) });
