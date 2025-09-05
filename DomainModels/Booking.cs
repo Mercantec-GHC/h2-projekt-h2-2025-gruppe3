@@ -16,7 +16,7 @@ namespace DomainModels
         public int RoomId { get; set; }
         public Room? Room { get; set; }
         public double? FinalPrice { get; set; }
-        public BookingStatus BookingStatus { get; set; } = BookingStatus.Confirmed; // Confirmed, Cancelled, CheckedIn, CheckedOut
+        public BookingStatus BookingStatus { get; set; } = BookingStatus.Confirmed;
         public bool Crib { get; set; }
         public bool ExtraBed { get; set; }
 
@@ -32,8 +32,7 @@ namespace DomainModels
         public string? UserLastName { get; set; }
         public int RoomId { get; set; }
         public int? RoomRoomNumber { get; set; }
-        public int? RoomtypeId { get; set; }
-        public double? RoomRoomtypePricePerNight { get; set; }
+        public double? RoomtypePricePerNight { get; set; }
         public string? HotelName { get; set; }
         public double? FinalPrice { get; set; }
         public BookingStatus BookingStatus { get; set; }

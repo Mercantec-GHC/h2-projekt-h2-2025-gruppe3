@@ -1,5 +1,6 @@
-using System.Net.Http.Json;
+using Blazor.Pages;
 using DomainModels;
+using System.Net.Http.Json;
 
 namespace Blazor.Services;
 
@@ -33,4 +34,28 @@ public partial class APIService
 
         return rooms?.ToArray() ?? [];
     }
+
+
+    public async Task<RoomGetDto[]> GetRoomAsync(
+        int roomId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        RoomGetDto? room = null;
+
+        if (roomId != 0)
+        {
+            try
+            {
+                room = await httpClient.GetFromJsonAsync<RoomGetDto>($"/api/Rooms/{roomId}", cancellationToken);
+            }
+            catch (HttpRequestException)
+            {
+                return Array.Empty<RoomGetDto>();
+            }
+        }
+
+    return room is null ? Array.Empty<RoomGetDto>() : new[] { room };
+    }
+
 }

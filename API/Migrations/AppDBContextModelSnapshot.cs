@@ -71,7 +71,7 @@ namespace API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Booking");
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("DomainModels.Facility", b =>

@@ -15,6 +15,7 @@ namespace API.Data
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<Hotel> Hotels { get; set; } = null!;
         public DbSet<Room> Rooms { get; set; } = null!;
+        public DbSet<Booking> Bookings { get; set; } = null!;
         public DbSet<Facility> Facilities { get; set; } = null!;
         public DbSet<Roomtype> Roomtypes { get; set; } = null!;
 
