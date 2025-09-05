@@ -16,28 +16,28 @@ else
 {
 	<div class="d-flex justify-content-center">
 
-	@foreach (var r in rooms)
+		@foreach (var r in rooms)
 		{
 			if (r.HotelId == hotelId)
 			{
-			<div class="card col-3 float-start m-1 h-25">
-					<a href="/hotel/@hotelId/room/@r.Id">
-					<div class="h-100 d-flex flex-column">
-						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
-							<div class="fw-bold mb-2">@r.RoomNumber</div>
-							<div class="col text-end">
+				<div class="card col-3 float-start m-1 h-25">
+					<a href="/hotel/@hotelId/room/@r.Id" class="text-black text-decoration-none">
+						<div class="h-100 d-flex flex-column">
+							<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+								<div class="fw-bold mb-2">@r.RoomNumber</div>
+								<div class="col text-end">
+								</div>
 							</div>
-						</div>
 
-						<div class="card-body">
-							<span class="mx-1"></span>
-							<div class="col text-center">
-								<div class="active text-alert fw-semibold me-1"></div>
+							<div class="card-body">
+								<span class="mx-1"></span>
+								<div class="col text-center">
+									<div class="active text-alert fw-semibold me-1"></div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</a>
-			</div>
+					</a>
+				</div>
 			}
 		}
 	</div>
