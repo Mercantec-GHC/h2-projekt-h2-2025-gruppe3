@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModels.Mapping
 {
+    // BookingMapping.cs
     public class BookingMapping
     {
         /// <summary>
@@ -24,7 +25,7 @@ namespace DomainModels.Mapping
                 UserLastName = booking.User?.LastName,
                 RoomId = booking.RoomId,
                 RoomRoomNumber = booking.Room?.RoomNumber,
-                RoomtypeId = booking.Room?.RoomtypeId,
+                RoomtypePricePerNight = booking.Room?.Roomtype?.PricePerNight,
                 HotelName = booking.Room?.Hotel?.Name ?? string.Empty,
                 StartDate = booking.StartDate,
                 EndDate = booking.EndDate,
@@ -48,7 +49,7 @@ namespace DomainModels.Mapping
         /// <summary>
         /// Konverterer BookingPostDto til Booking entity
         /// </summary>
-        public static Booking ToBookingFromPostDto(BookingPostDto bookingPostDto, decimal roomPricePerNight)
+        public static Booking ToBookingFromPostDto(BookingPostDto bookingPostDto, double roomPricePerNight)
         {
             var nights = (bookingPostDto.EndDate - bookingPostDto.StartDate).Days;
             return new Booking
@@ -57,8 +58,7 @@ namespace DomainModels.Mapping
                 RoomId = bookingPostDto.RoomId,
                 StartDate = bookingPostDto.StartDate,
                 EndDate = bookingPostDto.EndDate,
-                //FinalPrice = roomPricePerNight * nights,
-                FinalPrice = bookingPostDto.FinalPrice,
+                FinalPrice = roomPricePerNight * nights,
                 BookingStatus = 0,
                 Crib = bookingPostDto.Crib,
                 ExtraBed = bookingPostDto.ExtraBed,
@@ -70,7 +70,7 @@ namespace DomainModels.Mapping
         /// <summary>
         /// Opdaterer Booking entity med data fra BookingPutDto
         /// </summary>
-        public static void UpdateBookingFromPutDto(Booking booking, BookingPutDto bookingPutDto, decimal roomPricePerNight)
+        public static void UpdateBookingFromPutDto(Booking booking, BookingPutDto bookingPutDto, double roomPricePerNight)
         {
             var nights = (bookingPutDto.EndDate - bookingPutDto.StartDate).Days;
 
@@ -78,8 +78,7 @@ namespace DomainModels.Mapping
             booking.RoomId = bookingPutDto.RoomId;
             booking.StartDate = bookingPutDto.StartDate;
             booking.EndDate = bookingPutDto.EndDate;
-            //booking.FinalPrice = roomPricePerNight * nights;
-            booking.FinalPrice = bookingPutDto.FinalPrice;
+            booking.FinalPrice = roomPricePerNight * nights;
             booking.BookingStatus = 0;
             booking.Crib = bookingPutDto.Crib;
             booking.ExtraBed = bookingPutDto.ExtraBed;

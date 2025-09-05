@@ -18,49 +18,54 @@ else
 {
 	<div class="d-flex justify-content-center">
 
-	@foreach (var h in hotels)
+		@foreach (var h in hotels)
 		{
-			<div class="card col-3 float-start m-1 h-25">
-				<a href="/hotel/@h.Id">
-					<img src="images/hotel_@(h.Id)_outside.jpg" class="" alt="billede af et hotel" style="margin:0 auto; width:100%; height:50%;">
-					<div class="h-100 d-flex flex-column">
-						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+            <div class="card col-3 float-start m-1 h-100">
+                <a href="/hotel/@h.Id" class="text-black text-decoration-none">
+                    <div class="ratio ratio-16x9 overflow-hidden">
+                        <img src="images/hotel_@(h.Id)_outside.jpg"
+                             class="w-100 h-100 object-fit-cover"
+                             alt="billede af et hotel">
+                    </div>
 
-							<div class="fw-bold mb-2">@h.Name</div>
-							<div class="col text-end">
-								<div class="active text-alert fw-semibold me-1">@h.PercentagePrice%</div>
-							</div>
-							<p class="card-subtitle"><i>@h.Road,<br /> @h.Zip @h.City, @h.Country</i></p>
-						</div>
+                    <div class="h-100 d-flex flex-column">
+                        <div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+                            <div class="fw-bold mb-2 h3">@h.Name</div>
+                            <div class="col text-end">
+                                <span class="active text-alert fw-semibold me-1 bg-warning rounded px-2 py-1">@h.PercentagePrice%</span>
+                            </div>
+                            @* make a check if user is on phone or desktop and reduce the text size accordingly *@
+                            <p class="card-subtitle"><i>@h.Road,<br /> @h.Zip @h.City, @h.Country</i></p>
+                        </div>
 
-						<div class="card-body">
+                        <div class="card-body">
+                            @if (rooms == null)
+                            {
+                                <p><em>Loading room amount...</em></p>
+                            }
+                            else if (rooms.Length != 0)
+                            {
+                                int roomCounter = 0;
 
-							@if (rooms == null)
-							{
-								<p><em>Loading room amount...</em></p>
-							}
-							else if (rooms.Length != 0)
-							{
-								int roomCounter = 0;
+                                @foreach (var r in rooms)
+                                {
+                                    if (r.HotelId == h.Id)
+                                    {
+                                        roomCounter++;
+                                    }
+                                }
+                                @(roomCounter + " ledige værelser")
+                            }
 
-								@foreach (var r in rooms)
-								{
-									if (r.HotelId == h.Id)
-									{
-										roomCounter++;
-									}
-								}
-								@(roomCounter + " stk.")
-							}
-
-							<span class="mx-1"></span>
+@* 							<span class="mx-1"></span>
 							<div class="col text-center">
 								<div class="active text-alert fw-semibold me-1"></div>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
+							</div> *@
+                        </div>
+                    </div>
+                </a>
+            </div>
+
 		}
 	</div>
 }
@@ -74,12 +79,19 @@ else
 		try
 		{
 			hotels = await ApiService.GetHotelsAsync(3);
-			rooms = await ApiService.GetRoomsAsync(0);
 		}
 		catch (Exception ex)
 		{
 			Console.WriteLine($"Fejl ved hentning af hoteller: {ex.Message}");
 			hotels = Array.Empty<HotelGetDto>();
+		}
+		try
+		{
+			rooms = await ApiService.GetRoomsAsync(0);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
 			rooms = Array.Empty<RoomGetDto>();
 		}
 	}
