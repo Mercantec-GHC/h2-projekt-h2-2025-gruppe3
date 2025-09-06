@@ -8,8 +8,8 @@ public partial class APIService
 {
 
     public async Task<RoomGetDto[]> GetRoomsAsync(
-    int maxItems,
-    CancellationToken cancellationToken = default
+        int maxItems,
+        CancellationToken cancellationToken = default
     )
     {
         List<RoomGetDto>? rooms = null;
@@ -55,7 +55,7 @@ public partial class APIService
             }
         }
 
-    return room is null ? Array.Empty<RoomGetDto>() : new[] { room };
+        return room is null ? Array.Empty<RoomGetDto>() : new[] { room };
     }
 
 }
