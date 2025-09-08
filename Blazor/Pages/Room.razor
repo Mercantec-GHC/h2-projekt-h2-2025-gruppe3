@@ -14,12 +14,15 @@ else if (room.Length == 0)
 }
 else
 {
-	<div class="d-flex justify-content-center">
+	<div class="container">
+		<div class="row justify-content-center">
 
 	@foreach (var r in room)
 		{
-			<div class="card col-3 float-start m-1 h-25">
-				<div class="h-100 d-flex flex-column">
+				<!-- Responsive kolonne -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+					<!-- Card -->
+					<div class="card w-100 h-100">
 					<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
 						<div class="fw-bold mb-2">@r.RoomNumber</div>
 						<div class="col text-end">
@@ -36,6 +39,7 @@ else
 			</div>
 		}
 	</div>
+		</div>
 }
 
 @code {

@@ -14,13 +14,20 @@ else if (rooms.Length == 0)
 }
 else
 {
-	<div class="d-flex justify-content-center">
+	<div class="container py-4">
+		<div class="text-center mb-4">
+			<h3 class="fw-bold">Rooms</h3>
+		</div>
+		<div class="row justify-content-center">
 
 		@foreach (var r in rooms)
 		{
 			if (r.HotelId == hotelId)
 			{
-				<div class="card col-3 float-start m-1 h-25">
+					<!-- Responsive kolonne -->
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+						<!-- Card -->
+						<div class="card w-100 h-100">
 					<a href="/hotel/@hotelId/room/@r.Id" class="text-black text-decoration-none">
 						<div class="h-100 d-flex flex-column">
 							<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
@@ -37,9 +44,11 @@ else
 							</div>
 						</div>
 					</a>
-				</div>
+						</div>
+					</div>
 			}
 		}
+	</div>
 	</div>
 }
 
