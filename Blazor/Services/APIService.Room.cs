@@ -15,7 +15,7 @@ public partial class APIService
         List<RoomGetDto>? rooms = null;
 
         await foreach (
-            var room in httpClient.GetFromJsonAsAsyncEnumerable<RoomGetDto>(
+            var room in _httpClient.GetFromJsonAsAsyncEnumerable<RoomGetDto>(
                 "/api/Rooms",
                 cancellationToken
             )
@@ -47,7 +47,7 @@ public partial class APIService
         {
             try
             {
-                room = await httpClient.GetFromJsonAsync<RoomGetDto>($"/api/Rooms/{roomId}", cancellationToken);
+                room = await _httpClient.GetFromJsonAsync<RoomGetDto>($"/api/Rooms/{roomId}", cancellationToken);
             }
             catch (HttpRequestException)
             {

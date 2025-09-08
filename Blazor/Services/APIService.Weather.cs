@@ -13,7 +13,7 @@ public partial class APIService
         List<WeatherForecast>? forecasts = null;
 
         await foreach (
-            var forecast in httpClient.GetFromJsonAsAsyncEnumerable<WeatherForecast>(
+            var forecast in _httpClient.GetFromJsonAsAsyncEnumerable<WeatherForecast>(
                 "/api/weatherforecast",
                 cancellationToken
             )
