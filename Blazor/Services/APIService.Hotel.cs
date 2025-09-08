@@ -7,8 +7,8 @@ public partial class APIService
 {
 
     public async Task<HotelGetDto[]> GetHotelsAsync(
-    int maxItems,
-    CancellationToken cancellationToken = default
+        int maxItems,
+        CancellationToken cancellationToken = default
     )
     {
         List<HotelGetDto>? hotels = null;
