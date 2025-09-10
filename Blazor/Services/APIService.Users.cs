@@ -84,7 +84,7 @@ namespace Blazor.Services
             }
         }
 
-        public async Task<UserGetDto?> GetUserAsync(string id)
+        public async Task<UserGetDto?> GetUserAsync(int id)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace Blazor.Services
             }
         }
 
-        public async Task<bool> DeleteUserAsync(string id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
             try
             {
@@ -158,7 +158,7 @@ namespace Blazor.Services
 
     public class AuthUserInfo
     {
-        public string Id { get; set; } = string.Empty;
+        public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
     }
