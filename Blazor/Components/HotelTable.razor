@@ -3,15 +3,15 @@
 <div class="card shadow-sm mt-4">
     <div class="card-body">
         <h5 class="card-title">
-            <i class="bi bi-house-door-fill"></i> Hoteller
+            <i class="bi bi-house-door-fill"></i> Hotels
         </h5>
         @if (HotelGetDtos == null)
         {
-            <p><em>Loader hoteller...</em></p>
+            <p><em>Loading hotels...</em></p>
         }
         else if (HotelGetDtos.Length == 0)
         {
-            <div class="alert alert-info">Ingen hoteller fundet.</div>
+            <div class="alert alert-info">No hotels found.</div>
         }
         else
         {

@@ -1,9 +1,9 @@
-﻿@page "/hotel/{hotelId:int}"
+﻿@page "/hotel/{hotelId:int}/room/{roomId:int}"
 @using DomainModels
 @inject Blazor.Services.APIService ApiService
 @using System.Net.Http
 
-<PageTitle>Suite Dreams - Rooms</PageTitle>
+<PageTitle>Suite Dreams - Room</PageTitle>
 @if (rooms == null)
 {
 	<p><em>Loading rooms...</em></p>
@@ -18,25 +18,23 @@ else
 
 	@foreach (var r in rooms)
 		{
-			if (r.HotelId == hotelId)
+			if (r.Id == roomId)
 			{
 			<div class="card col-3 float-start m-1 h-25">
-					<a href="/hotel/@hotelId/room/@r.Id">
-					<div class="h-100 d-flex flex-column">
-						<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
-							<div class="fw-bold mb-2">@r.RoomNumber</div>
-							<div class="col text-end">
-							</div>
-						</div>
-
-						<div class="card-body">
-							<span class="mx-1"></span>
-							<div class="col text-center">
-								<div class="active text-alert fw-semibold me-1"></div>
-							</div>
+				<div class="h-100 d-flex flex-column">
+					<div class="card-body border-bottom row row-cols-1 row-cols-sm-2 gy-1 text-nowrap">
+						<div class="fw-bold mb-2">@r.RoomNumber</div>
+						<div class="col text-end">
 						</div>
 					</div>
-				</a>
+
+					<div class="card-body">
+						<span class="mx-1"></span>
+						<div class="col text-center">
+							<div class="active text-alert fw-semibold me-1"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 			}
 		}
@@ -46,6 +44,9 @@ else
 @code {
 	[Parameter]
 	public int hotelId { get; set; } // Denne parameter binder værdien fra URL'en
+
+	[Parameter]
+	public int roomId { get; set; } // Denne parameter binder værdien fra URL'en
 
 	private RoomGetDto[]? rooms;
 

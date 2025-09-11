@@ -35,7 +35,6 @@ namespace DomainModels.Mapping
         {
             return new Hotel
             {
-                Id = hotelPostDto.Id,
                 Name = hotelPostDto.Name,
                 Road = hotelPostDto.Road,
                 Zip = hotelPostDto.Zip,
@@ -50,20 +49,16 @@ namespace DomainModels.Mapping
             };
         }
 
-
         public static Hotel PutHotelFromDto(HotelPutDto hotelPutDto)
         {
             return new Hotel
-
             {
                 Id = hotelPutDto.Id,
                 Name = hotelPutDto.Name,
                 Road = hotelPutDto.Road,
                 Zip = hotelPutDto.Zip,
                 City = hotelPutDto.City,
-
                 Country = hotelPutDto.Country,
-
                 Phone = hotelPutDto.Phone,
                 Email = hotelPutDto.Email,
                 PercentagePrice = hotelPutDto.PercentagePrice,
