@@ -16,7 +16,7 @@
                     @if (remainingLockoutSeconds > 0)
                     {
                         <br />
-                        <small>Prøv igen om @remainingLockoutSeconds sekunder</small>
+                        <small>Pr�v igen om @remainingLockoutSeconds sekunder</small>
                     }
                 </div>
             }
@@ -37,9 +37,9 @@
                     <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="din Email" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
                 </div>
-                
-@*                 <div class="form-group mb-3">
-                    <label for="Firstname" class="form-label">FørsteNavn</label>
+
+                @*                 <div class="form-group mb-3">
+                    <label for="Firstname" class="form-label">F�rsteNavn</label>
                     <InputText id="Firstname" @bind-Value="loginModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Firstname)" class="text-danger" />
                 </div>
@@ -152,13 +152,13 @@
         border-bottom: 1px solid rgba(59, 130, 246, 0.1);
     }
 
-    .vacation-header h3 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: #1c1917;
-        margin: 0 0 0.5rem 0;
-        background-clip: text;
-    }
+        .vacation-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1c1917;
+            margin: 0 0 0.5rem 0;
+            background-clip: text;
+        }
 
     .card-body {
         padding: 2rem;
@@ -194,18 +194,18 @@
         height: auto;
     }
 
-    .form-control:focus {
-        background: rgba(255, 255, 255, 1);
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-        color: #1c1917;
-        outline: none;
-    }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            color: #1c1917;
+            outline: none;
+        }
 
-    .form-control::placeholder {
-        color: #6b7280;
-        font-weight: 400;
-    }
+        .form-control::placeholder {
+            color: #6b7280;
+            font-weight: 400;
+        }
 
     /* Modern Button Styling */
     .btn {
@@ -221,46 +221,46 @@
         letter-spacing: 0.05em;
     }
 
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        transition: left 0.5s;
-    }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            transition: left 0.5s;
+        }
 
-    .btn:hover::before {
-        left: 100%;
-    }
+        .btn:hover::before {
+            left: 100%;
+        }
 
     .btn-primary {
         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
         color: white;
     }
 
-    .btn-primary:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
-    }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+        }
 
-    .btn-primary:disabled {
-        box-shadow: none;
-        cursor: not-allowed;
-        transform: none;
-    }
+        .btn-primary:disabled {
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
 
     .btn-success {
         box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
         color: white;
     }
 
-    .btn-success:hover:not(:disabled) {
+        .btn-success:hover:not(:disabled) {
 
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
-    }
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+        }
 
     .btn-link {
         color: #3b82f6;
@@ -272,12 +272,12 @@
         border-radius: 8px;
     }
 
-    .btn-link:hover {
-        color: #2563eb;
-        background: rgba(59, 130, 246, 0.1);
-        text-decoration: none;
-        transform: translateY(-1px);
-    }
+        .btn-link:hover {
+            color: #2563eb;
+            background: rgba(59, 130, 246, 0.1);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
 
     /* Vacation Alert Styling */
     .alert {
@@ -311,6 +311,11 @@
     @@keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
     /* Validation Messages */
@@ -338,6 +343,7 @@
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -405,7 +411,7 @@
                 successMessage = "Login succesfuldt! Omdirigerer...";
                 StateHasChanged();
 
-                // Vent kort så brugeren kan se success besked
+                // Vent kort s� brugeren kan se success besked
                 await Task.Delay(1000);
 
                 // Trigger event for parent component
@@ -421,13 +427,13 @@
 
                 if (result.DelayApplied > 0)
                 {
-                    errorMessage += $" (Forsinkelse på {result.DelayApplied} sekunder blev anvendt)";
+                    errorMessage += $" (Forsinkelse p� {result.DelayApplied} sekunder blev anvendt)";
                 }
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
+            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
             Console.WriteLine($"Login fejl: {ex.Message}");
         }
         finally
@@ -456,7 +462,7 @@
             {
                 successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
                 showRegisterForm = false;
-                var currentEmail = registerModel.Email; // Gem email før reset
+                var currentEmail = registerModel.Email; // Gem email f�r reset
                 registerModel = new RegisterDto(); // Reset form
 
                 // Kopier email til login form
@@ -472,7 +478,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
+            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
             Console.WriteLine($"Registrering fejl: {ex.Message}");
         }
         finally

@@ -29,7 +29,6 @@ public class Program
             Console.WriteLine($"APIService BaseAddress: {client.BaseAddress}");
         });
 
-
         // Registrer HttpClient til AuthenticationService (shared med APIService)
         builder.Services.AddHttpClient<AuthenticationService>(client =>
         {

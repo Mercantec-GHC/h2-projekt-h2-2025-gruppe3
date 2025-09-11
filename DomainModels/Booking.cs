@@ -19,7 +19,6 @@ namespace DomainModels
         public BookingStatus BookingStatus { get; set; } = BookingStatus.Confirmed;
         public bool Crib { get; set; }
         public bool ExtraBed { get; set; }
-
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
@@ -38,7 +37,6 @@ namespace DomainModels
         public BookingStatus BookingStatus { get; set; }
         public bool Crib { get; set; }
         public bool ExtraBed { get; set; }
-
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CreatedAt { get; set; }
