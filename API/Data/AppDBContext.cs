@@ -268,6 +268,7 @@ namespace API.Data
                     Name = "Enkeltværelse",
                     Description = "Et enkeltværelse med én seng, ideelt til én person.",
                     PricePerNight = 2999.99,
+                    NumberOfBeds = 2,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -277,6 +278,7 @@ namespace API.Data
                     Name = "Dobbeltværelse",
                     Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
                     PricePerNight = 3299.99,
+                    NumberOfBeds = 4,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -286,6 +288,7 @@ namespace API.Data
                     Name = "Suite",
                     Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
                     PricePerNight = 3399.99,
+                    NumberOfBeds = 7,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -295,6 +298,7 @@ namespace API.Data
                     Name = "Familieværelse",
                     Description = "Et værelse med plads til hele familien, typisk med flere senge.",
                     PricePerNight = 3499.99,
+                    NumberOfBeds = 8,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -304,6 +308,7 @@ namespace API.Data
                     Name = "Deluxe værelse",
                     Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
                     PricePerNight = 3599.99,
+                    NumberOfBeds = 10,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -313,6 +318,7 @@ namespace API.Data
                     Name = "Handicapvenligt værelse",
                     Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
                     PricePerNight = 3199.99,
+                    NumberOfBeds = 5,
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 }
@@ -336,6 +342,8 @@ namespace API.Data
                     Email = "mercantec@mercantec.dk",
                     Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                     PercentagePrice = 1,
+                    OpenAt = new TimeOnly(9, 0, 0),
+                    ClosedAt = new TimeOnly(21, 30, 0),
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -351,6 +359,8 @@ namespace API.Data
                     Email = "mercantec@mercantec.dk",
                     Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                     PercentagePrice = 1,
+                    OpenAt = new TimeOnly(9, 0, 0),
+                    ClosedAt = new TimeOnly(21, 30, 0),
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },
@@ -366,6 +376,8 @@ namespace API.Data
                     Email = "mercantec@mercantec.dk",
                     Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                     PercentagePrice = 1,
+                    OpenAt = new TimeOnly(9, 0, 0),
+                    ClosedAt = new TimeOnly(21, 30, 0),
                     CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc)
                 },

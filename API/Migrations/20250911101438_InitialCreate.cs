@@ -28,6 +28,8 @@ namespace API.Migrations
                     Phone = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    OpenAt = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    ClosedAt = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     PercentagePrice = table.Column<double>(type: "double precision", nullable: false),
                     FacilityId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -61,6 +63,7 @@ namespace API.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    NumberOfBeds = table.Column<int>(type: "integer", nullable: false),
                     PricePerNight = table.Column<double>(type: "double precision", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -193,12 +196,12 @@ namespace API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Hotels",
-                columns: new[] { "Id", "City", "Country", "CreatedAt", "Description", "Email", "FacilityId", "Name", "PercentagePrice", "Phone", "Road", "UpdatedAt", "Zip" },
+                columns: new[] { "Id", "City", "ClosedAt", "Country", "CreatedAt", "Description", "Email", "FacilityId", "Name", "OpenAt", "PercentagePrice", "Phone", "Road", "UpdatedAt", "Zip" },
                 values: new object[,]
                 {
-                    { 1, "Viborg", "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 1", 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
-                    { 2, "Viborg", "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 2", 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
-                    { 3, "Viborg", "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 3", 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" }
+                    { 1, "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 1", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
+                    { 2, "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 2", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
+                    { 3, "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 3", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,15 +217,15 @@ namespace API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Roomtypes",
-                columns: new[] { "Id", "CreatedAt", "Description", "Name", "PricePerNight", "UpdatedAt" },
+                columns: new[] { "Id", "CreatedAt", "Description", "Name", "NumberOfBeds", "PricePerNight", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et enkeltværelse med én seng, ideelt til én person.", "Enkeltværelse", 2999.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et dobbeltværelse med to senge eller en dobbeltseng.", "Dobbeltværelse", 3299.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "En suite med ekstra plads og komfort, ofte med separat opholdsområde.", "Suite", 3399.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse med plads til hele familien, typisk med flere senge.", "Familieværelse", 3499.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et deluxe værelse med ekstra faciliteter og komfort.", "Deluxe værelse", 3599.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
-                    { 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse designet til gæster med særlige behov og nem adgang.", "Handicapvenligt værelse", 3199.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
+                    { 1, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et enkeltværelse med én seng, ideelt til én person.", "Enkeltværelse", 2, 2999.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et dobbeltværelse med to senge eller en dobbeltseng.", "Dobbeltværelse", 4, 3299.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 3, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "En suite med ekstra plads og komfort, ofte med separat opholdsområde.", "Suite", 7, 3399.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 4, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse med plads til hele familien, typisk med flere senge.", "Familieværelse", 8, 3499.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 5, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et deluxe værelse med ekstra faciliteter og komfort.", "Deluxe værelse", 10, 3599.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) },
+                    { 6, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "Et værelse designet til gæster med særlige behov og nem adgang.", "Handicapvenligt værelse", 5, 3199.9899999999998, new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(

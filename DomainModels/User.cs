@@ -43,8 +43,6 @@ namespace DomainModels
         [EmailAddress(ErrorMessage = "Invalid email address")]
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Username is required")]
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;
@@ -58,7 +56,9 @@ namespace DomainModels
     // DTO til login
     public class LoginDto
     {
-        [EmailAddress(ErrorMessage = "Invalid email address")]
+		public int id { get; set; }
+
+		[EmailAddress(ErrorMessage = "Invalid email address")]
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; } = string.Empty;
 
@@ -66,7 +66,13 @@ namespace DomainModels
         [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one number, one uppercase letter, one lowercase letter, and one special character")]
         public string Password { get; set; } = string.Empty;
-    }
+
+		//[Required(ErrorMessage = "Firstname is required")]
+  //      public string Firstname { get; set; } = string.Empty;
+
+		//[Required(ErrorMessage = "Lastname is required")]
+		//public string Lastname { get; set; } = string.Empty;
+	}
 
     //public class UserPutDto
     //{

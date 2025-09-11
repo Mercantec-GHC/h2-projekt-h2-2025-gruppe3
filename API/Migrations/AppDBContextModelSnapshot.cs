@@ -114,6 +114,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<TimeOnly>("ClosedAt")
+                        .HasColumnType("time without time zone");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("text");
@@ -135,6 +138,9 @@ namespace API.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<TimeOnly>("OpenAt")
+                        .HasColumnType("time without time zone");
 
                     b.Property<double>("PercentagePrice")
                         .HasColumnType("double precision");
@@ -162,12 +168,14 @@ namespace API.Migrations
                         {
                             Id = 1,
                             City = "Viborg",
+                            ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 1",
+                            OpenAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -178,12 +186,14 @@ namespace API.Migrations
                         {
                             Id = 2,
                             City = "Viborg",
+                            ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 2",
+                            OpenAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -194,12 +204,14 @@ namespace API.Migrations
                         {
                             Id = 3,
                             City = "Viborg",
+                            ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 3",
+                            OpenAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -426,6 +438,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("NumberOfBeds")
+                        .HasColumnType("integer");
+
                     b.Property<double>("PricePerNight")
                         .HasColumnType("double precision");
 
@@ -443,6 +458,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et enkeltværelse med én seng, ideelt til én person.",
                             Name = "Enkeltværelse",
+                            NumberOfBeds = 2,
                             PricePerNight = 2999.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -452,6 +468,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et dobbeltværelse med to senge eller en dobbeltseng.",
                             Name = "Dobbeltværelse",
+                            NumberOfBeds = 4,
                             PricePerNight = 3299.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -461,6 +478,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "En suite med ekstra plads og komfort, ofte med separat opholdsområde.",
                             Name = "Suite",
+                            NumberOfBeds = 7,
                             PricePerNight = 3399.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -470,6 +488,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et værelse med plads til hele familien, typisk med flere senge.",
                             Name = "Familieværelse",
+                            NumberOfBeds = 8,
                             PricePerNight = 3499.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -479,6 +498,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et deluxe værelse med ekstra faciliteter og komfort.",
                             Name = "Deluxe værelse",
+                            NumberOfBeds = 10,
                             PricePerNight = 3599.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -488,6 +508,7 @@ namespace API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Et værelse designet til gæster med særlige behov og nem adgang.",
                             Name = "Handicapvenligt værelse",
+                            NumberOfBeds = 5,
                             PricePerNight = 3199.9899999999998,
                             UpdatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc)
                         });
