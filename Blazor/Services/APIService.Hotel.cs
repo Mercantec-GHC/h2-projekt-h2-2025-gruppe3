@@ -7,14 +7,14 @@ public partial class APIService
 {
 
     public async Task<HotelGetDto[]> GetHotelsAsync(
-    int maxItems,
-    CancellationToken cancellationToken = default
+        int maxItems,
+        CancellationToken cancellationToken = default
     )
     {
         List<HotelGetDto>? hotels = null;
 
         await foreach (
-            var hotel in httpClient.GetFromJsonAsAsyncEnumerable<HotelGetDto>(
+            var hotel in _httpClient.GetFromJsonAsAsyncEnumerable<HotelGetDto>(
                 "/api/Hotels",
                 cancellationToken
             )

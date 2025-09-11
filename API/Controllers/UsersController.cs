@@ -1,11 +1,17 @@
 using API.Data;
-using API.Services;
 using DomainModels;
-using DomainModels.Mapping;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using DomainModels.Mapping;
+using API.Services;
 using System.Security.Claims;
+using System.Diagnostics;
 
 namespace API.Controllers
 {
@@ -15,13 +21,15 @@ namespace API.Controllers
     {
         private readonly AppDBContext _context;
         private readonly JwtService _jwtService;
-        private readonly ILogger<UsersController> _logger;
+		private readonly LoginAttemptService _loginAttemptService;
+		private readonly ILogger<UsersController> _logger;
 
-        public UsersController(AppDBContext context, JwtService jwtService, ILogger<UsersController> logger)
+        public UsersController(AppDBContext context, JwtService jwtService, LoginAttemptService loginAttemptService, ILogger<UsersController> logger)
         {
             _context = context;
             _jwtService = jwtService;
-            _logger = logger;
+			_loginAttemptService = loginAttemptService;
+			_logger = logger;
         }
 
         /// <summary>
@@ -222,6 +230,7 @@ namespace API.Controllers
                 var token = _jwtService.GenerateToken(user);
 
                 _logger.LogInformation("Login succesfuldt for {Email}", dto.Email);
+
                 return Ok(new
                 {
                     message = "Login godkendt!",

@@ -1,5 +1,6 @@
-using System.Net.Http.Json;
+using Blazor.Pages;
 using DomainModels;
+using System.Net.Http.Json;
 
 namespace Blazor.Services;
 
@@ -7,14 +8,14 @@ public partial class APIService
 {
 
     public async Task<RoomGetDto[]> GetRoomsAsync(
-    int maxItems,
-    CancellationToken cancellationToken = default
+        int maxItems,
+        CancellationToken cancellationToken = default
     )
     {
         List<RoomGetDto>? rooms = null;
 
         await foreach (
-            var room in httpClient.GetFromJsonAsAsyncEnumerable<RoomGetDto>(
+            var room in _httpClient.GetFromJsonAsAsyncEnumerable<RoomGetDto>(
                 "/api/Rooms",
                 cancellationToken
             )
@@ -33,4 +34,28 @@ public partial class APIService
 
         return rooms?.ToArray() ?? [];
     }
+
+
+    public async Task<RoomGetDto[]> GetRoomAsync(
+        int roomId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        RoomGetDto? room = null;
+
+        if (roomId != 0)
+        {
+            try
+            {
+                room = await _httpClient.GetFromJsonAsync<RoomGetDto>($"/api/Rooms/{roomId}", cancellationToken);
+            }
+            catch (HttpRequestException)
+            {
+                return Array.Empty<RoomGetDto>();
+            }
+        }
+
+        return room is null ? Array.Empty<RoomGetDto>() : new[] { room };
+    }
+
 }

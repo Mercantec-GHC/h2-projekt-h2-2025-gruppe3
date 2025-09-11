@@ -56,7 +56,7 @@ namespace API.Controllers
         /// <summary>
         /// Henter roomlet baseret på id.
         /// </summary>
-        /// <param name="id"> Rummets id.</param>
+        /// <param name="id">Rummets id.</param>
         /// <returns>Rummets info.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rummet blev ikke fundet.</response>
@@ -90,7 +90,7 @@ namespace API.Controllers
         /// <summary>
         /// Opdatere roomlet baseret på et id.
         /// </summary>
-        /// <param name="room"> Rummets id.</param>
+        /// <param name="room">Rummets id.</param>
         /// <returns>Opdatere roomlets info.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rummet blev ikke opdateret.</response>
@@ -134,7 +134,7 @@ namespace API.Controllers
         /// <summary>
         /// Opretter et nyt room.
         /// </summary>
-        /// <param name="roomDto"> Rummets dto.</param>
+        /// <param name="roomDto">Rummets dto.</param>
         /// <returns>opretter et nyt room.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rummet blev ikke oprettet.</response>
@@ -176,7 +176,7 @@ namespace API.Controllers
         /// <summary>
         /// Sletter et room.
         /// </summary>
-        /// <param name="id"> Rummets id.</param>
+        /// <param name="id">Rummets id.</param>
         /// <returns>Sletter et room.</returns>
         /// <response code="500">Intern serverfejl.</response>
         /// <response code="404">Rummet blev ikke slettet.</response>
