@@ -38,13 +38,13 @@ namespace DomainModels
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public int FacilityId { get; set; }
+        public virtual Facility? Facilities { get; set; } // 1:1
 
         [MaxLength(200)]
         public string Description { get; set; } = "";
         public double PercentagePrice { get; set; }
 
-        public int FacilityId { get; set; }
-        public virtual Facility? Facilities { get; set; } // 1:1
+
 
 
     }
@@ -70,14 +70,12 @@ namespace DomainModels
         public int Phone { get; set; }
         public string Email { get; set; } = "";
         public string Description { get; set; } = "";
-<<<<<<< HEAD
-        public float PercentagePrice { get; set; }
-        public int FacilityId { get; set; }
-        public virtual Facility? Facilities { get; set; } // 1:1
-=======
+
         public double PercentagePrice { get; set; }
         public int FacilityId { get; set; }
->>>>>>> Mark
+        public virtual Facility? Facilities { get; set; } // 1:1
+
+
         //public List <RoomWithBookingsGetDto> Rooms { get; private set; } = new();
     }
 

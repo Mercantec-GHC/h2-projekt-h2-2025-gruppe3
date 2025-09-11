@@ -1,28 +1,19 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<nav class="navbar navbar-default">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">
-            <img src="ico/favicon.svg" class="d-inline-block align-top" width="30" height="30" alt="Suite Dreams Logo">
-            Suite Dreams
-        </a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-            <NavLink class="nav-link" href="/hotels" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Hoteller Tabel
-            </NavLink>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
         </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3</a></li>
+        </ul>
+    </div>
+</nav>
+
         
-    </nav>
-</div>
+  
 
 @code {
     private bool collapseNavMenu = true;

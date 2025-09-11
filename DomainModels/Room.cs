@@ -33,9 +33,6 @@ namespace DomainModels
 
 
     }
-<<<<<<< HEAD
-}
-=======
 
 
     // DTO for room creation / POST
@@ -62,6 +59,3 @@ namespace DomainModels
 
     }
 }
-
-
->>>>>>> Mark

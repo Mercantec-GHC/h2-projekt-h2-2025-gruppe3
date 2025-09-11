@@ -49,25 +49,21 @@ namespace DomainModels.Mapping
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
         }
-<<<<<<< HEAD
-        public static Hotel ToHotelPut(HotelPutDto hotelPutDto) 
-        { return new Hotel
-=======
+
 
         public static Hotel PutHotelFromDto(HotelPutDto hotelPutDto)
         {
             return new Hotel
->>>>>>> Mark
+
             {
                 Id = hotelPutDto.Id,
                 Name = hotelPutDto.Name,
                 Road = hotelPutDto.Road,
                 Zip = hotelPutDto.Zip,
                 City = hotelPutDto.City,
-<<<<<<< HEAD
-=======
+
                 Country = hotelPutDto.Country,
->>>>>>> Mark
+
                 Phone = hotelPutDto.Phone,
                 Email = hotelPutDto.Email,
                 PercentagePrice = hotelPutDto.PercentagePrice,
