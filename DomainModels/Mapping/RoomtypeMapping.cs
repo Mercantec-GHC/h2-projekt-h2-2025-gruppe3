@@ -15,6 +15,7 @@ namespace DomainModels.Mapping
                 Id = roomtype.Id,
                 Name = roomtype.Name,
                 Description = roomtype.Description,
+                NumberOfBeds = roomtype.NumberOfBeds,
                 PricePerNight = roomtype.PricePerNight
             };
         }
@@ -30,6 +31,7 @@ namespace DomainModels.Mapping
             {
                 Name = roomtypePostDto.Name,
                 Description = roomtypePostDto.Description,
+                NumberOfBeds = roomtypePostDto.NumberOfBeds,
                 PricePerNight = roomtypePostDto.PricePerNight,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
@@ -41,6 +43,7 @@ namespace DomainModels.Mapping
             roomtype.Id = roomtypePutDto.Id;
             roomtype.Name = roomtypePutDto.Name;
             roomtype.Description = roomtypePutDto.Description;
+            roomtype.NumberOfBeds = roomtypePutDto.NumberOfBeds;
             roomtype.PricePerNight = roomtypePutDto.PricePerNight;
             roomtype.CreatedAt = DateTime.UtcNow.AddHours(2);
             roomtype.UpdatedAt = DateTime.UtcNow.AddHours(2);

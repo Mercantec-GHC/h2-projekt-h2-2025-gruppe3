@@ -105,7 +105,7 @@ namespace Blazor.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Fejl ved hentning af nuværende bruger: " + ex.Message);
+                Console.WriteLine("Fejl ved hentning af nuv�rende bruger: " + ex.Message);
                 return null;
             }
         }
@@ -160,6 +160,7 @@ namespace Blazor.Services
     {
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
     }
 

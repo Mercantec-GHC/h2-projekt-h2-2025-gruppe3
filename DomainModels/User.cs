@@ -43,8 +43,6 @@ namespace DomainModels
         [EmailAddress(ErrorMessage = "Invalid email address")]
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Username is required")]
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;

@@ -8,7 +8,7 @@ using System.Text.Json;
 namespace Blazor.Services
 {
     /// <summary>
-    /// Service til håndtering af authentication, JWT tokens og bruger state
+    /// Service til h�ndtering af authentication, JWT tokens og bruger state
     /// </summary>
     public class AuthenticationService
     {
@@ -46,7 +46,7 @@ namespace Blazor.Services
                     var userJson = JsonSerializer.Serialize(apiResult.Response.User);
                     await _jsRuntime.InvokeVoidAsync("localStorage.setItem", USER_KEY, userJson);
 
-                    // Sæt Authorization header for fremtidige requests
+                    // S�t Authorization header for fremtidige requests
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiResult.Response.Token);
 
                     // Notify listeners om authentication state change
@@ -65,7 +65,7 @@ namespace Blazor.Services
                     return new LoginResult
                     {
                         Success = false,
-                        Message = apiResult.ErrorResponse?.Message ?? "For mange login forsøg. Prøv igen senere.",
+                        Message = apiResult.ErrorResponse?.Message ?? "For mange login fors�g. Pr�v igen senere.",
                         RemainingLockoutSeconds = apiResult.ErrorResponse?.RemainingLockoutSeconds ?? 0
                     };
                 }
@@ -82,7 +82,7 @@ namespace Blazor.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Login fejl: {ex.Message}");
-                return new LoginResult { Success = false, Message = "Der opstod en fejl under login. Prøv igen." };
+                return new LoginResult { Success = false, Message = "Der opstod en fejl under login. Pr�v igen." };
             }
         }
 
@@ -123,14 +123,14 @@ namespace Blazor.Services
                 if (string.IsNullOrEmpty(token))
                     return false;
 
-                // Tjek om token er udløbet (basic check)
+                // Tjek om token er udl�bet (basic check)
                 if (IsTokenExpired(token))
                 {
                     await LogoutAsync();
                     return false;
                 }
 
-                // Sæt Authorization header hvis ikke allerede sat
+                // S�t Authorization header hvis ikke allerede sat
                 if (_httpClient.DefaultRequestHeaders.Authorization == null)
                 {
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -146,7 +146,7 @@ namespace Blazor.Services
         }
 
         /// <summary>
-        /// Henter nuværende bruger fra localStorage
+        /// Henter nuv�rende bruger fra localStorage
         /// </summary>
         public async Task<AuthUserInfo?> GetCurrentUserAsync()
         {
@@ -200,7 +200,7 @@ namespace Blazor.Services
                 }
                 else if (!string.IsNullOrEmpty(token))
                 {
-                    // Token er udløbet, log ud
+                    // Token er udl�bet, log ud
                     await LogoutAsync();
                 }
             }
@@ -211,7 +211,7 @@ namespace Blazor.Services
         }
 
         /// <summary>
-        /// Basic check for om JWT token er udløbet
+        /// Basic check for om JWT token er udl�bet
         /// </summary>
         private bool IsTokenExpired(string token)
         {
@@ -247,12 +247,12 @@ namespace Blazor.Services
                     return DateTime.UtcNow >= expDateTime.DateTime;
                 }
 
-                return true; // Hvis vi ikke kan læse exp, antag token er udløbet
+                return true; // Hvis vi ikke kan l�se exp, antag token er udl�bet
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Token expiry check fejl: {ex.Message}");
-                return true; // Ved fejl, antag token er udløbet
+                return true; // Ved fejl, antag token er udl�bet
             }
         }
     }
