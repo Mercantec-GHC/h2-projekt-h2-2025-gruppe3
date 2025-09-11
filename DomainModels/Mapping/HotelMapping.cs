@@ -22,6 +22,8 @@ namespace DomainModels.Mapping
                 Email = hotel.Email,
                 PercentagePrice = hotel.PercentagePrice,
                 Description = hotel.Description,
+                OpenAt = hotel.OpenAt,
+                ClosedAt = hotel.ClosedAt,
                 FacilityId = hotel.FacilityId
             };
         }
@@ -44,6 +46,9 @@ namespace DomainModels.Mapping
                 Email = hotelPostDto.Email,
                 PercentagePrice = hotelPostDto.PercentagePrice,
                 Description = hotelPostDto.Description,
+                OpenAt = hotelPostDto.OpenAt,
+                ClosedAt = hotelPostDto.ClosedAt,
+                FacilityId = hotelPostDto.FacilityId,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
@@ -63,6 +68,9 @@ namespace DomainModels.Mapping
                 Email = hotelPutDto.Email,
                 PercentagePrice = hotelPutDto.PercentagePrice,
                 Description = hotelPutDto.Description,
+                OpenAt = hotelPutDto.OpenAt,
+                ClosedAt = hotelPutDto.ClosedAt,
+                FacilityId = hotelPutDto.FacilityId,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };

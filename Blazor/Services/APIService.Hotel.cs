@@ -14,7 +14,7 @@ public partial class APIService
         List<HotelGetDto>? hotels = null;
 
         await foreach (
-            var hotel in httpClient.GetFromJsonAsAsyncEnumerable<HotelGetDto>(
+            var hotel in _httpClient.GetFromJsonAsAsyncEnumerable<HotelGetDto>(
                 "/api/Hotels",
                 cancellationToken
             )

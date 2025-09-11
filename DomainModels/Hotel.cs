@@ -18,6 +18,8 @@ namespace DomainModels
         public int Phone { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public TimeOnly OpenAt { get; set; }
+        public TimeOnly ClosedAt { get; set; }
         public double PercentagePrice { get; set; } = 1;
         public Facility? Facility { get; set; }
         public int FacilityId { get; set; }
@@ -39,6 +41,8 @@ namespace DomainModels
         public int Phone { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public TimeOnly OpenAt { get; set; }
+        public TimeOnly ClosedAt { get; set; }
         public double PercentagePrice { get; set; }
         public int FacilityId { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -78,6 +82,14 @@ namespace DomainModels
         [Required(ErrorMessage = "Hotel percentage price is required")]
         [Range(0, 2, ErrorMessage = "Hotel percentage price must be between 0 and 2")]
         public double PercentagePrice { get; set; }
+
+        [Required(ErrorMessage = "Opening timr is required")]
+        [DataType(DataType.Time)]
+        public TimeOnly OpenAt { get; set; }
+
+        [Required(ErrorMessage = "Closing timr is required")]
+        [DataType(DataType.Time)]
+        public TimeOnly ClosedAt { get; set; }
 
         [Required(ErrorMessage = "Hotel facility ID is required")]
         public int FacilityId { get; set; }
@@ -141,6 +153,14 @@ namespace DomainModels
         [Required(ErrorMessage = "Hotel percentage price is required")]
         [Range(0, 2, ErrorMessage = "Hotel percentage price must be between 0 and 2")]
         public double PercentagePrice { get; set; }
+
+        [Required(ErrorMessage = "Opening timr is required")]
+        [DataType(DataType.Time)]
+        public TimeOnly OpenAt { get; set; }
+
+        [Required(ErrorMessage = "Closing timr is required")]
+        [DataType(DataType.Time)]
+        public TimeOnly ClosedAt { get; set; }
 
         [Required(ErrorMessage = "Hotel facility ID is required")]
         public int FacilityId { get; set; }
