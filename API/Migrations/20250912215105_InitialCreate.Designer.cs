@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250911101438_InitialCreate")]
+    [Migration("20250912215105_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,8 +45,8 @@ namespace API.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("ExtraBed")
-                        .HasColumnType("boolean");
+                    b.Property<int>("ExtraBeds")
+                        .HasColumnType("integer");
 
                     b.Property<double?>("FinalPrice")
                         .HasColumnType("double precision");
@@ -113,6 +113,15 @@ namespace API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<TimeOnly>("CheckInFrom")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<TimeOnly>("CheckInUntil")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<TimeOnly>("CheckOutUntil")
+                        .HasColumnType("time without time zone");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("text");
@@ -142,7 +151,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<TimeOnly>("OpenAt")
+                    b.Property<TimeOnly>("OpenedAt")
                         .HasColumnType("time without time zone");
 
                     b.Property<double>("PercentagePrice")
@@ -170,6 +179,9 @@ namespace API.Migrations
                         new
                         {
                             Id = 1,
+                            CheckInFrom = new TimeOnly(16, 0, 0),
+                            CheckInUntil = new TimeOnly(21, 0, 0),
+                            CheckOutUntil = new TimeOnly(10, 0, 0),
                             City = "Viborg",
                             ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
@@ -178,7 +190,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 1",
-                            OpenAt = new TimeOnly(9, 0, 0),
+                            OpenedAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -188,6 +200,9 @@ namespace API.Migrations
                         new
                         {
                             Id = 2,
+                            CheckInFrom = new TimeOnly(16, 0, 0),
+                            CheckInUntil = new TimeOnly(21, 0, 0),
+                            CheckOutUntil = new TimeOnly(10, 0, 0),
                             City = "Viborg",
                             ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
@@ -196,7 +211,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 2",
-                            OpenAt = new TimeOnly(9, 0, 0),
+                            OpenedAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -206,6 +221,9 @@ namespace API.Migrations
                         new
                         {
                             Id = 3,
+                            CheckInFrom = new TimeOnly(16, 0, 0),
+                            CheckInUntil = new TimeOnly(21, 0, 0),
+                            CheckOutUntil = new TimeOnly(10, 0, 0),
                             City = "Viborg",
                             ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
@@ -214,7 +232,7 @@ namespace API.Migrations
                             Email = "mercantec@mercantec.dk",
                             FacilityId = 0,
                             Name = "Hotel 3",
-                            OpenAt = new TimeOnly(9, 0, 0),
+                            OpenedAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",

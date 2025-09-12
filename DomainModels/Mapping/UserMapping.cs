@@ -1,5 +1,6 @@
 ﻿namespace DomainModels.Mapping;
 
+// HotelMapping.cs
 public class UserMapping
 {
     public static UserGetDto ToUserGetDto(User user)
