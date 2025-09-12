@@ -1,4 +1,4 @@
-using DomainModels;
+﻿using DomainModels;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Data;

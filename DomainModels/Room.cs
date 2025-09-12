@@ -52,6 +52,7 @@ public class RoomPutDto
     [Required(ErrorMessage = "Hotel ID is required")]
     public int HotelId { get; set; }
 
-    [Required(ErrorMessage = "Room type ID is required")]
-    public int RoomtypeId { get; set; }
+        [Required(ErrorMessage = "Room type ID is required")]
+        public int RoomtypeId { get; set; }
+    }
 }
