@@ -1,4 +1,3 @@
-using DomainModels.DomainModels;
 using System.ComponentModel.DataAnnotations;
 namespace DomainModels;
 
