@@ -1,3 +1,4 @@
+using DomainModels.DomainModels;
 using System.ComponentModel.DataAnnotations;
 namespace DomainModels;
 
@@ -91,27 +92,37 @@ public class HotelPostDto
     [DataType(DataType.Time)]
     public TimeOnly ClosedAt { get; set; }
 
-        [Required(ErrorMessage = "Hotel facility ID is required")]
-        public int FacilityId { get; set; }
+    [Required(ErrorMessage = "Check in from time is required")]
+    [DataType(DataType.Time)]
+    public TimeOnly CheckInFrom { get; set; }
 
-        public Facility? Facility { get; set; }
-    }
+    [Required(ErrorMessage = "Check in until time is required")]
+    [DataType(DataType.Time)]
+    public TimeOnly CheckInUntil { get; set; }
 
-    // DTO for hotel med room retrieval / GET
-    //public class HotelWithRoomsGetDto
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; } = string.Empty;
-    //    public string Road { get; set; } = string.Empty;
-    //    public string Zip { get; set; } = string.Empty;
-    //    public string City { get; set; } = string.Empty;
-    //    public string Country { get; set; } = string.Empty;
-    //    public int Phone { get; set; }
-    //    public string Email { get; set; } = string.Empty;
-    //    public string Description { get; set; } = string.Empty;
-    //    public double PercentagePrice { get; set; } = 1;
-    //    public Facility? Facility { get; set; }
-    //    public int FacilityId { get; set; }
+    [Required(ErrorMessage = "Check out until time is required")]
+    [DataType(DataType.Time)]
+    public TimeOnly CheckOutUntil { get; set; }
+
+    [Required(ErrorMessage = "Hotel facility ID is required")]
+    public int FacilityId { get; set; }
+}
+
+// DTO for hotel med rum retrieval / GET
+//public class HotelWithRoomsGetDto
+//{
+//    public int Id { get; set; }
+//    public string Name { get; set; } = string.Empty;
+//    public string Road { get; set; } = string.Empty;
+//    public string Zip { get; set; } = string.Empty;
+//    public string City { get; set; } = string.Empty;
+//    public string Country { get; set; } = string.Empty;
+//    public int Phone { get; set; }
+//    public string Email { get; set; } = string.Empty;
+//    public string Description { get; set; } = string.Empty;
+//    public double PercentagePrice { get; set; } = 1;
+//    public Facility? Facility { get; set; }
+//    public int FacilityId { get; set; }
 
 //    public List<Room> Rooms { get; set; } = new(); // 1:n
 
