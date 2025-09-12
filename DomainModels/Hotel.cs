@@ -93,9 +93,11 @@ namespace DomainModels
 
         [Required(ErrorMessage = "Hotel facility ID is required")]
         public int FacilityId { get; set; }
+
+        public Facility? Facility { get; set; }
     }
 
-    // DTO for hotel med rum retrieval / GET
+    // DTO for hotel med room retrieval / GET
     //public class HotelWithRoomsGetDto
     //{
     //    public int Id { get; set; }

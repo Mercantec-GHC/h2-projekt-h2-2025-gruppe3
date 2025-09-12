@@ -62,5 +62,3 @@ namespace DomainModels
         public int RoomtypeId { get; set; }
     }
 }
-
-
