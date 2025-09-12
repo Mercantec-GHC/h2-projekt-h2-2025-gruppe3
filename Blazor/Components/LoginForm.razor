@@ -4,6 +4,8 @@
 @inject NavigationManager Navigation
 
 <div class="vacation-login-container">
+    @if (showLoginForm)
+    {
     <div class="card vacation-card">
         <div class="card-header vacation-header">
             <h3><i class="me-2"></i>Login to your dream vacation</h3>
@@ -81,7 +83,7 @@
             </div>
         </div>
     </div>
-
+    }
 
     @if (showRegisterForm)
     {
@@ -141,7 +143,7 @@
     .vacation-card {
         border: 1px solid rgba(59, 130, 246, 0.2);
         border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        /* box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1); */
         backdrop-filter: blur(20px);
         overflow: hidden;
     }
