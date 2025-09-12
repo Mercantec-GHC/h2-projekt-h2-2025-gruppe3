@@ -4,9 +4,11 @@
 @inject NavigationManager Navigation
 
 <div class="vacation-login-container">
+    @if (showLoginForm)
+    {
     <div class="card vacation-card">
         <div class="card-header vacation-header">
-            <h3><i class="me-2"></i>Log ind til din ferie</h3>
+            <h3><i class="me-2"></i>Login to your dream vacation</h3>
         </div>
         <div class="card-body">
             @if (!string.IsNullOrEmpty(errorMessage))
@@ -16,7 +18,7 @@
                     @if (remainingLockoutSeconds > 0)
                     {
                         <br />
-                        <small>Pr�v igen om @remainingLockoutSeconds sekunder</small>
+                        <small>Try again in @remainingLockoutSeconds seconds</small>
                     }
                 </div>
             }
@@ -34,12 +36,12 @@
 
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="din Email" disabled="@isLoading" />
+                    <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="Your Email" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
                 </div>
-
-                @*                 <div class="form-group mb-3">
-                    <label for="Firstname" class="form-label">F�rsteNavn</label>
+                
+@*                 <div class="form-group mb-3">
+                    <label for="Firstname" class="form-label">FørsteNavn</label>
                     <InputText id="Firstname" @bind-Value="loginModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Firstname)" class="text-danger" />
                 </div>
@@ -51,8 +53,8 @@
                 </div> *@
 
                 <div class="form-group mb-3">
-                    <label for="password" class="form-label">Adgangskode</label>
-                    <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Din adgangskode" disabled="@isLoading" />
+                    <label for="password" class="form-label">Password</label>
+                    <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
                 </div>
 
@@ -73,20 +75,21 @@
 
             <div class="text-center">
                 <small class="text-muted">
-                    Har du ikke en konto?
+                    Need a account
                     <button class="btn btn-link p-0" @onclick="ShowRegister" disabled="@isLoading">
-                        Opret en her
+                        Make one here
                     </button>
                 </small>
             </div>
         </div>
     </div>
+    }
 
     @if (showRegisterForm)
     {
         <div class="card mt-3">
             <div class="card-header">
-                <h3>Opret ny konto</h3>
+                <h3>Make a new account</h3>
             </div>
             <div class="card-body">
                 <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister">
@@ -95,26 +98,26 @@
 
                     <div class="form-group mb-3">
                         <label for="reg-email" class="form-label">Email</label>
-                        <InputText id="reg-email" @bind-Value="registerModel.Email" class="form-control" placeholder="din@email.dk" disabled="@isLoading" />
+                        <InputText id="reg-email" @bind-Value="registerModel.Email" class="form-control" placeholder="Your Email" disabled="@isLoading" />
                         <ValidationMessage For="@(() => registerModel.Email)" class="text-danger" />
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="reg-password" class="form-label">Adgangskode</label>
-                        <InputText id="reg-password" type="password" @bind-Value="registerModel.Password" class="form-control" placeholder="Din adgangskode" disabled="@isLoading" />
+                        <label for="reg-password" class="form-label">Password</label>
+                        <InputText id="reg-password" type="password" @bind-Value="registerModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
                         <ValidationMessage For="@(() => registerModel.Password)" class="text-danger" />
                     </div>
 
                     <div class="form-group mb-3">
-                        <button type="submit" class="btn btn-success w-100" disabled="@isLoading">
+                        <button type="submit" class="btn btn-success w-100" disabled ="@isLoading">
                             @if (isLoading)
                             {
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                <text>Opretter konto...</text>
+                                <text>Making account...</text>
                             }
                             else
                             {
-                                <text>Opret konto</text>
+                                <text>Make account</text>
                             }
                         </button>
                     </div>
@@ -122,7 +125,7 @@
 
                 <div class="text-center">
                     <button class="btn btn-link" @onclick="HideRegister" disabled="@isLoading">
-                        Tilbage til login
+                        Back to login
                     </button>
                 </div>
             </div>
@@ -140,7 +143,7 @@
     .vacation-card {
         border: 1px solid rgba(59, 130, 246, 0.2);
         border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        /* box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1); */
         backdrop-filter: blur(20px);
         overflow: hidden;
     }
@@ -152,13 +155,13 @@
         border-bottom: 1px solid rgba(59, 130, 246, 0.1);
     }
 
-        .vacation-header h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1c1917;
-            margin: 0 0 0.5rem 0;
-            background-clip: text;
-        }
+    .vacation-header h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1c1917;
+        margin: 0 0 0.5rem 0;
+        background-clip: text;
+    }
 
     .card-body {
         padding: 2rem;
@@ -194,18 +197,18 @@
         height: auto;
     }
 
-        .form-control:focus {
-            background: rgba(255, 255, 255, 1);
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-            color: #1c1917;
-            outline: none;
-        }
+    .form-control:focus {
+        background: rgba(255, 255, 255, 1);
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        color: #1c1917;
+        outline: none;
+    }
 
-        .form-control::placeholder {
-            color: #6b7280;
-            font-weight: 400;
-        }
+    .form-control::placeholder {
+        color: #6b7280;
+        font-weight: 400;
+    }
 
     /* Modern Button Styling */
     .btn {
@@ -221,46 +224,46 @@
         letter-spacing: 0.05em;
     }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            transition: left 0.5s;
-        }
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        transition: left 0.5s;
+    }
 
-        .btn:hover::before {
-            left: 100%;
-        }
+    .btn:hover::before {
+        left: 100%;
+    }
 
     .btn-primary {
         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
         color: white;
     }
 
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
-        }
+    .btn-primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+    }
 
-        .btn-primary:disabled {
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
+    .btn-primary:disabled {
+        box-shadow: none;
+        cursor: not-allowed;
+        transform: none;
+    }
 
     .btn-success {
         box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
         color: white;
     }
 
-        .btn-success:hover:not(:disabled) {
+    .btn-success:hover:not(:disabled) {
 
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
-        }
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+    }
 
     .btn-link {
         color: #3b82f6;
@@ -272,12 +275,12 @@
         border-radius: 8px;
     }
 
-        .btn-link:hover {
-            color: #2563eb;
-            background: rgba(59, 130, 246, 0.1);
-            text-decoration: none;
-            transform: translateY(-1px);
-        }
+    .btn-link:hover {
+        color: #2563eb;
+        background: rgba(59, 130, 246, 0.1);
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
 
     /* Vacation Alert Styling */
     .alert {
@@ -311,11 +314,6 @@
     @@keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
     }
 
     /* Validation Messages */
@@ -343,7 +341,6 @@
             opacity: 0;
             transform: translateY(20px);
         }
-
         to {
             opacity: 1;
             transform: translateY(0);
@@ -381,6 +378,7 @@
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
     private bool showRegisterForm = false;
+    private bool showLoginForm = true;
     private int remainingLockoutSeconds = 0;
 
     [Parameter] public EventCallback OnLoginSuccess { get; set; }
@@ -411,7 +409,7 @@
                 successMessage = "Login succesfuldt! Omdirigerer...";
                 StateHasChanged();
 
-                // Vent kort s� brugeren kan se success besked
+                // Vent kort så brugeren kan se success besked
                 await Task.Delay(1000);
 
                 // Trigger event for parent component
@@ -427,13 +425,13 @@
 
                 if (result.DelayApplied > 0)
                 {
-                    errorMessage += $" (Forsinkelse p� {result.DelayApplied} sekunder blev anvendt)";
+                    errorMessage += $" (Forsinkelse på {result.DelayApplied} sekunder blev anvendt)";
                 }
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
+            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
             Console.WriteLine($"Login fejl: {ex.Message}");
         }
         finally
@@ -462,7 +460,7 @@
             {
                 successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
                 showRegisterForm = false;
-                var currentEmail = registerModel.Email; // Gem email f�r reset
+                var currentEmail = registerModel.Email; // Gem email før reset
                 registerModel = new RegisterDto(); // Reset form
 
                 // Kopier email til login form
@@ -478,7 +476,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
+            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
             Console.WriteLine($"Registrering fejl: {ex.Message}");
         }
         finally
@@ -491,6 +489,7 @@
     private void ShowRegister()
     {
         showRegisterForm = true;
+        showLoginForm = false;
         errorMessage = string.Empty;
         successMessage = string.Empty;
     }
@@ -498,8 +497,10 @@
     private void HideRegister()
     {
         showRegisterForm = false;
+        showLoginForm = true;
         errorMessage = string.Empty;
         successMessage = string.Empty;
         registerModel = new RegisterDto(); // Reset form
     }
+
 }
