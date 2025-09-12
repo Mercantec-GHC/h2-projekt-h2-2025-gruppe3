@@ -264,7 +264,7 @@ namespace API.Controllers
                     return BadRequest("Det valgte rum er allerede booket i den angivne periode");
                 }
 
-                // Hent rum inkl. Roomtype (så vi får prisen)
+                // Hent rum inkl. Roomtype (så prisen hentes)
                 var room = await _context.Rooms
                     .Include(r => r.Roomtype)
                     .FirstOrDefaultAsync(r => r.Id == bookingPutDto.RoomId);
