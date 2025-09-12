@@ -34,7 +34,7 @@
 
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="din Email" disabled="@isLoading" />
+                    <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="Din Email" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
                 </div>
 
@@ -52,7 +52,7 @@
 
                 <div class="form-group mb-3">
                     <label for="password" class="form-label">Adgangskode</label>
-                    <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Din adgangskode" disabled="@isLoading" />
+                    <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Din Adgangskode" disabled="@isLoading" />
                     <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
                 </div>
 
