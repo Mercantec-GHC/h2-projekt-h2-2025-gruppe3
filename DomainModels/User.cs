@@ -30,7 +30,8 @@ public class UserGetDto
     public DateTime UpdatedAt { get; set; }
 }
 
-// DTO til registrering
+//DTO til registrering
+//POST:
 public class RegisterDto
 {
     [EmailAddress(ErrorMessage = "Invalid email address")]
