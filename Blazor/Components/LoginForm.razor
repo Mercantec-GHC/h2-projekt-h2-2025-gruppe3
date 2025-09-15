@@ -4,89 +4,80 @@
 @inject NavigationManager Navigation
 
 <div class="vacation-login-container">
-    <div class="card vacation-card">
-        <div class="card-header vacation-header">
-            <h3><i class="me-2"></i>Log ind til din ferie</h3>
-        </div>
-        <div class="card-body">
-            @if (!string.IsNullOrEmpty(errorMessage))
-            {
-                <div class="alert alert-danger" role="alert">
-                    @errorMessage
-                    @if (remainingLockoutSeconds > 0)
-                    {
-                        <br />
-                        <small>Prøv igen om @remainingLockoutSeconds sekunder</small>
-                    }
-                </div>
-            }
-
-            @if (!string.IsNullOrEmpty(successMessage))
-            {
-                <div class="alert alert-success" role="alert">
-                    @successMessage
-                </div>
-            }
-
-            <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
-                <DataAnnotationsValidator />
-                <ValidationSummary class="text-danger" />
-
-                <div class="form-group mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="din Email" disabled="@isLoading" />
-                    <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
-                </div>
-
-                @*                 <div class="form-group mb-3">
-                    <label for="Firstname" class="form-label">FørsteNavn</label>
-                    <InputText id="Firstname" @bind-Value="loginModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
-                    <ValidationMessage For="@(() => loginModel.Firstname)" class="text-danger" />
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="Lastname" class="form-label">Efternavn</label>
-                    <InputText id="Lastname" type="Lastname" @bind-Value="loginModel.Lastname" class="form-control" placeholder="Dit Efternavn" disabled="@isLoading" />
-                    <ValidationMessage For="@(() => loginModel.Lastname)" class="text-danger" />
-                </div> *@
-
-                <div class="form-group mb-3">
-                    <label for="password" class="form-label">Adgangskode</label>
-                    <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Din adgangskode" disabled="@isLoading" />
-                    <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
-                </div>
-
-                <div class="form-group mb-3">
-                    <button type="submit" class="btn btn-primary w-100" disabled="@isLoading">
-                        @if (isLoading)
+    @if (showLoginForm)
+    {
+        <div class="card vacation-card">
+            <div class="card-header vacation-header">
+                <h3><i class="me-2"></i>Login to your dream vacation</h3>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @errorMessage
+                        @if (remainingLockoutSeconds > 0)
                         {
-                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                            <text>Logger ind...</text>
+                            <br />
+                            <small>Try again in @remainingLockoutSeconds seconds</small>
                         }
-                        else
-                        {
-                            <text>Log ind</text>
-                        }
-                    </button>
-                </div>
-            </EditForm>
+                    </div>
+                }
 
-            <div class="text-center">
-                <small class="text-muted">
-                    Har du ikke en konto?
-                    <button class="btn btn-link p-0" @onclick="ShowRegister" disabled="@isLoading">
-                        Opret en her
-                    </button>
-                </small>
+                @if (!string.IsNullOrEmpty(successMessage))
+                {
+                    <div class="alert alert-success" role="alert">
+                        @successMessage
+                    </div>
+                }
+
+                <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary class="text-danger" />
+
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="Your Email" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <button type="submit" class="btn btn-primary w-100" disabled="@isLoading">
+                            @if (isLoading)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                <text>Logger ind...</text>
+                            }
+                            else
+                            {
+                                <text>Log ind</text>
+                            }
+                        </button>
+                    </div>
+                </EditForm>
+
+                <div class="text-center">
+                    <small class="text-muted">
+                        Need a account
+                        <button class="btn btn-link p-0" @onclick="ShowRegister" disabled="@isLoading">
+                            Make one here
+                        </button>
+                    </small>
+                </div>
             </div>
         </div>
-    </div>
+    }
 
     @if (showRegisterForm)
     {
         <div class="card mt-3">
             <div class="card-header">
-                <h3>Opret ny konto</h3>
+                <h3>Make a new account</h3>
             </div>
             <div class="card-body">
                 <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister">
@@ -95,13 +86,26 @@
 
                     <div class="form-group mb-3">
                         <label for="reg-email" class="form-label">Email</label>
-                        <InputText id="reg-email" @bind-Value="registerModel.Email" class="form-control" placeholder="din@email.dk" disabled="@isLoading" />
+                        <InputText id="reg-email" @bind-Value="registerModel.Email" class="form-control" placeholder="Your Email" disabled="@isLoading" />
                         <ValidationMessage For="@(() => registerModel.Email)" class="text-danger" />
                     </div>
 
+
+                    @*               <div class="form-group mb-3">
+                    <label for="Firstname" class="form-label">FørsteNavn</label>
+                        <InputText id="Firstname" @bind-Value="registerModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => registerModel.Firstname)" class="text-danger" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Lastname" class="form-label">Efternavn</label>
+                        <InputText id="Lastname" @bind-Value="registerModel.Lastname" class="form-control" placeholder="Dit Efternavn" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => registerModel.Lastname)" class="text-danger" />
+                </div>  *@
+
                     <div class="form-group mb-3">
-                        <label for="reg-password" class="form-label">Adgangskode</label>
-                        <InputText id="reg-password" type="password" @bind-Value="registerModel.Password" class="form-control" placeholder="Din adgangskode" disabled="@isLoading" />
+                        <label for="reg-password" class="form-label">Password</label>
+                        <InputText id="reg-password" type="password" @bind-Value="registerModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
                         <ValidationMessage For="@(() => registerModel.Password)" class="text-danger" />
                     </div>
 
@@ -110,11 +114,11 @@
                             @if (isLoading)
                             {
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                <text>Opretter konto...</text>
+                                <text>Making account...</text>
                             }
                             else
                             {
-                                <text>Opret konto</text>
+                                <text>Make account</text>
                             }
                         </button>
                     </div>
@@ -122,7 +126,7 @@
 
                 <div class="text-center">
                     <button class="btn btn-link" @onclick="HideRegister" disabled="@isLoading">
-                        Tilbage til login
+                        Back to login
                     </button>
                 </div>
             </div>
@@ -140,7 +144,7 @@
     .vacation-card {
         border: 1px solid rgba(59, 130, 246, 0.2);
         border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        /* box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1); */
         backdrop-filter: blur(20px);
         overflow: hidden;
     }
@@ -391,6 +395,7 @@
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
     private bool showRegisterForm = false;
+    private bool showLoginForm = true;
     private int remainingLockoutSeconds = 0;
 
     [Parameter] public EventCallback OnLoginSuccess { get; set; }
@@ -501,6 +506,7 @@
     private void ShowRegister()
     {
         showRegisterForm = true;
+        showLoginForm = false;
         errorMessage = string.Empty;
         successMessage = string.Empty;
     }
@@ -508,8 +514,10 @@
     private void HideRegister()
     {
         showRegisterForm = false;
+        showLoginForm = true;
         errorMessage = string.Empty;
         successMessage = string.Empty;
         registerModel = new RegisterDto(); // Reset form
     }
+
 }

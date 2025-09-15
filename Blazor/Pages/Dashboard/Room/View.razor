@@ -3,23 +3,40 @@
 
 <PageTitle>Suite Dreams - View Rooms</PageTitle>
 
-<h1 class="ms-5 mb-4">Dashboard</h1>
+<h1 class="mb-4">Dashboard</h1>
 
-<div class="mx-5">
-    <div class="row">
-        <div class="col-12">
-            <RoomTable RoomGetDtos="@RoomGetDtos" />
+@if (rooms == null)
+{
+    <p><em>Loading rooms...</em></p>
+}
+else if (rooms.Length == 0)
+{
+    <div class="alert alert-info">No rooms found.</div>
+}
+else
+{
+    <div class="mx-5">
+        <div class="row">
+            <div class="col-12">
+                <RoomTable rooms="@rooms" />
+            </div>
         </div>
     </div>
-</div>
-
-
+}
 
 @code {
-    RoomGetDto[]? RoomGetDtos;
+    private RoomGetDto[]? rooms;
 
     protected override async Task OnInitializedAsync()
     {
-        RoomGetDtos = await ApiService.GetRoomsAsync(0);
+        try
+        {
+            rooms = await ApiService.GetRoomsAsync(0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fejl ved hentning af rum: {ex.Message}");
+            rooms = Array.Empty<RoomGetDto>();
+        }
     }
 }

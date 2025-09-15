@@ -18,15 +18,22 @@
 
 @inherits LayoutComponentBase
 <div class="">
-    <div class="col-12 h-25">
-        <NavMenu />
+    <NavMenu />
+</div>
+<div class="page">
+    <div class="sidebar_left">
+        <SideBar />
     </div>
 
     <main>
-
-
-        <div class="content w-100 h-100" >
-            @Body
+        <div class="content w-100 h-100">
+            <div class="container-lg py-4">
+                <div class="mx-lg-5">
+                    @Body
+                </div>
+            </div>
         </div>
     </main>
-</div>
+    <div class="sidebar_right">
+    </div>
+</div> 

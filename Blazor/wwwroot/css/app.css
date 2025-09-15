@@ -1,6 +1,35 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #f9fafb;
+    background-color: #f4eeeb;
+}
+.navbar {
+    background-color: #e1d5ca !important;
+}
+.sidebar_left {
+    background-color: #ece4de !important;
+    background-image: none !important;
+}
+.sidebar_right {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+@media (min-width: 641px) {
+    .sidebar_left,
+    .sidebar_right {
+        width: 164.413px !important;
+    }
+}
+/* app.css — tilføj nederst */
+@media (max-width: 991.98px) {
+    .sidebar_right {
+        display: none !important;
+    }
+}
+
+
+.card,
+.card-footer {
+    background-color: #f4eeeb !important;
 }
 
 .text-center .fw-bold {
