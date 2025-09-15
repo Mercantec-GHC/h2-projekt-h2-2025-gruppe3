@@ -8,6 +8,10 @@ html, body {
 .sidebar_left {
     background-color: #ece4de !important;
     background-image: none !important;
+    overflow-x: hidden !important;
+}
+.nav-scrollable {
+    overflow-x: hidden !important;
 }
 .sidebar_right {
     background-color: transparent !important;
