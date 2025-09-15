@@ -1,5 +1,5 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid justify-content-center">
+﻿<nav class="navbar navbar-expand-lg">
+    <div class="container-lg">
         <!-- Brand -->
         <NavLink class="navbar-brand" href="/">
             <img src="ico/favicon.svg" width="30" height="30" alt="Logo"> Suite Dreams
@@ -13,32 +13,29 @@
 
         <!-- Collapsible menu (klasse styres af Blazor: tilføj 'show' for at åbne) -->
         <div class="collapse navbar-collapse @(collapseNavMenu ? "" : "show")" id="mainNavbar">
-            <!-- 🚨 Make sure it's just navbar-nav with NO ms-auto -->
-            <ul class="navbar-nav mb-2 mb-lg-0 justify-content-center">
+            <!-- Centered main nav -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item p-1">
-                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
-                        Home
-                    </NavLink>
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+                </li>
+@*                 <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/dashboard/hotels">Hotels Table</NavLink>
                 </li>
                 <li class="nav-item p-1">
-                    <NavLink class="nav-link" href="/dashboard/hotels">
-                        Hotels Table
-                    </NavLink>
+                    <NavLink class="nav-link" href="/dashboard/rooms">Room Table</NavLink>
+                </li> *@
+                <li class="nav-item p-1">
+                    <NavLink class="nav-link" href="/about">About</NavLink>
                 </li>
                 <li class="nav-item p-1">
-                    <NavLink class="nav-link" href="/dashboard/rooms">
-                        Room Table
-                    </NavLink>
+                    <NavLink class="nav-link" href="/contact">Contact</NavLink>
                 </li>
+            </ul>
+
+            <!-- Right aligned login (bliver en del af collapse) -->
+            <ul class="navbar-nav ms-lg-auto mb-2 mb-lg-0">
                 <li class="nav-item p-1">
-                    <NavLink class="nav-link" href="/about">
-                        About
-                    </NavLink>
-                </li>
-                <li class="nav-item p-1">
-                    <NavLink class="nav-link" href="/contact">
-                        Contact
-                    </NavLink>
+                    <NavLink class="nav-link" href="/login">Login</NavLink>
                 </li>
             </ul>
             

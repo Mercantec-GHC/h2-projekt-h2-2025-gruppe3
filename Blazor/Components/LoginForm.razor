@@ -6,71 +6,71 @@
 <div class="vacation-login-container">
     @if (showLoginForm)
     {
-    <div class="card vacation-card">
-        <div class="card-header vacation-header">
-            <h3><i class="me-2"></i>Login to your dream vacation</h3>
-        </div>
-        <div class="card-body">
-            @if (!string.IsNullOrEmpty(errorMessage))
-            {
-                <div class="alert alert-danger" role="alert">
-                    @errorMessage
-                    @if (remainingLockoutSeconds > 0)
-                    {
-                        <br />
-                        <small>Try again in @remainingLockoutSeconds seconds</small>
-                    }
-                </div>
-            }
-
-            @if (!string.IsNullOrEmpty(successMessage))
-            {
-                <div class="alert alert-success" role="alert">
-                    @successMessage
-                </div>
-            }
-
-            <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
-                <DataAnnotationsValidator />
-                <ValidationSummary class="text-danger" />
-
-                <div class="form-group mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="Your Email" disabled="@isLoading" />
-                    <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
-                    <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
-                </div>
-
-                <div class="form-group mb-3">
-                    <button type="submit" class="btn btn-primary w-100" disabled="@isLoading">
-                        @if (isLoading)
+        <div class="card vacation-card">
+            <div class="card-header vacation-header">
+                <h3><i class="me-2"></i>Login to your dream vacation</h3>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @errorMessage
+                        @if (remainingLockoutSeconds > 0)
                         {
-                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                            <text>Logger ind...</text>
+                            <br />
+                            <small>Try again in @remainingLockoutSeconds seconds</small>
                         }
-                        else
-                        {
-                            <text>Log ind</text>
-                        }
-                    </button>
-                </div>
-            </EditForm>
+                    </div>
+                }
 
-            <div class="text-center">
-                <small class="text-muted">
-                    Need a account
-                    <button class="btn btn-link p-0" @onclick="ShowRegister" disabled="@isLoading">
-                        Make one here
-                    </button>
-                </small>
+                @if (!string.IsNullOrEmpty(successMessage))
+                {
+                    <div class="alert alert-success" role="alert">
+                        @successMessage
+                    </div>
+                }
+
+                <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary class="text-danger" />
+
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="Your Email" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => loginModel.Email)" class="text-danger" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" placeholder="Your Password" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <button type="submit" class="btn btn-primary w-100" disabled="@isLoading">
+                            @if (isLoading)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                <text>Logger ind...</text>
+                            }
+                            else
+                            {
+                                <text>Log ind</text>
+                            }
+                        </button>
+                    </div>
+                </EditForm>
+
+                <div class="text-center">
+                    <small class="text-muted">
+                        Need a account
+                        <button class="btn btn-link p-0" @onclick="ShowRegister" disabled="@isLoading">
+                            Make one here
+                        </button>
+                    </small>
+                </div>
             </div>
         </div>
-    </div>
     }
 
     @if (showRegisterForm)
@@ -91,8 +91,8 @@
                     </div>
 
 
-@*               <div class="form-group mb-3">
-                    <label for="Firstname" class="form-label">FørsteNavn</label>
+                    @*               <div class="form-group mb-3">
+                    <label for="Firstname" class="form-label">F�rsteNavn</label>
                         <InputText id="Firstname" @bind-Value="registerModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
                         <ValidationMessage For="@(() => registerModel.Firstname)" class="text-danger" />
                 </div>
@@ -410,7 +410,7 @@
                 successMessage = "Login succesfuldt! Omdirigerer...";
                 StateHasChanged();
 
-                // Vent kort så brugeren kan se success besked
+                // Vent kort s� brugeren kan se success besked
                 await Task.Delay(1000);
 
                 // Trigger event for parent component
@@ -426,13 +426,13 @@
 
                 if (result.DelayApplied > 0)
                 {
-                    errorMessage += $" (Forsinkelse på {result.DelayApplied} sekunder blev anvendt)";
+                    errorMessage += $" (Forsinkelse p� {result.DelayApplied} sekunder blev anvendt)";
                 }
             }
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
+            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
             Console.WriteLine($"Login fejl: {ex.Message}");
         }
         finally
@@ -461,7 +461,7 @@
             {
                 successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
                 showRegisterForm = false;
-                var currentEmail = registerModel.Email; // Gem email før reset
+                var currentEmail = registerModel.Email; // Gem email f�r reset
                 registerModel = new RegisterDto(); // Reset form
 
                 // Kopier email til login form
@@ -477,7 +477,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "Der opstod en uventet fejl. Prøv igen.";
+            errorMessage = "Der opstod en uventet fejl. Pr�v igen.";
             Console.WriteLine($"Registrering fejl: {ex.Message}");
         }
         finally

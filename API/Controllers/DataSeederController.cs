@@ -149,33 +149,33 @@ namespace API.Controllers
         /// </summary>
         /// <param name="count">Antal brugere at oprette</param>
         /// <returns>Seeding resultat.</returns>
-        //[HttpPost("seed-users")]
-        //public async Task<ActionResult<object>> SeedUsersOnly([FromQuery] int count = 25)
-        //{
-        //    if (!_environment.IsDevelopment())
-        //    {
-        //        return BadRequest("Database seeding er kun tilladt i development miljø");
-        //    }
+        [HttpPost("seed-users")]
+        public async Task<ActionResult<object>> SeedUsersOnly([FromQuery] int count = 25)
+        {
+            if (!_environment.IsDevelopment())
+            {
+                return BadRequest("Database seeding er kun tilladt i development miljø");
+            }
 
-        //    try
-        //    {
-        //        var result = await _seederService.SeedDatabaseAsync(userCount: count, hotelCount: 0, roomsPerHotel: 0, bookingCount: 0);
-        //        var stats = await _seederService.GetDatabaseStatsAsync();
+            try
+            {
+                var result = await _seederService.SeedDatabaseAsync(userCount: count, hotelCount: 0, roomsPerHotel: 0, bookingCount: 0);
+                var stats = await _seederService.GetDatabaseStatsAsync();
 
-        //        return Ok(new
-        //        {
-        //            Message = "Bruger seeding fuldført succesfuldt",
-        //            Details = result,
-        //            Statistics = stats,
-        //            Timestamp = DateTime.UtcNow
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Fejl under bruger seeding");
-        //        return StatusCode(500, "Der opstod en fejl under bruger seeding");
-        //    }
-        //}
+                return Ok(new
+                {
+                    Message = "Bruger seeding fuldført succesfuldt",
+                    Details = result,
+                    Statistics = stats,
+                    Timestamp = DateTime.UtcNow
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fejl under bruger seeding");
+                return StatusCode(500, "Der opstod en fejl under bruger seeding");
+            }
+        }
 
         /// <summary>
         /// Seeder kun hoteller og rum med test data.
@@ -225,7 +225,7 @@ namespace API.Controllers
         /// <response code="401">Ikke autoriseret - manglende eller ugyldig token.</response>
         /// <response code="403">Forbudt - kun administratorer har adgang.</response>
         /// <response code="500">Der opstod en intern serverfejl.</response>
-        //[HttpPost("seed-bookings")]
+        [HttpPost("seed-bookings")]
         public async Task<ActionResult<object>> SeedBookingsOnly([FromQuery] int bookingCount = 50)
         {
             if (!_environment.IsDevelopment())

@@ -6,20 +6,21 @@
 
 <PageTitle>Suite Dreams - Home</PageTitle>
 
-@if (hotels == null)
-{
-    <p><em>Loading hotels...</em></p>
-}
-else if (hotels.Length == 0)
-{
-    <div class="alert alert-info">No hotels found.</div>
-}
-else
-{
-    <div class="container py-4 home_page">
-        <div class="text-center mb-4">
-            <h3 class="fw-bold">Hotels</h3>
-        </div>
+<div class="home_page">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">Hotels</h3>
+    </div>
+
+    @if (hotels == null)
+    {
+        <p><em>Loading hotels...</em></p>
+    }
+    else if (hotels.Length == 0)
+    {
+        <div class="alert alert-info">No hotels found.</div>
+    }
+    else
+    {
         <div class="d-flex justify-content-center">
             <div class="row w-100 g-3">
                 @foreach (var h in hotels)
@@ -67,7 +68,7 @@ else
                                                     roomCounter++;
                                                 }
                                             }
-                                            @(roomCounter + " ledige værelser")
+                                            @(roomCounter + " rooms available today")
                                         }
                                     </small>
                                 </div>
@@ -77,8 +78,8 @@ else
                 }
             </div>
         </div>
-    </div>
-}
+        }
+</div>
 
 @code {
     private HotelGetDto[]? hotels;
