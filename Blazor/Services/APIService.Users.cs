@@ -123,7 +123,16 @@ namespace Blazor.Services
 				return false;
 			}
 		}
+		public async Task CreateAccountAsync(RegisterDto user)
+		{
+			var response = await _httpClient.PostAsJsonAsync("api/register", user);
 
+			if (!response.IsSuccessStatusCode)
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				throw new Exception($"API error: {error}");
+			}
+		}
 		// Logout method (client-side token removal)
 		public void Logout()
 		{
@@ -173,15 +182,6 @@ namespace Blazor.Services
 		public int RemainingLockoutSeconds { get; set; }
 		public int DelayApplied { get; set; }
     }
-        public async Task CreateAccountAsync(RegisterDto user)
-		{
-			var response = await _httpClient.PostAsJsonAsync("api/register", user);
 
-			if (!response.IsSuccessStatusCode)
-			{
-				var error = await response.Content.ReadAsStringAsync();
-				throw new Exception($"API error: {error}");
-			}
-		}
-	}
+
 }
