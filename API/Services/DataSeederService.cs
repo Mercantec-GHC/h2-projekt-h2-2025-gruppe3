@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using Bogus;
 using DomainModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Cryptography;
@@ -211,11 +212,18 @@ namespace API.Services
 
 
 
+
+
+        //public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
+
+
         /// <summary>
         /// Opretter fake hoteller med realistiske data.
         /// </summary>
         private async Task<List<Hotel>> SeedHotelsAsync(int count)
         {
+
+
             var hotels = new List<Hotel>();
 
             var hotelNames = new[]
@@ -313,7 +321,7 @@ namespace API.Services
                     City = baseFaker.PickRandom(danishCities),
                     Country = "Danmark",
                     CreatedAt = baseFaker.Date.Between(DateTime.UtcNow.AddYears(-5), DateTime.UtcNow.AddYears(-1)),
-                    UpdatedAt = DateTime.UtcNow
+                    UpdatedAt = DateTime.UtcNow,
                 };
 
                 hotel.UpdatedAt = baseFaker.Date.Between(hotel.CreatedAt, DateTime.UtcNow);
