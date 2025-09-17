@@ -88,17 +88,17 @@
                     </div>
 
 
-                    @*               <div class="form-group mb-3">
+                                  <div class="form-group mb-3">
                     <label for="Firstname" class="form-label">F�rsteNavn</label>
-                        <InputText id="Firstname" @bind-Value="registerModel.Firstname" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.Firstname)" class="text-danger" />
+                        <InputText id="Firstname" @bind-Value="registerModel.FirstName" class="form-control" placeholder="Dit navn" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => registerModel.FirstName)" class="text-danger" />
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="Lastname" class="form-label">Efternavn</label>
-                        <InputText id="Lastname" @bind-Value="registerModel.Lastname" class="form-control" placeholder="Dit Efternavn" disabled="@isLoading" />
-                        <ValidationMessage For="@(() => registerModel.Lastname)" class="text-danger" />
-                </div>  *@
+                        <InputText id="Lastname" @bind-Value="registerModel.LastName" class="form-control" placeholder="Dit Efternavn" disabled="@isLoading" />
+                        <ValidationMessage For="@(() => registerModel.LastName)" class="text-danger" />
+                </div>  
 
                     <div class="form-group mb-3">
                         <label for="reg-password" class="form-label">Password</label>
