@@ -33,4 +33,14 @@ public partial class APIService
 
         return hotels?.ToArray() ?? [];
     }
+    public async Task CreateHotelAsync(HotelPostDto hotel)
+    {
+        var response = await _httpClient.PostAsJsonAsync("api/hotels", hotel);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            throw new Exception($"API error: {error}");
+        }
+    }
 }
