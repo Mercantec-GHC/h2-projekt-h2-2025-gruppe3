@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Json;
+using System.Net.Http.Json;
 using DomainModels;
 
 namespace Blazor.Services;
@@ -53,5 +53,4 @@ public partial class APIService
     {
         return await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{id}");
     }
-
 }
