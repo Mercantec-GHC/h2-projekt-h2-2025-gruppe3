@@ -7,11 +7,11 @@
 <PageTitle>Update Hotel</PageTitle>
 @if (hotel == null)
 {
-    <p><em>Loading rooms...</em></p>
+	<p><em>Loading rooms...</em></p>
 }
 else if (hotel == null)
 {
-    <div class="alert alert-info">No rooms found.</div>
+	<div class="alert alert-info">No rooms found.</div>
 }
 else
 {
@@ -72,7 +72,7 @@ else
         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
             <label class="form-check-label">Restaurant</label>
-        </div>
+        </div> 
 
         <button class="btn btn-primary mt-3" type="submit">Save</button>
     </EditForm>
@@ -120,5 +120,6 @@ else
     }
 }
 
+}
 
 
