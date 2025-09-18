@@ -11,7 +11,7 @@ namespace DomainModels
     {
         public bool Pool { get; set; }
         public bool Fitness { get; set; }
-        public bool Restaturant { get; set; }
+        public bool Restaurant { get; set; }
         public int HotelId { get; set; }
         public virtual Hotel? Hotel { get; set; }
     }
@@ -29,7 +29,7 @@ namespace DomainModels
     {
         public bool Pool { get; set; }
         public bool Fitness { get; set; }
-        public bool Restaturant { get; set; }
+        public bool Restaurant { get; set; }
 
         [Required(ErrorMessage = "Hotel ID is required")]
         public int HotelId { get; set; }
@@ -40,7 +40,7 @@ namespace DomainModels
         public int Id { get; set; }
         public bool Pool { get; set; }
         public bool Fitness { get; set; }
-        public bool Restaturant { get; set; }
+        public bool Restaurant { get; set; }
 
         [Required(ErrorMessage = "Hotel ID is required")]
         public int HotelId { get; set; }

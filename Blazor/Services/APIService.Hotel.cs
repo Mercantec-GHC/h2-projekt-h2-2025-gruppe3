@@ -43,4 +43,15 @@ public partial class APIService
             throw new Exception($"API error: {error}");
         }
     }
+    public async Task UpdateHotelAsync(HotelPutDto hotel)
+    {
+        // Example implementation using HttpClient (adjust endpoint and logic as needed)
+        var response = await _httpClient.PutAsJsonAsync($"api/hotels/{hotel.Id}", hotel);
+        response.EnsureSuccessStatusCode();
+    }
+    public async Task<HotelDetailsDto?> GetHotelByIdAsync(int id)
+    {
+        return await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{id}");
+    }
+
 }

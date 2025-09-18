@@ -22,7 +22,6 @@ namespace DomainModels
         public TimeOnly ClosedAt { get; set; }
         public double PercentagePrice { get; set; } = 1;
         public Facility? Facility { get; set; }
-        public int FacilityId { get; set; }
 
         public List<Room> Rooms { get; set; } = new(); // 1:n
 
@@ -44,7 +43,6 @@ namespace DomainModels
         public TimeOnly OpenAt { get; set; }
         public TimeOnly ClosedAt { get; set; }
         public double PercentagePrice { get; set; }
-        public int FacilityId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
@@ -90,10 +88,6 @@ namespace DomainModels
         [Required(ErrorMessage = "Closing timr is required")]
         [DataType(DataType.Time)]
         public TimeOnly ClosedAt { get; set; }
-
-        [Required(ErrorMessage = "Hotel facility ID is required")]
-        public int FacilityId { get; set; }
-
         public Facility? Facility { get; set; }
     }
 
@@ -165,7 +159,43 @@ namespace DomainModels
         public TimeOnly ClosedAt { get; set; }
 
         [Required(ErrorMessage = "Hotel facility ID is required")]
-        public int FacilityId { get; set; }
+        public virtual Facility? Facility { get; set; }
+    }
+    public class HotelDetailsDto
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Road { get; set; } = string.Empty;
+
+        public string Zip { get; set; } = string.Empty;
+
+        public string City { get; set; } = string.Empty;
+
+        public string Country { get; set; } = string.Empty;
+
+        public int Phone { get; set; }
+
+        public string Email { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+
+        public double PercentagePrice { get; set; }
+
+        public TimeOnly OpenAt { get; set; }
+
+        public TimeOnly ClosedAt { get; set; }
+
+        // Facility data included
+        public FacilityDto Facility { get; set; } = new();
+    }
+
+    public class FacilityDto
+    {
+        public bool Pool { get; set; }
+        public bool Fitness { get; set; }
+        public bool Restaurant { get; set; }
     }
 }
 

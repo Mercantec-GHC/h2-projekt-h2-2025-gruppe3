@@ -43,6 +43,11 @@
                                 <td>@h.PercentagePrice%</td>
                                 <td>@h.Phone</td>
                                 <td>@h.Email</td>
+                                <td>
+                                    <NavLink href="@($"/dashboard/updatehotel/{h.Id}")" class="nav-link">
+                                        <img src="images/edit.png" style="width:20px; height:20px;" alt="Edit" />
+                                    </NavLink>
+                                </td>
                             </tr>
                         }
                     </tbody>

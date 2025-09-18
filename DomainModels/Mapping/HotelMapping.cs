@@ -24,7 +24,6 @@ namespace DomainModels.Mapping
                 Description = hotel.Description,
                 OpenAt = hotel.OpenAt,
                 ClosedAt = hotel.ClosedAt,
-                FacilityId = hotel.FacilityId
             };
         }
 
@@ -47,8 +46,7 @@ namespace DomainModels.Mapping
                 PercentagePrice = hotelPostDto.PercentagePrice,
                 Description = hotelPostDto.Description,
                 OpenAt = hotelPostDto.OpenAt,
-                ClosedAt = hotelPostDto.ClosedAt,
-                FacilityId = hotelPostDto.FacilityId,
+                ClosedAt = hotelPostDto.ClosedAt,                
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
@@ -70,7 +68,6 @@ namespace DomainModels.Mapping
                 Description = hotelPutDto.Description,
                 OpenAt = hotelPutDto.OpenAt,
                 ClosedAt = hotelPutDto.ClosedAt,
-                FacilityId = hotelPutDto.FacilityId,
                 CreatedAt = DateTime.UtcNow.AddHours(2),
                 UpdatedAt = DateTime.UtcNow.AddHours(2)
             };
