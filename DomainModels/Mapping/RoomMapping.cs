@@ -1,4 +1,4 @@
-namespace DomainModels.Mapping;
+﻿namespace DomainModels.Mapping;
 
 // RoomMapping.cs
 public class RoomMapping

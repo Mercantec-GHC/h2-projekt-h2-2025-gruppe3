@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DomainModels.Mapping;
 
 // HotelMapping.cs
 public class HotelMapping
@@ -29,10 +25,10 @@ public class HotelMapping
         };
     }
 
-        public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
-        {
-            return hotels.Select(h => ToHotelGetDto(h)).ToList();
-        }
+    public static List<HotelGetDto> ToHotelGetDtos(List<Hotel> hotels)
+    {
+        return hotels.Select(h => ToHotelGetDto(h)).ToList();
+    }
 
     public static Hotel PostHotelFromDto(HotelPostDto hotelPostDto)
     {
