@@ -7,7 +7,6 @@
     @if (showLoginForm)
     {
         <div class="card vacation-card">
-
             <div class="card-body">
                 @if (!string.IsNullOrEmpty(errorMessage))
                 {
@@ -387,7 +386,7 @@
         // Tjek om brugeren allerede er logget ind
         if (await AuthService.IsAuthenticatedAsync())
         {
-            Navigation.NavigateTo("/dashboard/hotels");
+            Navigation.NavigateTo("/");
         }
     }
 
