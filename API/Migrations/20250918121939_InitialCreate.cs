@@ -28,13 +28,9 @@ namespace API.Migrations
                     Phone = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    OpenedAt = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    OpenAt = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     ClosedAt = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    CheckInFrom = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    CheckInUntil = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    CheckOutUntil = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     PercentagePrice = table.Column<double>(type: "double precision", nullable: false),
-                    FacilityId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -83,7 +79,7 @@ namespace API.Migrations
                     HotelId = table.Column<int>(type: "integer", nullable: false),
                     Pool = table.Column<bool>(type: "boolean", nullable: false),
                     Fitness = table.Column<bool>(type: "boolean", nullable: false),
-                    Restaturant = table.Column<bool>(type: "boolean", nullable: false),
+                    Restaurant = table.Column<bool>(type: "boolean", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -168,7 +164,7 @@ namespace API.Migrations
                     FinalPrice = table.Column<double>(type: "double precision", nullable: true),
                     BookingStatus = table.Column<int>(type: "integer", nullable: false),
                     Crib = table.Column<bool>(type: "boolean", nullable: false),
-                    ExtraBeds = table.Column<int>(type: "integer", nullable: false),
+                    ExtraBed = table.Column<bool>(type: "boolean", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     HotelId = table.Column<int>(type: "integer", nullable: true),
@@ -199,12 +195,12 @@ namespace API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Hotels",
-                columns: new[] { "Id", "CheckInFrom", "CheckInUntil", "CheckOutUntil", "City", "ClosedAt", "Country", "CreatedAt", "Description", "Email", "FacilityId", "Name", "OpenedAt", "PercentagePrice", "Phone", "Road", "UpdatedAt", "Zip" },
+                columns: new[] { "Id", "City", "ClosedAt", "Country", "CreatedAt", "Description", "Email", "Name", "OpenAt", "PercentagePrice", "Phone", "Road", "UpdatedAt", "Zip" },
                 values: new object[,]
                 {
-                    { 1, new TimeOnly(16, 0, 0), new TimeOnly(21, 0, 0), new TimeOnly(10, 0, 0), "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 1", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
-                    { 2, new TimeOnly(16, 0, 0), new TimeOnly(21, 0, 0), new TimeOnly(10, 0, 0), "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 2", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
-                    { 3, new TimeOnly(16, 0, 0), new TimeOnly(21, 0, 0), new TimeOnly(10, 0, 0), "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", 0, "Hotel 3", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" }
+                    { 1, "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", "Hotel 1", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
+                    { 2, "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", "Hotel 2", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" },
+                    { 3, "Viborg", new TimeOnly(21, 30, 0), "Danmark", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.", "mercantec@mercantec.dk", "Hotel 3", new TimeOnly(9, 0, 0), 1.0, 12345678, "H. C. Andersens Vej 9", new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc), "8800" }
                 });
 
             migrationBuilder.InsertData(

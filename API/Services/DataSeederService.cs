@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using Bogus;
 using DomainModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Cryptography;
@@ -211,11 +212,18 @@ namespace API.Services
 
 
 
+
+
+        //public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
+
+
         /// <summary>
         /// Opretter fake hoteller med realistiske data.
         /// </summary>
         private async Task<List<Hotel>> SeedHotelsAsync(int count)
         {
+
+
             var hotels = new List<Hotel>();
 
             var hotelNames = new[]
@@ -259,6 +267,11 @@ namespace API.Services
             {
                 var baseFaker = new Faker();
 
+
+                /// <summary>
+                /// Konvertere strenge til gyldig hotel navne værdier.
+                /// </summary>
+
                 var hotelName = baseFaker.PickRandom(hotelNames) + " " + baseFaker.PickRandom(danishCities);
 
                 // Sikr unikt navn
@@ -282,6 +295,11 @@ namespace API.Services
                 // Fjern alle tegn der ikke er bogstaver, tal eller mellemrum
                 var hotelNameCleaned = Regex.Replace(hotelName, @"[^a-zA-Z0-9 ]", "");
 
+
+                /// <summary>
+                /// Konvertere decimaler til gyldig hotel PercentagePrice værdier.
+                /// </summary>
+
                 double PercentagePrice;
 
                 double lowRangeNum = 0.1;
@@ -301,19 +319,67 @@ namespace API.Services
                     _ => (lowRangeNum, highRangeNum)
                 };
 
+
+                /// <summary>
+                /// Konvertere decimaler til gyldig hotel PercentagePrice værdier.
+                /// </summary>
+                int estimatedCleaningHours = baseFaker.Random.Int(1, 2);
+
+
+
+
+
+                TimeOnly opened = new TimeOnly(baseFaker.Random.Int(7, 10), 0, 0);
+
+                // Finder mindste værdi mellem (åbningstid + tilfældige timer) og (23)
+                TimeOnly closed = opened.AddHours(Math.Min(opened.Hour + baseFaker.Random.Int(13, 16), 23));
+
+
+                // Finder mindste værdi mellem (åbningstid + tilfældige timer) og (11)
+                TimeOnly checkOutUntil = opened.AddHours(Math.Min(opened.Hour + baseFaker.Random.Int(1, 2), 11));
+
+
+                TimeOnly checkInFrom = checkOutUntil.AddHours(estimatedCleaningHours);
+
+                TimeOnly checkInUntil = closed.AddHours(baseFaker.Random.Int(-2, -1));
+
+
+
+
+
+                // opened + 2 + estimatedCleaningHours
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 var hotel = new Hotel
                 {
                     Name = hotelName,
-                    Phone = baseFaker.Random.Int(20000000, 99999999),
-                    Email = hotelNameCleaned.ToLower().Replace(" ", "") + "@" + baseFaker.PickRandom(emailDomainNames),
-                    Description = baseFaker.Lorem.Paragraphs(1, 2),
-                    PercentagePrice = Math.Round(baseFaker.Random.Double(lowRangeNum, highRangeNum), 2),
                     Road = baseFaker.PickRandom(danishStreets) + " " + baseFaker.Random.Int(1, 200),
                     Zip = baseFaker.Random.Int(1000, 9999).ToString(),
                     City = baseFaker.PickRandom(danishCities),
                     Country = "Danmark",
+                    Phone = baseFaker.Random.Int(20000000, 99999999),
+                    Email = hotelNameCleaned.ToLower().Replace(" ", "") + "@" + baseFaker.PickRandom(emailDomainNames),
+                    Description = baseFaker.Lorem.Paragraphs(1, 2),
+                    OpenedAt = new TimeOnly(baseFaker.Random.Int(12, 16), baseFaker.Random.Int(0, 59), 0),
+                    ClosedAt = new TimeOnly(baseFaker.Random.Int(12, 23), baseFaker.Random.Int(0, 59), 0),
+                    CheckInFrom = new TimeOnly(baseFaker.Random.Int(12, 20), baseFaker.Random.Int(0, 59), 0),
+                    CheckInUntil = new TimeOnly(baseFaker.Random.Int(13, 23), baseFaker.Random.Int(0, 59), 0),
+                    CheckOutUntil = new TimeOnly(baseFaker.Random.Int(7, 12), baseFaker.Random.Int(0, 59), 0),
+                    PercentagePrice = Math.Round(baseFaker.Random.Double(lowRangeNum, highRangeNum), 2),
                     CreatedAt = baseFaker.Date.Between(DateTime.UtcNow.AddYears(-5), DateTime.UtcNow.AddYears(-1)),
-                    UpdatedAt = DateTime.UtcNow
+                    UpdatedAt = DateTime.UtcNow,
                 };
 
                 hotel.UpdatedAt = baseFaker.Date.Between(hotel.CreatedAt, DateTime.UtcNow);

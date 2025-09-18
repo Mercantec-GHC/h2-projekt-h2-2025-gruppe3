@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250914212817_InitialCreate")]
+    [Migration("20250918121939_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,8 +45,8 @@ namespace API.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ExtraBeds")
-                        .HasColumnType("integer");
+                    b.Property<bool>("ExtraBed")
+                        .HasColumnType("boolean");
 
                     b.Property<double?>("FinalPrice")
                         .HasColumnType("double precision");
@@ -94,7 +94,7 @@ namespace API.Migrations
                     b.Property<bool>("Pool")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("Restaturant")
+                    b.Property<bool>("Restaurant")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -112,15 +112,6 @@ namespace API.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<TimeOnly>("CheckInFrom")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<TimeOnly>("CheckInUntil")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<TimeOnly>("CheckOutUntil")
-                        .HasColumnType("time without time zone");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -144,14 +135,11 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("FacilityId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<TimeOnly>("OpenedAt")
+                    b.Property<TimeOnly>("OpenAt")
                         .HasColumnType("time without time zone");
 
                     b.Property<double>("PercentagePrice")
@@ -179,18 +167,14 @@ namespace API.Migrations
                         new
                         {
                             Id = 1,
-                            CheckInFrom = new TimeOnly(16, 0, 0),
-                            CheckInUntil = new TimeOnly(21, 0, 0),
-                            CheckOutUntil = new TimeOnly(10, 0, 0),
                             City = "Viborg",
                             ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                             Email = "mercantec@mercantec.dk",
-                            FacilityId = 0,
                             Name = "Hotel 1",
-                            OpenedAt = new TimeOnly(9, 0, 0),
+                            OpenAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -200,18 +184,14 @@ namespace API.Migrations
                         new
                         {
                             Id = 2,
-                            CheckInFrom = new TimeOnly(16, 0, 0),
-                            CheckInUntil = new TimeOnly(21, 0, 0),
-                            CheckOutUntil = new TimeOnly(10, 0, 0),
                             City = "Viborg",
                             ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                             Email = "mercantec@mercantec.dk",
-                            FacilityId = 0,
                             Name = "Hotel 2",
-                            OpenedAt = new TimeOnly(9, 0, 0),
+                            OpenAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
@@ -221,18 +201,14 @@ namespace API.Migrations
                         new
                         {
                             Id = 3,
-                            CheckInFrom = new TimeOnly(16, 0, 0),
-                            CheckInUntil = new TimeOnly(21, 0, 0),
-                            CheckOutUntil = new TimeOnly(10, 0, 0),
                             City = "Viborg",
                             ClosedAt = new TimeOnly(21, 30, 0),
                             Country = "Danmark",
                             CreatedAt = new DateTime(2025, 1, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             Description = "First Central Hotel Suites er udstyret med 524 moderne suiter, der kan prale af moderne finish og en lokkende hyggelig stemning, der giver hver gæst den ultimative komfort og pusterum. Hotellet tilbyder en bred vifte af fritids- og forretningsfaciliteter, herunder et mini-businesscenter, rejseskrivebord, en fredfyldt pool på taget, veludstyret fitnesscenter og rekreative faciliteter.\r\nFra spisning til roomservice, oplev en balance mellem kontinentale retter og tilfredsstil dine trang med den friske gane i Beastro Restaurant og den søde duft af kaffe på Beastro, der ligger i lobbyen.",
                             Email = "mercantec@mercantec.dk",
-                            FacilityId = 0,
                             Name = "Hotel 3",
-                            OpenedAt = new TimeOnly(9, 0, 0),
+                            OpenAt = new TimeOnly(9, 0, 0),
                             PercentagePrice = 1.0,
                             Phone = 12345678,
                             Road = "H. C. Andersens Vej 9",
