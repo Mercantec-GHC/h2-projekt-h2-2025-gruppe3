@@ -1,4 +1,4 @@
-ï»¿using DomainModels;
+using DomainModels;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -105,7 +105,7 @@ namespace Blazor.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Fejl ved hentning af nuvï¿½rende bruger: " + ex.Message);
+                Console.WriteLine("Fejl ved hentning af nuværende bruger: " + ex.Message);
                 return null;
             }
         }

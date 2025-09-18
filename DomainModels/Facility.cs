@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+namespace DomainModels;
 
 // Facility.cs
 public class Facility : Common
@@ -41,7 +37,6 @@ public class FacilityPutDto
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }
 
-        [Required(ErrorMessage = "Hotel ID is required")]
-        public int HotelId { get; set; }
-    }
+    [Required(ErrorMessage = "Hotel ID is required")]
+    public int HotelId { get; set; }
 }
