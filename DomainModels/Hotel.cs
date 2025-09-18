@@ -45,6 +45,7 @@ namespace DomainModels
         public double PercentagePrice { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
     }
 
     // DTO for hotel creation / POST
@@ -81,13 +82,14 @@ namespace DomainModels
         [Range(0, 2, ErrorMessage = "Hotel percentage price must be between 0 and 2")]
         public double PercentagePrice { get; set; }
 
-        [Required(ErrorMessage = "Opening timr is required")]
+        [Required(ErrorMessage = "Opening time is required")]
         [DataType(DataType.Time)]
         public TimeOnly OpenAt { get; set; }
 
-        [Required(ErrorMessage = "Closing timr is required")]
+        [Required(ErrorMessage = "Closing time is required")]
         [DataType(DataType.Time)]
         public TimeOnly ClosedAt { get; set; }
+
         public Facility? Facility { get; set; }
     }
 
