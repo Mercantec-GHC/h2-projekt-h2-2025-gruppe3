@@ -72,8 +72,18 @@ public class HotelMapping
             CheckInFrom = hotelPutDto.CheckInFrom,
             CheckInUntil = hotelPutDto.CheckInUntil,
             CheckOutUntil = hotelPutDto.CheckOutUntil,
-            CreatedAt = DateTime.UtcNow.AddHours(2),
+            Facility = hotelPutDto.Facility != null
+                ? new Facility
+                {
+                    Pool = hotelPutDto.Facility.Pool,
+                    Fitness = hotelPutDto.Facility.Fitness,
+                    Restaurant = hotelPutDto.Facility.Restaurant
+                }
+                : new Facility(),
             UpdatedAt = DateTime.UtcNow.AddHours(2)
         };
     }
+
+
 }
+

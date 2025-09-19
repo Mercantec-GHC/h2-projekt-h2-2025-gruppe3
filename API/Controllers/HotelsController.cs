@@ -99,37 +99,39 @@ namespace API.Controllers
         
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, HotelPutDto hotel)
-        {
-            if (id != hotel.Id)
-            {
-                _logger.LogWarning("Mismatch mellem route id {Id} og body id {HotelId}", id, hotel.Id);
-                return BadRequest("Id i route stemmer ikke med hotellets id");
-            }
 
-            _context.Entry(hotel).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-                _logger.LogInformation("Hotel {Id} opdateret succesfuldt", id);
-                return NoContent();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                _logger.LogWarning(ex, "Concurrency fejl ved opdatering af hotel {Id}", id);
-                if (!HotelExists(id))
-                    return NotFound();
-                else
-                    throw;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Fejl ved opdatering af hotel {Id}", id);
-                return StatusCode(500, "Der opstod en intern serverfejl ved opdatering af hotel");
-            }
-        }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutHotel(int id, HotelPutDto hotel)
+        //{
+        //    if (id != hotel.Id)
+        //    {
+        //        _logger.LogWarning("Mismatch mellem route id {Id} og body id {HotelId}", id, hotel.Id);
+        //        return BadRequest("Id i route stemmer ikke med hotellets id");
+        //    }
+
+        //    _context.Entry(hotel).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //        _logger.LogInformation("Hotel {Id} opdateret succesfuldt", id);
+        //        return NoContent();
+        //    }
+        //    catch (DbUpdateConcurrencyException ex)
+        //    {
+        //        _logger.LogWarning(ex, "Concurrency fejl ved opdatering af hotel {Id}", id);
+        //        if (!HotelExists(id))
+        //            return NotFound();
+        //        else
+        //            throw;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Fejl ved opdatering af hotel {Id}", id);
+        //        return StatusCode(500, "Der opstod en intern serverfejl ved opdatering af hotel");
+        //    }
+        //}
 
         /// <summary>
         /// Opretter et nyt hotel.
@@ -212,4 +214,5 @@ namespace API.Controllers
             return _context.Hotels.Any(e => e.Id == id);
         }
     }
+
 }

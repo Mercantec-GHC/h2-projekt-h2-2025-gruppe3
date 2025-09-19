@@ -47,9 +47,9 @@ namespace API.Data
 
 
             modelBuilder.Entity<Hotel>()
-                .HasOne(u => u.Facility)
-                .WithOne(i => i.Hotel)
-                .HasForeignKey<Facility>(i => i.HotelId);
+                .HasOne(h => h.Facility)
+                .WithOne() // no navigation back
+                .HasForeignKey<Facility>(f => f.HotelId);
 
 
             modelBuilder.Entity<Hotel>()

@@ -53,12 +53,30 @@ else
             <InputNumber class="form-control" @bind-Value="hotel.PercentagePrice" />
         </div>
         <div class="mb-3">
+            <label class="form-label">open at</label>
+            <InputDate class="form-control" @bind-Value="hotel.OpenedAt" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">closed at</label>
+            <InputDate class="form-control" @bind-Value="hotel.ClosedAt" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CheckInFrom</label>
+            <InputDate class="form-control" @bind-Value="hotel.CheckInFrom" />
+        </div>        <div class="mb-3">
+            <label class="form-label">CheckInUntil</label>
+            <InputDate class="form-control" @bind-Value="hotel.CheckInUntil" />
+        </div>        <div class="mb-3">
+            <label class="form-label">CheckOutUntil </label>
+            <InputDate class="form-control" @bind-Value="hotel.CheckOutUntil" />
+        </div>
+        <div class="mb-3">
             <label class="form-label">Description</label>
             <InputTextArea class="form-control" @bind-Value="hotel.Description" />
         </div>
 
         <!-- Facilities -->
-        <div class="form-check">
+@*         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
             <label class="form-check-label">Pool</label>
         </div>
@@ -69,7 +87,7 @@ else
         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
             <label class="form-check-label">Restaurant</label>
-        </div>
+        </div> *@
 
         <button class="btn btn-primary mt-3" type="submit">Save</button>
     </EditForm>
@@ -77,30 +95,49 @@ else
 }
 @code {
     [Parameter] public int hotelId { get; set; }
-    private HotelPutDto hotel = new();
+    private HotelPutDto hotel = new HotelPutDto
+    {
+        // Facility = new Facility() // initialize nested object too
+    };
 
     protected override async Task OnInitializedAsync()
     {
         var details = await ApiService.GetHotelByIdAsync(hotelId);
-        if (details != null)
+        
+        if (details == null)
         {
-            hotel = new HotelPutDto
-            {
-                Id = details.Id,
-                Name = details.Name,
-                Road = details.Road,
-                Zip = details.Zip,
-                City = details.City,
-                Country = details.Country,
-                Phone = details.Phone,
-                Email = details.Email,
-                Description = details.Description,
-                PercentagePrice = details.PercentagePrice,
-                OpenAt = details.OpenAt,
-                ClosedAt = details.ClosedAt,
-                Facility = details.Facility ?? new FacilityDto()
-            };
+            // optionally show not found
+            return;
         }
+
+        hotel = new HotelPutDto
+        {
+            Id = details.Id,
+            Name = details.Name,
+            Road = details.Road,
+            Zip = details.Zip,
+            City = details.City,
+            Country = details.Country,
+            Phone = details.Phone,
+            Email = details.Email,
+            Description = details.Description,
+            PercentagePrice = details.PercentagePrice,
+            OpenedAt = details.OpenedAt,
+            ClosedAt = details.ClosedAt,
+            CheckInFrom = details.CheckInFrom,
+            CheckInUntil = details.CheckInUntil,
+            CheckOutUntil = details.CheckOutUntil,
+            Facility = details.FacilityD != null
+                ? new Facility
+                {
+                    Pool = details.FacilityD.Pool,
+                    Fitness = details.FacilityD.Fitness,
+                    Restaurant = details.FacilityD.Restaurant
+                }
+
+                : new Facility()
+        };
+    
     }
 
     private async Task SaveHotel()

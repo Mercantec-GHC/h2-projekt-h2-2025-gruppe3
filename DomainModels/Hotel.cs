@@ -212,8 +212,9 @@ public class HotelDetailsDto
 
     public double PercentagePrice { get; set; }
 
+
     // Facility data included
-    public virtual FacilityDto? Facility { get; set; } = new();
+    public FacilityDto FacilityD { get; set; } = new FacilityDto();
 }
 
 public class FacilityDto
@@ -221,6 +222,5 @@ public class FacilityDto
     public bool Pool { get; set; }
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }
-
 }
 
