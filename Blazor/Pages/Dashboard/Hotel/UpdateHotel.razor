@@ -7,17 +7,14 @@
 <PageTitle>Update Hotel</PageTitle>
 @if (hotel == null)
 {
-    <p><em>Loading rooms...</em></p>
+    <p><em>Loading hotel...</em></p>
 }
-else if (hotel == null)
-{
-    <div class="alert alert-info">No rooms found.</div>
-}
+
 else
 {
-<EditForm Model="@hotel" OnValidSubmit="SaveHotel">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <EditForm Model="@hotel" OnValidSubmit="SaveHotel">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
         <div class="mb-3">
             <label class="form-label">Name</label>
@@ -56,12 +53,30 @@ else
             <InputNumber class="form-control" @bind-Value="hotel.PercentagePrice" />
         </div>
         <div class="mb-3">
+            <label class="form-label">open at</label>
+            <InputDate class="form-control" @bind-Value="hotel.OpenedAt" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">closed at</label>
+            <InputDate class="form-control" @bind-Value="hotel.ClosedAt" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CheckInFrom</label>
+            <InputDate class="form-control" @bind-Value="hotel.CheckInFrom" />
+        </div>        <div class="mb-3">
+            <label class="form-label">CheckInUntil</label>
+            <InputDate class="form-control" @bind-Value="hotel.CheckInUntil" />
+        </div>        <div class="mb-3">
+            <label class="form-label">CheckOutUntil </label>
+            <InputDate class="form-control" @bind-Value="hotel.CheckOutUntil" />
+        </div>
+        <div class="mb-3">
             <label class="form-label">Description</label>
             <InputTextArea class="form-control" @bind-Value="hotel.Description" />
         </div>
 
         <!-- Facilities -->
-@*         <div class="form-check">
+        @*         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
             <label class="form-check-label">Pool</label>
         </div>
