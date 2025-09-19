@@ -8,7 +8,7 @@ public class Facility : Common
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }
     public int HotelId { get; set; }
-    public Hotel? Hotel { get; set; }
+    //public Hotel? Hotel { get; set; }
 }
 public class FacilityGetDto
 {

@@ -95,12 +95,16 @@ else
 }
 @code {
     [Parameter] public int hotelId { get; set; }
-    private HotelPutDto hotel = new();
+    private HotelPutDto hotel = new HotelPutDto
+    {
+        // Facility = new Facility() // initialize nested object too
+    };
 
     protected override async Task OnInitializedAsync()
     {
         var details = await ApiService.GetHotelByIdAsync(hotelId);
-        if (details != null)
+        
+        if (details == null)
         {
             hotel = new HotelPutDto
             {
