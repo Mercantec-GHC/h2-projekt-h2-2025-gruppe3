@@ -72,13 +72,13 @@ namespace API.Services
                 var hotels = await SeedHotelsAsync(hotelCount);
                 summary.AppendLine($"✅ Oprettet {hotels.Count} hoteller");
 
-                // Seed rum
-                var rooms = await SeedRoomsAsync(hotels, roomsPerHotel);
-                summary.AppendLine($"✅ Oprettet {rooms.Count} rum");
-
                 //// Hent eksisterende rumtyper
                 var roomtypes = await _context.Roomtypes.ToListAsync();
                 summary.AppendLine($"✅ Hentet {roomtypes.Count} rumtyper");
+
+                // Seed rum
+                var rooms = await SeedRoomsAsync(hotels, roomtypes, roomsPerHotel);
+                summary.AppendLine($"✅ Oprettet {rooms.Count} rum");
 
                 //// Seed bookinger
                 var bookings = await SeedBookingsAsync(existingBookingsList, existingHotelssList, users, rooms, roomtypes, bookingCount);
@@ -135,9 +135,11 @@ namespace API.Services
 
             // Hent faktiske rolle ID'er fra databasen
             var userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
+            var cleaningStaffRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "CleaningStaff");
+            var receptionRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "Reception");
             var adminRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
 
-            if (userRole == null || adminRole == null)
+            if (userRole == null || cleaningStaffRole == null || receptionRole == null || adminRole == null)
             {
                 throw new InvalidOperationException("User eller Admin rolle ikke fundet i databasen");
             }
@@ -170,7 +172,7 @@ namespace API.Services
                 .RuleFor(u => u.LastName, f => f.PickRandom(danishLastNames))
                 .RuleFor(u => u.HashedPassword, f => HashPassword("Password123!"))
                 .RuleFor(u => u.PasswordBackdoor, f => "Password123!")
-                .RuleFor(u => u.RoleId, f => f.PickRandom(userRole.Id, userRole.Id, userRole.Id, userRole.Id, adminRole.Id)) // 80% User, 20% Admin
+                .RuleFor(u => u.RoleId, f => f.PickRandom(userRole.Id, userRole.Id, userRole.Id, userRole.Id, cleaningStaffRole.Id, cleaningStaffRole.Id, cleaningStaffRole.Id, receptionRole.Id, receptionRole.Id, adminRole.Id)) // 40% User, 30% Admin, 20% Admin, 10% Admin
                 .RuleFor(u => u.LastLogin, f => f.Date.Between(DateTime.UtcNow.AddDays(-30), DateTime.UtcNow))
                 .RuleFor(u => u.CreatedAt, f => f.Date.Between(DateTime.UtcNow.AddYears(-2), DateTime.UtcNow))
                 .RuleFor(u => u.UpdatedAt, (f, u) => f.Date.Between(u.CreatedAt, DateTime.UtcNow));
@@ -211,19 +213,11 @@ namespace API.Services
         }
 
 
-
-
-
-        //public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
-
-
         /// <summary>
         /// Opretter fake hoteller med realistiske data.
         /// </summary>
         private async Task<List<Hotel>> SeedHotelsAsync(int count)
         {
-
-
             var hotels = new List<Hotel>();
 
             var hotelNames = new[]
@@ -238,14 +232,11 @@ namespace API.Services
             var emailDomainNames = new[]
             {
                 // Danske domæner
-                "gmail.com","hotmail.com","outlook.com",
-
-
-                "live.dk","mail.dk","posteo.dk","privat.dk",
-                "stofanet.dk","youmail.dk","jubii.dk","tdc.dk","get2net.dk","mailme.dk","firma.dk",
+                "live.dk","mail.dk","posteo.dk","privat.dk","stofanet.dk","youmail.dk",
+                "jubii.dk","tdc.dk","get2net.dk","mailme.dk","firma.dk",
                 // Udenlandske domæner
-                "yahoo.com","icloud.com","aol.com","protonmail.com","gmx.com","zoho.com","mail.com","yandex.com",
-                "fastmail.com","outlook.de","orange.fr","web.de","bluewin.ch","btinternet.com","comcast.net"
+                "gmail.com","hotmail.com","outlook.com","yahoo.com","icloud.com","aol.com","protonmail.com","gmx.com","zoho.com",
+                "mail.com","yandex.com","fastmail.com","outlook.de","orange.fr","web.de","bluewin.ch","btinternet.com","comcast.net"
             };
 
             var danishCities = new[]
@@ -262,16 +253,13 @@ namespace API.Services
                 "Store Kongensgade", "Gothersgade", "Sankt Peders Stræde"
             };
 
-
             for (int i = 0; i < count; i++)
             {
                 var baseFaker = new Faker();
 
-
                 /// <summary>
-                /// Konvertere strenge til gyldig hotel navne værdier.
+                /// Omdanner strenge til gyldig hotel navne værdier.
                 /// </summary>
-
                 var hotelName = baseFaker.PickRandom(hotelNames) + " " + baseFaker.PickRandom(danishCities);
 
                 // Sikr unikt navn
@@ -295,16 +283,13 @@ namespace API.Services
                 // Fjern alle tegn der ikke er bogstaver, tal eller mellemrum
                 var hotelNameCleaned = Regex.Replace(hotelName, @"[^a-zA-Z0-9 ]", "");
 
-
                 /// <summary>
-                /// Konvertere decimaler til gyldig hotel PercentagePrice værdier.
+                /// Omdanner decimaler til gyldig hotel PercentagePrice værdier.
                 /// </summary>
-
                 double PercentagePrice;
 
                 double lowRangeNum = 0.1;
                 double highRangeNum = 1.9;
-
 
                 PercentagePrice = baseFaker.Random.WeightedRandom(new[] { 0.4, 0.8, 1.2, 1.6, 1.9 }, new[] { 0.05f, 0.25f, 0.4f, 0.25f, 0.05f });
 
@@ -319,48 +304,18 @@ namespace API.Services
                     _ => (lowRangeNum, highRangeNum)
                 };
 
-
                 /// <summary>
-                /// Konvertere decimaler til gyldig hotel PercentagePrice værdier.
+                /// Omdanner int til gyldig hotel time værdier.
                 /// </summary>
                 int estimatedCleaningHours = baseFaker.Random.Int(1, 2);
-
-
-
-
 
                 TimeOnly opened = new TimeOnly(baseFaker.Random.Int(7, 10), 0, 0);
 
                 // Finder mindste værdi mellem (åbningstid + tilfældige timer) og (23)
                 TimeOnly closed = opened.AddHours(Math.Min(opened.Hour + baseFaker.Random.Int(13, 16), 23));
 
-
                 // Finder mindste værdi mellem (åbningstid + tilfældige timer) og (11)
                 TimeOnly checkOutUntil = opened.AddHours(Math.Min(opened.Hour + baseFaker.Random.Int(1, 2), 11));
-
-
-                TimeOnly checkInFrom = checkOutUntil.AddHours(estimatedCleaningHours);
-
-                TimeOnly checkInUntil = closed.AddHours(baseFaker.Random.Int(-2, -1));
-
-
-
-
-
-                // opened + 2 + estimatedCleaningHours
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 var hotel = new Hotel
                 {
@@ -372,11 +327,11 @@ namespace API.Services
                     Phone = baseFaker.Random.Int(20000000, 99999999),
                     Email = hotelNameCleaned.ToLower().Replace(" ", "") + "@" + baseFaker.PickRandom(emailDomainNames),
                     Description = baseFaker.Lorem.Paragraphs(1, 2),
-                    OpenedAt = new TimeOnly(baseFaker.Random.Int(12, 16), baseFaker.Random.Int(0, 59), 0),
-                    ClosedAt = new TimeOnly(baseFaker.Random.Int(12, 23), baseFaker.Random.Int(0, 59), 0),
-                    CheckInFrom = new TimeOnly(baseFaker.Random.Int(12, 20), baseFaker.Random.Int(0, 59), 0),
-                    CheckInUntil = new TimeOnly(baseFaker.Random.Int(13, 23), baseFaker.Random.Int(0, 59), 0),
-                    CheckOutUntil = new TimeOnly(baseFaker.Random.Int(7, 12), baseFaker.Random.Int(0, 59), 0),
+                    OpenedAt = opened,
+                    ClosedAt = closed,
+                    CheckInFrom = checkOutUntil,
+                    CheckInUntil = checkOutUntil.AddHours(estimatedCleaningHours),
+                    CheckOutUntil = closed.AddHours(baseFaker.Random.Int(-2, -1)),
                     PercentagePrice = Math.Round(baseFaker.Random.Double(lowRangeNum, highRangeNum), 2),
                     CreatedAt = baseFaker.Date.Between(DateTime.UtcNow.AddYears(-5), DateTime.UtcNow.AddYears(-1)),
                     UpdatedAt = DateTime.UtcNow,
@@ -395,15 +350,24 @@ namespace API.Services
         /// <summary>
         /// Opretter fake rum for hvert hotel.
         /// </summary>
-        private async Task<List<Room>> SeedRoomsAsync(List<Hotel> hotels, int roomsPerHotel)
+        private async Task<List<Room>> SeedRoomsAsync(List<Hotel> hotels, List<Roomtype> roomtypes, int roomsPerHotel)
         {
             var rooms = new List<Room>();
+
+            // Hvis ingen rumtyper i DB, kast eller håndter
+            if (roomtypes == null || !roomtypes.Any())
+                throw new InvalidOperationException("Ingen roomtypes fundet i databasen. Seed roomtypes først.");
+
+            // Array af roomtypeId's 
+            var roomtypeIds = roomtypes.Select(rt => rt.Id).ToArray();
+
 
             foreach (var hotel in hotels)
             {
                 var faker = new Faker<Room>("en")
                     .RuleFor(r => r.RoomNumber, f => f.Random.Int(101, 999))
-                    .RuleFor(r => r.RoomtypeId, f => f.Random.WeightedRandom(new[] { 1, 2, 3, 4, 6 }, new[] { 0.1f, 0.5f, 0.2f, 0.15f, 0.05f }))
+                    //.RuleFor(r => r.NumberOfBeds, f => f.Random.WeightedRandom(new[] { 1, 2, 3, 4, 6 }, new[] { 0.1f, 0.5f, 0.2f, 0.15f, 0.05f }))
+                    .RuleFor(r => r.RoomtypeId, f => f.PickRandom(roomtypeIds))
                     .RuleFor(r => r.HotelId, f => hotel.Id)
                     .RuleFor(r => r.CreatedAt, f => f.Date.Between(hotel.CreatedAt, DateTime.UtcNow))
                     .RuleFor(r => r.UpdatedAt, (f, r) => f.Date.Between(r.CreatedAt, DateTime.UtcNow));
@@ -498,8 +462,8 @@ namespace API.Services
                         FinalPrice = roomtype.PricePerNight * nights * hotel.PercentagePrice,
                         BookingStatus = faker.PickRandom(bookingStatuses),
                         //SpecialRequests = faker.Random.Bool(0.3f) ? faker.Lorem.Sentence() : null,
-                        //CheckInTime = startDate < DateTime.UtcNow ? faker.Date.Between(startDate.AddHours(14), startDate.AddHours(18)) : null,
-                        //CheckOutTime = endDate < DateTime.UtcNow ? faker.Date.Between(endDate.AddHours(8), endDate.AddHours(12)) : null,
+                        Crib = faker.Random.Bool(),
+                        ExtraBeds = faker.Random.Int(1, 2),
                         CreatedAt = faker.Date.Between(startDate.AddDays(-30), startDate.AddDays(-1)),
                         UpdatedAt = faker.Date.Between(startDate.AddDays(-10), DateTime.UtcNow)
                     };

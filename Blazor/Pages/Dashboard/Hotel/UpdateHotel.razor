@@ -61,7 +61,7 @@ else
         </div>
 
         <!-- Facilities -->
-        <div class="form-check">
+@*         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
             <label class="form-check-label">Pool</label>
         </div>
@@ -72,7 +72,7 @@ else
         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
             <label class="form-check-label">Restaurant</label>
-        </div>
+        </div> *@
 
         <button class="btn btn-primary mt-3" type="submit">Save</button>
     </EditForm>
@@ -101,14 +101,14 @@ else
                 PercentagePrice = details.PercentagePrice,
                 OpenedAt = details.OpenedAt,
                 ClosedAt = details.ClosedAt,
-                Facility = details.Facility != null
-                ? new Facility
-                {
-                    Pool = details.Facility.Pool,
-                    Fitness = details.Facility.Fitness,
-                    Restaurant = details.Facility.Restaurant
-                }
-                : new Facility()
+                // Facility = details.Facility != null
+                // ? new Facility
+                // {
+                //     Pool = details.Facility.Pool,
+                //     Fitness = details.Facility.Fitness,
+                //     Restaurant = details.Facility.Restaurant
+                // }
+                // : new Facility()
             };
         }
     }
