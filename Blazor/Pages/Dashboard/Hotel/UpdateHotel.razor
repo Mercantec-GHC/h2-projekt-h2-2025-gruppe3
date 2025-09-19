@@ -127,15 +127,15 @@ else
             CheckInFrom = details.CheckInFrom,
             CheckInUntil = details.CheckInUntil,
             CheckOutUntil = details.CheckOutUntil,
-            Facility = details.FacilityD != null
-                ? new Facility
-                {
-                    Pool = details.FacilityD.Pool,
-                    Fitness = details.FacilityD.Fitness,
-                    Restaurant = details.FacilityD.Restaurant
-                }
+            // Facility = details.FacilityD != null
+            //     ? new Facility
+            //     {
+            //         Pool = details.FacilityD.Pool,
+            //         Fitness = details.FacilityD.Fitness,
+            //         Restaurant = details.FacilityD.Restaurant
+            //     }
 
-                : new Facility()
+            //     : new Facility()
         };
     
     }
