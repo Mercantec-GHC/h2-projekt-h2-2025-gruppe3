@@ -57,17 +57,65 @@ namespace Blazor.Services
             }
         }
 
-        public async Task<bool> RegisterAsync(RegisterDto registerDto)
+        //public async Task<bool> RegisterAsync(RegisterDto registerDto)
+        //{
+        //    try
+        //    {
+        //        var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
+        //        return response.IsSuccessStatusCode;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Fejl ved registrering: " + ex.Message);
+        //        return false;
+        //    }
+        //}
+
+
+        public async Task<RegisterApiResult> RegisterAsync(RegisterDto registerDto)
         {
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("api/users/register", registerDto);
-                return response.IsSuccessStatusCode;
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Hvis API'en returnerer en besked kan du deserialisere den her (valgfrit)
+                    return new RegisterApiResult
+                    {
+                        Success = true,
+                        Message = "Konto oprettet succesfuldt.",
+                        StatusCode = response.StatusCode
+                    };
+                }
+                else
+                {
+                    ErrorResponse? err = null;
+                    try
+                    {
+                        err = JsonSerializer.Deserialize<ErrorResponse>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    }
+                    catch { /* ignore parse errors */ }
+
+                    return new RegisterApiResult
+                    {
+                        Success = false,
+                        Message = err?.Message ?? content,
+                        ErrorResponse = err,
+                        StatusCode = response.StatusCode
+                    };
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Fejl ved registrering: " + ex.Message);
-                return false;
+                Console.WriteLine($"Fejl ved registrering: {ex.Message}");
+                return new RegisterApiResult
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StatusCode = System.Net.HttpStatusCode.InternalServerError
+                };
             }
         }
 
@@ -141,6 +189,16 @@ namespace Blazor.Services
         public string? ErrorMessage { get; set; }
         public System.Net.HttpStatusCode StatusCode { get; set; }
     }
+
+    public class RegisterApiResult
+    {
+        public bool Success { get; set; }
+        public string? Message { get; set; }
+        public ErrorResponse? ErrorResponse { get; set; }
+        public System.Net.HttpStatusCode StatusCode { get; set; }
+    }
+
+
 
     public class LoginResponse
     {

@@ -395,7 +395,14 @@
     private bool showLoginForm = true;
     private int remainingLockoutSeconds = 0;
 
+
+
+
+
+    private bool isSubmitting = false;
+
     [Parameter] public EventCallback OnLoginSuccess { get; set; }
+    [Parameter] public EventCallback OnRegisterSuccess { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -455,37 +462,64 @@
         }
     }
 
+
+
+
+    // private async Task HandleRegister()
+    // {
+    //     isSubmitting = true;
+    //     errorMessage = null;
+
+    //     try
+    //     {
+    //         var response = await ApiService.RegisterAsync(registerModel);
+    //         // Redirect back to home page
+    //         Navigation.NavigateTo("/");
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         errorMessage = $"Failed to registerg: {ex.Message}. Try again.";
+    //         Console.WriteLine($"Registrering fejl: {ex.Message}");
+    //     }
+    //     finally
+    //     {
+    //         isSubmitting = false;
+    //     }
+    // }
+
+
+
+
     private async Task HandleRegister()
     {
-        isLoading = true;
+        isSubmitting = true;
         errorMessage = string.Empty;
         successMessage = string.Empty;
         StateHasChanged();
 
         try
         {
-            // Lav HTTP request direkte da vi ikke har en APIService metode til registrering
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://25h2-mags.mercantec.tech/");
+            var result = await ApiService.RegisterAsync(registerModel);
 
-            var response = await httpClient.PostAsJsonAsync("api/users/register", registerModel);
-
-            if (response.IsSuccessStatusCode)
+            if (result.Success)
             {
-                successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
+                successMessage = result.Message ?? "Konto oprettet succesfuldt! Du kan nu logge ind.";
                 showRegisterForm = false;
                 var currentEmail = registerModel.Email; // Gem email før reset
                 registerModel = new RegisterDto(); // Reset form
 
                 // Kopier email til login form
                 loginModel.Email = currentEmail;
+
+                // Vent kort så brugeren kan se success besked
+                await Task.Delay(1000);
+
+                // Naviger til forsiden
+                Navigation.NavigateTo("/");
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                errorMessage = errorContent.Contains("email findes allerede")
-                    ? "En bruger med denne email findes allerede."
-                    : "Der opstod en fejl ved oprettelse af kontoen.";
+                errorMessage = result.Message ?? "Der opstod en fejl ved oprettelse af kontoen.";
             }
         }
         catch (Exception ex)
@@ -495,10 +529,64 @@
         }
         finally
         {
-            isLoading = false;
+            isSubmitting = false;
             StateHasChanged();
         }
     }
+
+
+
+
+
+
+
+    // private async Task HandleRegister()
+    // {
+    //     isLoading = true;
+    //     errorMessage = string.Empty;
+    //     successMessage = string.Empty;
+    //     StateHasChanged();
+
+    //     try
+    //     {
+    //         // Lav HTTP request direkte da vi ikke har en APIService metode til registrering
+    //         using var httpClient = new HttpClient();
+    //         httpClient.BaseAddress = new Uri("https://25h2-mags.mercantec.tech/");
+
+    //         var response = await httpClient.PostAsJsonAsync("api/users/register", registerModel);
+
+    //         if (response.IsSuccessStatusCode)
+    //         {
+    //             successMessage = "Konto oprettet succesfuldt! Du kan nu logge ind.";
+    //             showRegisterForm = false;
+    //             var currentEmail = registerModel.Email; // Gem email før reset
+    //             registerModel = new RegisterDto(); // Reset form
+
+    //             // Kopier email til login form
+    //             loginModel.Email = currentEmail;
+    //         }
+    //         else
+    //         {
+    //             var errorContent = await response.Content.ReadAsStringAsync();
+    //             errorMessage = errorContent.Contains("email findes allerede")
+    //                 ? "En bruger med denne email findes allerede."
+    //                 : "Der opstod en fejl ved oprettelse af kontoen.";
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         errorMessage = "Der opstod en uventet fejl. Prøv igen.";
+    //         Console.WriteLine($"Registrering fejl: {ex.Message}");
+    //     }
+    //     finally
+    //     {
+    //         isLoading = false;
+    //         StateHasChanged();
+    //     }
+    // }
+
+
+
 
     private void ShowRegister()
     {
@@ -516,5 +604,8 @@
         successMessage = string.Empty;
         registerModel = new RegisterDto(); // Reset form
     }
+
+
+
 
 }
