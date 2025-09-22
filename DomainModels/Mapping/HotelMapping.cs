@@ -71,7 +71,4 @@ public class HotelMapping
         hotel.CheckOutUntil = hotelPutDto.CheckOutUntil;
         hotel.UpdatedAt = DateTime.UtcNow.AddHours(2);
     }
-
-
 }
-
