@@ -1,4 +1,4 @@
-namespace DomainModels.Mapping;
+﻿namespace DomainModels.Mapping;
 
 // HotelMapping.cs
 public class HotelMapping
@@ -21,8 +21,7 @@ public class HotelMapping
             ClosedAt = hotel.ClosedAt,
             CheckInFrom = hotel.CheckInFrom,
             CheckInUntil = hotel.CheckInUntil,
-            CheckOutUntil = hotel.CheckOutUntil,
-            FacilityId = hotel.FacilityId
+            CheckOutUntil = hotel.CheckOutUntil
         };
     }
 
@@ -49,7 +48,6 @@ public class HotelMapping
             CheckInFrom = hotelPostDto.CheckInFrom,
             CheckInUntil = hotelPostDto.CheckInUntil,
             CheckOutUntil = hotelPostDto.CheckOutUntil,
-            FacilityId = hotelPostDto.FacilityId,
             CreatedAt = DateTime.UtcNow.AddHours(2),
             UpdatedAt = DateTime.UtcNow.AddHours(2)
         };
@@ -74,7 +72,6 @@ public class HotelMapping
             CheckInFrom = hotelPutDto.CheckInFrom,
             CheckInUntil = hotelPutDto.CheckInUntil,
             CheckOutUntil = hotelPutDto.CheckOutUntil,
-            FacilityId = hotelPutDto.FacilityId,
             CreatedAt = DateTime.UtcNow.AddHours(2),
             UpdatedAt = DateTime.UtcNow.AddHours(2)
         };

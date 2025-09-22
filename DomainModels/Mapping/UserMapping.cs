@@ -1,4 +1,4 @@
-namespace DomainModels.Mapping;
+﻿namespace DomainModels.Mapping;
 
 // HotelMapping.cs
 public class UserMapping

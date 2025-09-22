@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Json;
+using System.Net.Http.Json;
 using DomainModels;
 
 namespace Blazor.Services;
@@ -42,5 +42,15 @@ public partial class APIService
             var error = await response.Content.ReadAsStringAsync();
             throw new Exception($"API error: {error}");
         }
+    }
+    public async Task UpdateHotelAsync(HotelPutDto hotel)
+    {
+        // Example implementation using HttpClient (adjust endpoint and logic as needed)
+        var response = await _httpClient.PutAsJsonAsync($"api/hotels/{hotel.Id}", hotel);
+        response.EnsureSuccessStatusCode();
+    }
+    public async Task<HotelDetailsDto?> GetHotelByIdAsync(int id)
+    {
+        return await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{id}");
     }
 }

@@ -28,9 +28,6 @@ public class Program
         // Registrer JWT Service
         builder.Services.AddScoped<JwtService>();
 
-        // Register Login Attempt Service
-        builder.Services.AddScoped<LoginAttemptService>();
-
         // Registrer Data Seeder Service
         builder.Services.AddScoped<DataSeederService>();
 
@@ -63,9 +60,6 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllers();
-
-        //Add memory cache for login attempt tracking
-        builder.Services.AddMemoryCache();
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddSwaggerGen(c =>
@@ -117,6 +111,7 @@ public class Program
                         .WithOrigins(
                             "http://localhost:5085",
                             "http://localhost:8052",
+							"https://localhost:7285/",
                             "http://localhost:7285",
                             "https://localhost:7285",
                             "https://h2.mercantec.tech",
