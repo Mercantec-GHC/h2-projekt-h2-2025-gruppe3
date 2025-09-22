@@ -54,21 +54,21 @@ else
         </div>
         <div class="mb-3">
             <label class="form-label">open at</label>
-            <InputDate class="form-control" @bind-Value="hotel.OpenedAt" />
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.OpenedAt" />
         </div>
         <div class="mb-3">
             <label class="form-label">closed at</label>
-            <InputDate class="form-control" @bind-Value="hotel.ClosedAt" />
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.ClosedAt" />
         </div>
         <div class="mb-3">
             <label class="form-label">CheckInFrom</label>
-            <InputDate class="form-control" @bind-Value="hotel.CheckInFrom" />
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInFrom" />
         </div>        <div class="mb-3">
             <label class="form-label">CheckInUntil</label>
-            <InputDate class="form-control" @bind-Value="hotel.CheckInUntil" />
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckInUntil" />
         </div>        <div class="mb-3">
             <label class="form-label">CheckOutUntil </label>
-            <InputDate class="form-control" @bind-Value="hotel.CheckOutUntil" />
+            <InputDate Type="InputDateType.Time" class="form-control" @bind-Value="hotel.CheckOutUntil" />
         </div>
         <div class="mb-3">
             <label class="form-label">Description</label>
@@ -116,6 +116,9 @@ else
                 PercentagePrice = details.PercentagePrice,
                 OpenedAt = details.OpenedAt,
                 ClosedAt = details.ClosedAt,
+                CheckInFrom = details.CheckInFrom,
+                CheckInUntil = details.CheckInUntil,
+                CheckOutUntil = details.CheckOutUntil
                 // Facility = details.Facility != null
                 // ? new Facility
                 // {
