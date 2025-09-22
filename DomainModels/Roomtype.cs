@@ -50,7 +50,7 @@ public class RoomtypePutDto
     public string Name { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "The description is required")]
-    [StringLength(200, ErrorMessage = "The description must be a maximum of 200 characters")]
+    [StringLength(600, ErrorMessage = "The description must be a maximum of 600 characters")]
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "The amount of beds is required")]

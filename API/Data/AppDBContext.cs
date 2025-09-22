@@ -43,13 +43,13 @@ namespace API.Data
 
 
             modelBuilder.Entity<Facility>()
-                .HasKey(h => h.HotelId); // Shared PK
+                .HasKey(f => f.HotelId); // Shared PK
 
 
             modelBuilder.Entity<Hotel>()
-                .HasOne(u => u.Facility)
-                .WithOne(i => i.Hotel)
-                .HasForeignKey<Facility>(i => i.HotelId);
+                .HasOne(h => h.Facility)
+                .WithOne(f => f.Hotel)
+                .HasForeignKey<Facility>(f => f.HotelId);
 
 
             modelBuilder.Entity<Hotel>()
@@ -248,6 +248,7 @@ namespace API.Data
                     FirstName = "test",
                     LastName = "test",
                     Email = "test@test.com",
+                    Phone = 12345678,
                     HashedPassword = "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe",
                     PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
                     RoleId = 4,

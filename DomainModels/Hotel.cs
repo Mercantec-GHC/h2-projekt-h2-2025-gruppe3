@@ -153,7 +153,7 @@ public class HotelPutDto
     public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel description is required")]
-    [StringLength(200, ErrorMessage = "Hotel description must be a maximum of 200 characters")]
+    [StringLength(600, ErrorMessage = "Hotel description must be a maximum of 600 characters")]
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel percentage price is required")]
@@ -180,7 +180,8 @@ public class HotelPutDto
     [DataType(DataType.Time)]
     public TimeOnly CheckOutUntil { get; set; }
 
-    public virtual Facility? Facility { get; set; }
+    public FacilityPostDto? Facility { get; set; }
+    //public virtual Facility? Facility { get; set; }
 }
 
 public class HotelDetailsDto
@@ -216,6 +217,7 @@ public class HotelDetailsDto
 
 public class FacilityDto
 {
+    public int Id { get; set; }
     public bool Pool { get; set; }
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }
