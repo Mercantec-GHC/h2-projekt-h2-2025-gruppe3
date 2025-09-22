@@ -180,7 +180,6 @@ public class HotelPutDto
     [DataType(DataType.Time)]
     public TimeOnly CheckOutUntil { get; set; }
 
-    public FacilityPostDto? Facility { get; set; }
     //public virtual Facility? Facility { get; set; }
 }
 
@@ -217,10 +216,8 @@ public class HotelDetailsDto
 
 public class FacilityDto
 {
-    public int Id { get; set; }
     public bool Pool { get; set; }
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }
-    public int HotelId { get; set; }
 }
 
