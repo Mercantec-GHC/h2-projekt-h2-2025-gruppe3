@@ -22,10 +22,8 @@ public class Hotel : Common
 
     public List<Room> Rooms { get; set; } = new(); // 1:n
 
-
-        public List<Booking> Bookings { get; set; } = new();
-    }
-
+    public List<Booking> Bookings { get; set; } = new();
+}
 
 // DTO for hotel retrieval / GET
 public class HotelGetDto
@@ -212,9 +210,8 @@ public class HotelDetailsDto
 
     public double PercentagePrice { get; set; }
 
-
     // Facility data included
-    public FacilityDto FacilityD { get; set; } = new FacilityDto();
+    public FacilityDto Facility { get; set; } = new();
 }
 
 public class FacilityDto
