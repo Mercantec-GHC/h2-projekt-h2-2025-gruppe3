@@ -14,7 +14,7 @@ public partial class APIService
         List<RoomtypeGetDto>? roomtypes = null;
 
         await foreach (
-            var hotel in _httpClient.GetFromJsonAsAsyncEnumerable<RoomtypeGetDto>(
+            var roomtype in _httpClient.GetFromJsonAsAsyncEnumerable<RoomtypeGetDto>(
                 "/api/Roomtypes",
                 cancellationToken
             )
@@ -24,18 +24,18 @@ public partial class APIService
             {
                 break;
             }
-            if (hotel is not null)
+            if (roomtype is not null)
             {
                 roomtypes ??= [];
-                roomtypes.Add(hotel);
+                roomtypes.Add(roomtype);
             }
         }
 
         return roomtypes?.ToArray() ?? [];
     }
-    public async Task CreateRoomtypeAsync(RoomtypePostDto hotel)
+    public async Task CreateRoomtypeAsync(RoomtypePostDto roomtype)
     {
-        var response = await _httpClient.PostAsJsonAsync("api/roomtypes", hotel);
+        var response = await _httpClient.PostAsJsonAsync("api/roomtypes", roomtype);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -43,26 +43,26 @@ public partial class APIService
             throw new Exception($"API error: {error}");
         }
     }
-    public async Task UpdateRoomtypeAsync(RoomtypePutDto hotel)
+    public async Task UpdateRoomtypeAsync(RoomtypePutDto roomtype)
     {
         // Example implementation using HttpClient (adjust endpoint and logic as needed)
-        var response = await _httpClient.PutAsJsonAsync($"api/roomtypes/{hotel.Id}", hotel);
+        var response = await _httpClient.PutAsJsonAsync($"api/roomtypes/{roomtype.Id}", roomtype);
         response.EnsureSuccessStatusCode();
     }
 
 
     public async Task<RoomtypeGetDto[]> GetRoomtypeAsync(
-    int hotelId,
+    int roomtypeId,
     CancellationToken cancellationToken = default
 )
     {
-        RoomtypeGetDto? hotel = null;
+        RoomtypeGetDto? roomtype = null;
 
-        if (hotelId != 0)
+        if (roomtypeId != 0)
         {
             try
             {
-                hotel = await _httpClient.GetFromJsonAsync<RoomtypeGetDto>($"/api/Roomtypes/{hotelId}", cancellationToken);
+                roomtype = await _httpClient.GetFromJsonAsync<RoomtypeGetDto>($"/api/Roomtypes/{roomtypeId}", cancellationToken);
             }
             catch (HttpRequestException)
             {
@@ -70,6 +70,6 @@ public partial class APIService
             }
         }
 
-        return hotel is null ? Array.Empty<RoomtypeGetDto>() : new[] { hotel };
+        return roomtype is null ? Array.Empty<RoomtypeGetDto>() : new[] { roomtype };
     }
 }
