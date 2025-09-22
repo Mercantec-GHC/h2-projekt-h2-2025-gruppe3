@@ -22,6 +22,7 @@ public class FacilityGetDto
 }
 public class FacilityPostDto
 {
+    public int Id { get; set; }
     public bool Pool { get; set; }
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }

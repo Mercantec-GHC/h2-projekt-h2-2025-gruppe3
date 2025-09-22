@@ -107,7 +107,7 @@ else
         {
             hotel = new HotelPutDto
             {
-                Id = details.Id,
+                Id = hotelId,
                 Name = details.Name,
                 Road = details.Road,
                 Zip = details.Zip,
@@ -123,22 +123,33 @@ else
                 CheckInUntil = details.CheckInUntil,
                 CheckOutUntil = details.CheckOutUntil,
             Facility = details.Facility != null
-                ? new FacilityPostDto {
+                ? new FacilityPostDto
+                {
+                    Id = hotelId,
                       Pool = details.Facility.Pool,
                       Fitness = details.Facility.Fitness,
                       Restaurant = details.Facility.Restaurant,
-                      HotelId = details.Id
+                    HotelId = hotelId
                   }
-                : new FacilityPostDto { HotelId = details.Id } // tom facility så bindings ikke fejler
+                : new FacilityPostDto { HotelId = hotelId } // tom facility så bindings ikke fejler
             };
         }
     }
 
     private async Task SaveHotel()
     {
+        if (hotel is null) return;
+
+        if (hotel.Facility != null)
+        {
+            // sørg for at HotelId er korrekt (API'en ignorerer det evt. alligevel)
+            hotel.Facility.HotelId = hotel.Id;
+        }
+
         await ApiService.UpdateHotelAsync(hotel);
         Navigation.NavigateTo("/dashboard/hotels");
     }
+
 }
 
 

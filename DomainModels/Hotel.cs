@@ -221,5 +221,6 @@ public class FacilityDto
     public bool Pool { get; set; }
     public bool Fitness { get; set; }
     public bool Restaurant { get; set; }
+    public int HotelId { get; set; }
 }
 
