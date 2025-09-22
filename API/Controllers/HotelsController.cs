@@ -100,15 +100,22 @@ namespace API.Controllers
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, HotelPutDto hotel)
+        public async Task<IActionResult> PutHotel(int id, HotelPutDto hotelDto)
         {
-            if (id != hotel.Id)
+            if (id != hotelDto.Id)
             {
-                _logger.LogWarning("Mismatch mellem route id {Id} og body id {HotelId}", id, hotel.Id);
+                _logger.LogWarning("Mismatch mellem route id {Id} og body id {HotelId}", id, hotelDto.Id);
                 return BadRequest("Id i route stemmer ikke med hotellets id");
             }
 
-            _context.Entry(hotel).State = EntityState.Modified;
+            //_context.Entry(hotel).State = EntityState.Modified;
+            var hotel = await _context.Hotels.FindAsync(id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+
+            HotelMapping.PutHotelFromDto(hotel, hotelDto);
 
             try
             {

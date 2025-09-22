@@ -12,7 +12,9 @@ public class UserMapping
             Phone = user.Phone,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Role = user.Role?.Name ?? string.Empty
+            Role = user.Role?.Name ?? string.Empty,
+            CreatedAt = user.CreatedAt,
+            UpdatedAt = user.UpdatedAt
         };
     }
 }

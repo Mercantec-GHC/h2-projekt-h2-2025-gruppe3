@@ -10,7 +10,9 @@ public static RoomGetDto ToRoomGetDto(Room room)
         Id = room.Id,
         RoomNumber = room.RoomNumber,
         HotelId = room.HotelId,
-        RoomtypeId = room.RoomtypeId
+        RoomtypeId = room.RoomtypeId,
+        CreatedAt = room.CreatedAt,
+        UpdatedAt = room.UpdatedAt
     };
 }
 
@@ -37,7 +39,6 @@ public static void PutRoomFromDto(Room room, RoomPutDto roomPutDto)
     room.RoomNumber = roomPutDto.RoomNumber;
     room.HotelId = roomPutDto.HotelId;
     room.RoomtypeId = roomPutDto.RoomtypeId;
-    room.CreatedAt = DateTime.UtcNow.AddHours(2);
     room.UpdatedAt = DateTime.UtcNow.AddHours(2);
 }
 }
