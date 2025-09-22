@@ -1,7 +1,7 @@
 ﻿@page "/dashboard/roomtypes"
 @using System.Net.Http
 
-<PageTitle>Suite Dreams - View Hotels</PageTitle>
+<PageTitle>Suite Dreams - View Roomtypes</PageTitle>
 
 <h1 class="mb-4">Dashboard</h1>
 
@@ -18,25 +18,25 @@ else
     <div class="mx-5">
         <div class="row">
             <div class="col-12">
-                <HotelTable roomtypes="@roomtypes" />
+                <RoomtypeTable roomtypes="@roomtypes" />
             </div>
         </div>
     </div>
 }
 
 @code {
-    private HotelGetDto[]? roomtypes;
+    private RoomtypeGetDto[]? roomtypes;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            roomtypes = await ApiService.GetHotelsAsync(0);
+            roomtypes = await ApiService.GetRoomtypesAsync(0);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Fejl ved hentning af roomtypeler: {ex.Message}");
-            roomtypes = Array.Empty<HotelGetDto>();
+            roomtypes = Array.Empty<RoomtypeGetDto>();
         }
     }
 }
