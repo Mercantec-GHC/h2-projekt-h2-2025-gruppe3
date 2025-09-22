@@ -153,7 +153,7 @@ public class HotelPutDto
     public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel description is required")]
-    [StringLength(200, ErrorMessage = "Hotel description must be a maximum of 200 characters")]
+    [StringLength(600, ErrorMessage = "Hotel description must be a maximum of 600 characters")]
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Hotel percentage price is required")]
