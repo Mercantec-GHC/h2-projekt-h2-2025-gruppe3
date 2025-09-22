@@ -11,7 +11,9 @@ public class RoomtypeMapping
             Name = roomtype.Name,
             Description = roomtype.Description,
             NumberOfBeds = roomtype.NumberOfBeds,
-            PricePerNight = roomtype.PricePerNight
+            PricePerNight = roomtype.PricePerNight,
+            CreatedAt = roomtype.CreatedAt,
+            UpdatedAt = roomtype.UpdatedAt
         };
     }
 
@@ -40,7 +42,6 @@ public class RoomtypeMapping
         roomtype.Description = roomtypePutDto.Description;
         roomtype.NumberOfBeds = roomtypePutDto.NumberOfBeds;
         roomtype.PricePerNight = roomtypePutDto.PricePerNight;
-        roomtype.CreatedAt = DateTime.UtcNow.AddHours(2);
         roomtype.UpdatedAt = DateTime.UtcNow.AddHours(2);
     }
 }

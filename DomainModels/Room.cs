@@ -9,22 +9,18 @@ public class Room : Common
     public Hotel? Hotel { get; set; }
     public int RoomtypeId { get; set; }
     public Roomtype? Roomtype { get; set; }
-
     public List<Booking> Bookings { get; set; } = new();
 }
 public class RoomGetDto
 {
     public int Id { get; set; }
     public int RoomNumber { get; set; }
-
     public int HotelId { get; set; }
     public int RoomtypeId { get; set; }
     public double? RoomtypePricePerNight { get; set; }
-
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }
-
 
 // DTO for room creation / POST
 public class RoomPostDto
@@ -38,7 +34,6 @@ public class RoomPostDto
     [Required(ErrorMessage = "Room type ID is required")]
     public int RoomtypeId { get; set; }
 }
-
 
 // DTO for room update / PUT
 public class RoomPutDto
