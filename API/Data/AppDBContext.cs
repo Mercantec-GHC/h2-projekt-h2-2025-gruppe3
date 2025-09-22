@@ -248,6 +248,7 @@ namespace API.Data
                     FirstName = "test",
                     LastName = "test",
                     Email = "test@test.com",
+                    Phone = 12345678,
                     HashedPassword = "$2a$11$BJtEDbA0yeNpnSNKPeGh7eCmVA6tIUoC.QLBFqMjGh.7MWUSGtKJe",
                     PasswordBackdoor = "!MyVerySecureSecretKeyThatIsAtLeast32CharactersLong123456789",
                     RoleId = 4,
