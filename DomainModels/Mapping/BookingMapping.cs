@@ -74,7 +74,6 @@ public class BookingMapping
         booking.BookingStatus = 0;
         booking.Crib = bookingPutDto.Crib;
         booking.ExtraBeds = bookingPutDto.ExtraBeds;
-        booking.CreatedAt = DateTime.UtcNow.AddHours(2);
         booking.UpdatedAt = DateTime.UtcNow.AddHours(2);
     }
 }

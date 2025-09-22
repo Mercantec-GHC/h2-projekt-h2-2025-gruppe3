@@ -43,13 +43,13 @@ namespace API.Data
 
 
             modelBuilder.Entity<Facility>()
-                .HasKey(h => h.HotelId); // Shared PK
+                .HasKey(f => f.HotelId); // Shared PK
 
 
             modelBuilder.Entity<Hotel>()
-                .HasOne(u => u.Facility)
-                .WithOne(i => i.Hotel)
-                .HasForeignKey<Facility>(i => i.HotelId);
+                .HasOne(h => h.Facility)
+                .WithOne(f => f.Hotel)
+                .HasForeignKey<Facility>(f => f.HotelId);
 
 
             modelBuilder.Entity<Hotel>()
