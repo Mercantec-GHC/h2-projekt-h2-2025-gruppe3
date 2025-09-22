@@ -34,23 +34,23 @@ namespace API.Controllers
 		/// <response code="200">Hotellet blev fundet og retuneret.</response>
 		// GET: api/Hotels
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation("Henter alle hoteller");
-        //        var hotels = await _context.Hotels.ToListAsync();
-        //        var result = HotelMapping.ToHotelGetDtos(hotels);
+        public async Task<ActionResult<IEnumerable<HotelGetDto>>> GetHotels()
+        {
+            try
+            {
+                _logger.LogInformation("Henter alle hoteller");
+                var hotels = await _context.Hotels.ToListAsync();
+                var result = HotelMapping.ToHotelGetDtos(hotels);
 
-        //        _logger.LogInformation("Hentet {Count} hoteller succesfuldt", result.Count);
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Fejl ved hentning af hoteller");
-        //        return StatusCode(500, "Der opstod en intern serverfejl ved hentning af hoteller");
-        //    }
-        //}
+                _logger.LogInformation("Hentet {Count} hoteller succesfuldt", result.Count);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fejl ved hentning af hoteller");
+                return StatusCode(500, "Der opstod en intern serverfejl ved hentning af hoteller");
+            }
+        }
 
 
         /// <summary>

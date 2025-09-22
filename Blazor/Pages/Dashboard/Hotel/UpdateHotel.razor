@@ -76,7 +76,7 @@ else
         </div>
 
         <!-- Facilities -->
-              <div class="form-check">
+        @*         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Pool" />
             <label class="form-check-label">Pool</label>
         </div>
@@ -87,7 +87,7 @@ else
         <div class="form-check">
             <InputCheckbox class="form-check-input" @bind-Value="hotel.Facility.Restaurant" />
             <label class="form-check-label">Restaurant</label>
-        </div> 
+        </div> *@
 
         <button class="btn btn-primary mt-3" type="submit">Save</button>
     </EditForm>
@@ -95,10 +95,7 @@ else
 }
 @code {
     [Parameter] public int hotelId { get; set; }
-    private HotelPutDto hotel = new()
-    {
-        Facility = new FacilityPostDto() 
-    };
+    private HotelPutDto hotel = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -107,7 +104,7 @@ else
         {
             hotel = new HotelPutDto
             {
-                Id = hotelId,
+                Id = details.Id,
                 Name = details.Name,
                 Road = details.Road,
                 Zip = details.Zip,
@@ -121,35 +118,24 @@ else
                 ClosedAt = details.ClosedAt,
                 CheckInFrom = details.CheckInFrom,
                 CheckInUntil = details.CheckInUntil,
-                CheckOutUntil = details.CheckOutUntil,
-            Facility = details.Facility != null
-                ? new FacilityPostDto
-                {
-                    Id = hotelId,
-                      Pool = details.Facility.Pool,
-                      Fitness = details.Facility.Fitness,
-                      Restaurant = details.Facility.Restaurant,
-                    HotelId = hotelId
-                  }
-                : new FacilityPostDto { HotelId = hotelId } // tom facility så bindings ikke fejler
+                CheckOutUntil = details.CheckOutUntil
+                // Facility = details.Facility != null
+                // ? new Facility
+                // {
+                //     Pool = details.Facility.Pool,
+                //     Fitness = details.Facility.Fitness,
+                //     Restaurant = details.Facility.Restaurant
+                // }
+                // : new Facility()
             };
         }
     }
 
     private async Task SaveHotel()
     {
-        if (hotel is null) return;
-
-        if (hotel.Facility != null)
-        {
-            // sørg for at HotelId er korrekt (API'en ignorerer det evt. alligevel)
-            hotel.Facility.HotelId = hotel.Id;
-        }
-
         await ApiService.UpdateHotelAsync(hotel);
         Navigation.NavigateTo("/dashboard/hotels");
     }
-
 }
 
 
