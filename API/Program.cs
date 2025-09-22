@@ -114,7 +114,8 @@ public class Program
                             "http://localhost:7285",
                             "https://localhost:7285",
                             "https://h2.mercantec.tech",
-                            "https://suitedreams.mercantec.tech"
+                            "https://suitedreams.mercantec.tech",
+                            "https://suitedreams-api.mercantec.tech"
                         )
                         .AllowAnyMethod()
                         .AllowAnyHeader()
