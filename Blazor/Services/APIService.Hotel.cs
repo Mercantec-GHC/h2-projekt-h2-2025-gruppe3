@@ -53,4 +53,26 @@ public partial class APIService
     {
         return await _httpClient.GetFromJsonAsync<HotelDetailsDto>($"api/hotels/{id}");
     }
+
+    public async Task<HotelGetDto[]> GetHotelAsync(
+    int hotelId,
+    CancellationToken cancellationToken = default
+)
+    {
+        HotelGetDto? hotel = null;
+
+        if (hotelId != 0)
+        {
+            try
+            {
+                hotel = await _httpClient.GetFromJsonAsync<HotelGetDto>($"/api/Hotels/{hotelId}", cancellationToken);
+            }
+            catch (HttpRequestException)
+            {
+                return Array.Empty<HotelGetDto>();
+            }
+        }
+
+        return hotel is null ? Array.Empty<HotelGetDto>() : new[] { hotel };
+    }
 }
