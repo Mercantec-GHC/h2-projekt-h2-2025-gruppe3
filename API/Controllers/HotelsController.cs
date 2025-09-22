@@ -101,20 +101,22 @@ namespace API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 
         [HttpPut("{id}")]
-
         public async Task<IActionResult> PutHotel(int id, HotelPutDto hotelDto)
-
         {
-
             if (id != hotelDto.Id)
-
             {
-
-                return BadRequest();
-
+                _logger.LogWarning("Mismatch mellem route id {Id} og body id {HotelId}", id, hotelDto.Id);
+                return BadRequest("Id i route stemmer ikke med hotellets id");
             }
 
+            //_context.Entry(hotel).State = EntityState.Modified;
             var hotel = await _context.Hotels.FindAsync(id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+
+            HotelMapping.PutHotelFromDto(hotel, hotelDto);
 
             if (hotel == null)
 

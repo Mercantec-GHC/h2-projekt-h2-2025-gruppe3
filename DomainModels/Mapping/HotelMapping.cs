@@ -53,35 +53,23 @@ public class HotelMapping
         };
     }
 
-    public static Hotel PutHotel(Hotel hotel ,HotelPutDto hotelPutDto)
+    public static void PutHotelFromDto(Hotel hotel, HotelPutDto hotelPutDto)
     {
-        return new Hotel
-        {
-            Id = hotelPutDto.Id,
-            Name = hotelPutDto.Name,
-            Road = hotelPutDto.Road,
-            Zip = hotelPutDto.Zip,
-            City = hotelPutDto.City,
-            Country = hotelPutDto.Country,
-            Phone = hotelPutDto.Phone,
-            Email = hotelPutDto.Email,
-            PercentagePrice = hotelPutDto.PercentagePrice,
-            Description = hotelPutDto.Description,
-            OpenedAt = hotelPutDto.OpenedAt,
-            ClosedAt = hotelPutDto.ClosedAt,
-            CheckInFrom = hotelPutDto.CheckInFrom,
-            CheckInUntil = hotelPutDto.CheckInUntil,
-            CheckOutUntil = hotelPutDto.CheckOutUntil,
-            //Facility = hotelPutDto.Facility != null
-            //    ? new Facility
-            //    {
-            //        Pool = hotelPutDto.Facility.Pool,
-            //        Fitness = hotelPutDto.Facility.Fitness,
-            //        Restaurant = hotelPutDto.Facility.Restaurant
-            //    }
-            //    : new Facility(),
-            UpdatedAt = DateTime.UtcNow.AddHours(2)
-        };
+        hotel.Name = hotelPutDto.Name;
+        hotel.Road = hotelPutDto.Road;
+        hotel.Zip = hotelPutDto.Zip;
+        hotel.City = hotelPutDto.City;
+        hotel.Country = hotelPutDto.Country;
+        hotel.Phone = hotelPutDto.Phone;
+        hotel.Email = hotelPutDto.Email;
+        hotel.PercentagePrice = hotelPutDto.PercentagePrice;
+        hotel.Description = hotelPutDto.Description;
+        hotel.OpenedAt = hotelPutDto.OpenedAt;
+        hotel.ClosedAt = hotelPutDto.ClosedAt;
+        hotel.CheckInFrom = hotelPutDto.CheckInFrom;
+        hotel.CheckInUntil = hotelPutDto.CheckInUntil;
+        hotel.CheckOutUntil = hotelPutDto.CheckOutUntil;
+        hotel.UpdatedAt = DateTime.UtcNow.AddHours(2);
     }
 
 
